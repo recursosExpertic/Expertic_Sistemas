@@ -1,0 +1,754 @@
+/* ============================================
+1. RESET Y VARIABLES GLOBALES
+============================================ */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    /* Colores dinámicos desde la hoja */
+    --color-primary: #085294;
+    --color-primary-dark: #0a3f68;
+    --color-secondary-bg: #f9f9f9;
+    --color-text-dark: #000;
+    --color-text-light: #333;
+    --color-border: #eee;
+    --color-summary-bg: rgb(239, 145, 77);
+    --color-summary-bg-hover: #b0b0b0;
+    --color-footer-bg: rgb(171, 171, 171);
+    --color-footer: rgb(255, 255, 255);
+    --color-footer-shadow: rgba(112, 112, 112, 0.3);
+
+    /* Sombras */
+    --shadow-light: rgba(116, 116, 116, 0.08);
+    --shadow-medium: rgba(0, 0, 0, 0.12);
+    --shadow-dark: rgba(0, 0, 0, 0.2);
+
+    /* Tipografías */
+    --font-family-display: "Humanst521 BT", Garamond, "Times New Roman", Times, serif;
+    --font-family-body: Garamond, "Times New Roman", Times, serif;
+
+    /* Espaciados (Mobile First) */
+    --spacing-xss: 0.2rem;
+    --spacing-xs: 0.5rem;
+    --spacing-sm: 1rem;
+    --spacing-md: 1.5rem;
+    --spacing-lg: 2rem;
+    --spacing-xl: 2.5rem;
+    --spacing-xll: 4rem;
+
+    /* Tamaños de fuente responsivos */
+    --font-size-body: clamp(16px, 4vw, 20px);
+    --font-size-h1: clamp(20px, 6vw, 24px);
+    --font-size-h2: clamp(18px, 5vw, 22px);
+    --font-size-h5: clamp(16px, 4vw, 19px);
+    --font-size-small: clamp(14px, 3.5vw, 16px);
+
+    /* Alturas de línea */
+    --line-height-body: 1.6;
+    --line-height-heading: 1.3;
+
+    /* Dimensiones */
+    --logo-max-width: 500px;
+    --book-cover-width: 250px;
+    --book-cover-height: 350px;
+}
+
+html, body {
+    width: 100%;
+    height: 100%;
+    font-family: var(--font-family-body);
+    font-size: var(--font-size-body);
+    line-height: var(--line-height-body);
+    color: var(--color-text-dark);
+    background-color: #fff;
+    overflow-x: hidden;
+}
+
+/* ============================================
+2. ESTILOS BASE DE ELEMENTOS HTML
+============================================ */
+ul, ol {
+    font-size: var(--font-size-body);
+    text-align: justify;
+    padding-left: var(--spacing-lg);
+}
+
+ul li, ol li {
+    margin: var(--spacing-sm) 0;
+    line-height: var(--line-height-body);
+}
+
+button {
+    font-family: var(--font-family-display);
+    cursor: pointer;
+}
+
+/* ============================================
+3. HEADER (CON FONDO ABSOLUTO)
+============================================ */
+header {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: var(--spacing-md);
+    margin: var(--spacing-xs) var(--spacing-xs) 0;
+    background-color: #fff;
+    border-radius: 4px;
+    box-shadow: 0 -2px 5px var(--shadow-light);
+    gap: var(--spacing-md);
+    text-align: center;
+    z-index: 1;
+}
+
+header::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('https://lh3.google.com/u/2/d/1LvPk2jnHrS1tG1FTZCEFHav0pib2maHL=w1920-h953-iv1') center/cover no-repeat;
+    opacity: 0.1;
+    z-index: -1;
+    border-radius: 4px;
+}
+
+.logo-medium {
+    width: 100%;
+    max-width: var(--logo-max-width);
+    height: auto;
+    display: block;
+}
+
+/* Animación de entrada para el logo de AulasEntrenamiento */
+.entrada-aula {
+    animation: entradaCombinada 7s ease-out both;
+}
+
+@keyframes entradaCombinada {
+    0%   { opacity: 0; transform: scale(0.5) translateY(20px) rotate(0deg); }
+    50%  { opacity: 1; transform: scale(1.1) translateY(-5px) rotate(0deg); }
+    75%   { opacity: 0; transform: scale(0.5) translateY(20px) rotate(0deg); }
+    100%  { opacity: 1; transform: scale(1) translateY(-5px) rotate(0deg); }
+}
+
+.new-image {
+    position: absolute;
+    top: var(--spacing-sm);
+    right: var(--spacing-sm);
+    width: 100px; /* Tamaño adaptado a móvil */
+    height: auto;
+    object-fit: contain;
+}
+
+/* Textos del header */
+header h2 {
+    color: var(--color-primary);
+    font-family: var(--font-family-display);
+    font-size: clamp(24px, 7vw, 36px);
+    font-weight: bold;
+    margin: 0;
+    line-height: var(--line-height-heading);
+}
+
+header p {
+    color: var(--color-text-dark);
+    font-family: var(--font-family-body);
+    font-size: clamp(14px, 3.5vw, 18px);
+    margin: var(--spacing-xs) 0;
+    line-height: var(--line-height-body);
+}
+
+header h4 {
+    color: var(--color-primary);
+    font-family: var(--font-family-display);
+    font-size: clamp(16px, 4vw, 20px);
+    font-weight: bold;
+    margin: var(--spacing-xs) 0;
+}
+
+.button-link {
+    display: inline-block;
+    padding: var(--spacing-xs) var(--spacing-xs);
+    font-size: clamp(14px, 3.5vw, 18px);
+    text-decoration: none;
+    border: 2px solid var(--color-primary);
+    border-radius: 5px;
+    background-color: transparent;
+    transition: all 0.3s ease;
+    font-family: var(--font-family-display);
+    cursor: pointer;
+    margin-top: var(--spacing-sm);
+    color: var(--color-primary);
+}
+
+.button-link:hover, .button-link:focus {
+    background-color: var(--color-primary);
+    color: #fff;
+    outline: none;
+}
+
+.button-link--footer {
+    color: var(--color-footer);
+    border-color: var(--color-footer);
+}
+
+.button-link--footer:hover,
+.button-link--footer:focus {
+    background-color: var(--color-primary);
+    color: white;
+    outline: none;
+}
+
+.header-logos-extras {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 60px;
+}
+
+/* ============================================
+4. SECCIONES Y ACORDEONES (DETAILS/SUMMARY)
+============================================ */
+section {
+    margin: 0 var(--spacing-xss) var(--spacing-xss);
+}
+
+details {
+    margin-bottom: 0;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+summary {
+    background-color: var(--color-summary-bg);
+    color: var(--color-text-dark);
+    border: none;
+    padding: var(--spacing-sm);
+    text-align: left;
+    cursor: pointer;
+    outline: none;
+    transition: background-color 0.3s ease;
+    font-family: var(--font-family-display);
+    font-size: clamp(18px, 5vw, 24px);
+    font-weight: bold;
+    box-shadow: var(--shadow-light) 0 -2px 5px;
+    border-radius: 4px;
+    margin-bottom: 5px;
+}
+
+summary:hover, summary:focus {
+    background-color: var(--color-summary-bg-hover);
+}
+
+/* ============================================
+5. CONTENEDOR DE CONTENIDO PRINCIPAL
+============================================ */
+.content-container {
+    font-family: Garamond, 'Times New Roman', Times, serif;
+    padding: 15px;
+    background-color: #f9f9f9;
+    border-radius: 4px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05); /* Sombra suave como en el carrusel */
+    transition: box-shadow 0.3s ease;
+}
+
+.content-container h1,
+.content-container .section-title {
+    font-size: 24px;
+    font-weight: bold;
+    text-align: center;
+    color: #085294;
+    margin: 0 0 15px 0;  /* ← 15px como el carrusel */
+    font-family: "Humanst521 BT", Garamond, "Times New Roman", Times, serif;
+}
+
+.content-container > div:not(.recursos-container) {
+    padding: 20px 30px;  /* En móvil se reducirá */
+}
+
+.content-container ul {
+    font-size: var(--font-size-body);
+    text-align: left;
+    list-style-position: outside;
+    padding-left: var(--spacing-lg);
+}
+
+.content-container ul li {
+    font-family: var(--font-family-display);
+    font-size: var(--font-size-body);
+    text-align: left;
+    margin: var(--spacing-sm) 0;
+    line-height: var(--line-height-body);
+}
+
+.content-container ol {
+    font-size: var(--font-size-body);
+    text-align: left;
+    padding-left: var(--spacing-lg);
+}
+
+.content-container ol li {
+    margin: var(--spacing-xs) 0;
+    line-height: var(--line-height-body);
+}
+
+/* ============================================
+6. DOCUMENTO INCRUSTADO (PDF / FRAME)
+============================================ */
+#pdf-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--spacing-md);
+    padding: var(--spacing-md);
+}
+
+.frameResumen-container {
+    position: relative;
+    width: 100%;
+    max-width: 900px;
+    padding-bottom: 56.25%;
+    height: 0;
+    overflow: hidden;
+    border-radius: 12px;
+    box-shadow: 0 4px 16px var(--shadow-medium);
+    margin: var(--spacing-md) 0;
+}
+
+.frameResumen {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+    border-radius: 12px;
+}
+
+/* ============================================
+7. CARRUSELES PERSONALIZADOS
+============================================ */
+.section-title {
+    text-align: center;
+    color: var(--color-primary);
+    margin-bottom: var(--spacing-xs);
+    font-family: var(--font-family-body);
+    font-size: var(--font-size-h1);
+    font-weight: bold;
+}
+
+.recursos-container {
+    width: 100%;
+    max-width: 1100px;
+    margin: var(--spacing-xs) auto;
+    position: relative;
+}
+
+.custom-carousel {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    border-radius: 8px;
+    background: #fff;
+    box-shadow: 0 4px 10px var(--shadow-medium);
+}
+
+.carousel-track {
+    display: flex;
+    transition: none !important;  /* Fuerza a eliminar cualquier transición */
+}
+
+/* Elimina el círculo de enfoque en los botones del carrusel */
+.nav-btn,
+.nav-btn:focus,
+.nav-btn:active,
+.nav-btn:focus-visible {
+    outline: none !important;
+    box-shadow: none !important;
+}
+
+/* Opcional: mantén el aspecto al hover (como estaba) */
+.nav-btn:hover {
+    background: #085294;
+}
+.nav-btn:hover svg {
+    stroke: #fff;
+}
+
+.carousel-slide {
+    min-width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: var(--spacing-xs);
+    padding: 0;
+}
+
+.carousel-item {
+    flex: 1;
+    width: 100%;
+    max-width: 100%;
+    text-align: center;
+    text-decoration: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--spacing-xs);
+}
+
+/* Portadas Horizontales */
+.horizontal-cover img {
+    width: 100%;
+    max-width: 100%;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+    border-radius: 8px;
+    border: 1px solid var(--color-border);
+    transition: transform 0.3s ease;
+}
+
+/* Portadas de Libros */
+.book-cover img {
+    width: 100%;
+    max-width: var(--book-cover-width);
+    height: auto;
+    aspect-ratio: 250 / 350;
+    object-fit: cover;
+    border-radius: 0;
+    border: none;
+    box-shadow: 2px 2px 10px var(--shadow-medium);
+    transition: transform 0.3s ease;
+    display: block;
+    margin: 0 auto;
+}
+
+.carousel-item:hover img {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px var(--shadow-medium);
+}
+
+.carousel-info h5 {
+    color: var(--color-primary);
+    font-size: var(--font-size-h5);
+    font-family: var(--font-family-display);
+    font-weight: bold;
+    margin: 0;
+    line-height: var(--line-height-heading);
+    text-align: center;
+}
+
+/* Botones de navegación */
+.nav-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(255, 255, 255, 0.95);
+    border: 2px solid var(--color-primary);
+    border-radius: 50%;
+    width: 48px;
+    height: 48px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+    transition: all 0.3s ease;
+}
+
+.nav-btn:hover, .nav-btn:focus {
+    background: var(--color-primary);
+}
+
+.nav-btn:hover svg, .nav-btn:focus svg {
+    stroke: #fff;
+}
+
+.nav-btn:focus {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+}
+
+.prev-btn { left: var(--spacing-xs); }
+.next-btn { right: var(--spacing-xs); }
+
+.carousel-dots {
+    display: flex;
+    justify-content: center;
+    gap: var(--spacing-sm);
+    padding: var(--spacing-md) 0;
+    flex-wrap: wrap;
+}
+
+.dot {
+    width: 12px;
+    height: 12px;
+    background: #ccc;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    border: 2px solid transparent;
+}
+
+.dot:hover, .dot:focus {
+    border-color: var(--color-primary);
+}
+
+.dot.active {
+    background: var(--color-primary);
+}
+
+/* ============================================
+8. UTILIDADES DE TEXTO Y CIERRE
+============================================ */
+.texto {
+    font-size: var(--font-size-body);
+    text-align: justify;
+    padding: 0 var(--spacing-sm);
+    line-height: var(--line-height-body);
+}
+
+.texto-centrado {
+    font-size: var(--font-size-body);
+    text-align: center;
+    font-style: italic;
+    line-height: var(--line-height-body);
+    padding: 0 var(--spacing-sm);
+}
+
+.closure-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--spacing-md);
+    text-align: center;
+}
+
+.logo-bot {
+    width: 100%;
+    max-width: 200px;
+    height: auto;
+    margin: 0;
+}
+
+/* ============================================
+9. FOOTER
+============================================ */
+.pie-pagina {
+    background-color: var(--color-footer-bg);
+    color: var(--color-footer);
+    padding: var(--spacing-md) var(--spacing-md);
+    border-radius: 8px;
+    box-shadow: 0 -2px 3px var(--color-footer-shadow);
+    margin: 0 var(--spacing-xss) var(--spacing-xss);
+    padding-bottom: 10px;
+}
+
+.pie-pagina div:last-child {
+    margin-top: 0 !important; /* elimina el margen */
+}
+
+.pie-pagina p {
+    font-family: var(--font-family-body);
+    font-size: clamp(14px, 3.5vw, 18px);
+    color: var(--color-footer);
+    margin: 0;
+    line-height: var(--line-height-body);
+}
+
+.footer-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--spacing-xs);
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.footer-content img {
+    height: 100px;
+    width: auto;
+}
+
+/* ============================================
+10. MEDIA QUERIES (TABLET Y DESKTOP)
+============================================ */
+@media (min-width: 768px) {
+    :root {
+        --spacing-md: 2rem;
+        --spacing-lg: 2.5rem;
+        --spacing-xl: 3rem;
+    }
+
+    header {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        padding: var(--spacing-lg);
+        gap: var(--spacing-xl);
+        text-align: left;
+    }
+
+    .header-logos {
+        flex-direction: row;
+        gap: var(--spacing-lg);
+        width: auto;
+    }
+
+    .header-logos-extras {
+        margin-top: var(--spacing-xll);
+    }
+
+    .carousel-slide {
+        flex-direction: row;
+        padding: var(--spacing-xl);
+        gap: var(--spacing-xl);
+        justify-content: space-around;
+        padding: var(--spacing-sm) var(--spacing-xl);
+    }
+
+    .carousel-item {
+        flex: 0 1 45%;
+        max-width: 450px;
+    }
+
+    .content-container ul,
+    .content-container ol {
+        padding-left: var(--spacing-xl);
+    }
+
+    .closure-container {
+        flex-direction: row;
+        gap: var(--spacing-xl);
+        text-align: left;
+    }
+
+    .content-container:hover {
+        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+
+    .content-container li {
+        transition: transform 0.2s ease, color 0.2s;
+    }
+
+    .content-container li:hover {
+        transform: translateX(5px);
+        color: #085294;
+    }
+
+    .content-container > div:not(.recursos-container) {
+        padding: 30px 50px;  /* Similar al carrusel */
+    }
+
+    .closure-text {
+        flex: 1;
+    }
+
+    .footer-content {
+        flex-direction: row;
+        justify-content: space-between;
+    }
+}
+
+@media (min-width: 1024px) {
+    .carousel-item {
+        flex: 0 1 45%;
+        max-width: 500px;
+    }
+}
+
+@media (max-width: 767px) {
+    header {
+        gap: 0.75rem;
+    }
+
+    /* Logo UIS: Sacarlo de position absolute */
+    .logo-uis {
+        position: static !important;
+        display: block;
+        width: 80px;
+        margin: 0 auto 0.5rem auto;
+    }
+
+    .logo-uis .new-image {
+        position: static !important;
+        top: auto !important;
+        right: auto !important;
+        width: 80px;
+        height: auto;
+    }
+
+    /* Logo de Asignatura */
+    .logo-asignatura {
+        display: block;
+        width: 120px !important;
+        height: 120px !important;
+        margin: 0 auto 0.25rem auto;
+    }
+
+    header .button-link {
+        margin-top: 0.25rem;
+    }
+
+    .header-logos-extras {
+        margin-top: 0;
+    }
+
+    .custom-carousel .nav-btn {
+        display: none;
+    }
+
+    /* Selecciona el div que contiene imagen, texto y botón dentro del cierre */
+    .content-container > div:has(> .logo-bot) {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: 1rem;
+    }
+
+    /* Opcional: centrar mejor el botón y el texto */
+    .content-container .texto-centrado {
+        text-align: center;
+        margin: 0;
+    }
+
+    /* Si el botón se ve demasiado ancho, ajusta su ancho */
+    .content-container .button-link {
+        display: inline-block;
+        width: auto;
+        margin: 0 auto;
+    }
+}
+
+/* ============================================
+11. ACCESIBILIDAD
+============================================ */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation: none !important;
+        transition: none !important;
+    }
+}
+
+@media (prefers-contrast: more) {
+    summary {
+        font-weight: bold;
+        border: 1px solid var(--color-text-dark);
+    }
+    .button-link {
+        border-width: 3px;
+    }
+}
+
+button:focus-visible, a:focus-visible, summary:focus-visible {
+    outline: 3px solid var(--color-primary);
+    outline-offset: 2px;
+}
