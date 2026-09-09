@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RecursosExpertic - Panel de Control</title>
+  <style>
+    :root {
+      --bg-color: #f8fafc;
+      --card-bg: #ffffff;
+      --text-main: #0f172a;
+      --text-muted: #64748b;
+      --primary: #2563eb;
+      --primary-hover: #1d4ed8;
+      --border: #e2e8f0;
+      --badge-prod-bg: #dcfce7;
+      --badge-prod-text: #166534;
+      --badge-lab-bg: #fef3c7;
+      --badge-lab-text: #92400e;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background-color: var(--bg-color);
+      color: var(--text-main);
+      margin: 0;
+      padding: 2.5rem 1rem;
+      line-height: 1.5;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    header {
+      margin-bottom: 2.5rem;
+      border-bottom: 2px solid var(--border);
+      padding-bottom: 1.5rem;
+    }
+
+    h1 {
+      font-size: 2rem;
+      margin: 0 0 0.5rem 0;
+    }
+
+    p.subtitle {
+      color: var(--text-muted);
+      font-size: 1rem;
+      margin: 0;
+    }
+
+    section {
+      margin-bottom: 2.5rem;
+    }
+
+    h2 {
+      font-size: 1.35rem;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 0.5rem;
+      margin-bottom: 1.25rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1.25rem;
+    }
+
+    .card {
+      background-color: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1.25rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05);
+    }
+
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 0.75rem;
+    }
+
+    .card-title {
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin: 0;
+    }
+
+    .badge {
+      font-size: 0.75rem;
+      font-weight: 600;
+      padding: 0.2rem 0.5rem;
+      border-radius: 9999px;
+      text-transform: uppercase;
+    }
+
+    .badge-prod {
+      background-color: var(--badge-prod-bg);
+      color: var(--badge-prod-text);
+    }
+
+    .badge-lab {
+      background-color: var(--badge-lab-bg);
+      color: var(--badge-lab-text);
+    }
+
+    .card-desc {
+      font-size: 0.875rem;
+      color: var(--text-muted);
+      margin: 0 0 1.25rem 0;
+    }
+
+    .card-link {
+      display: inline-block;
+      background-color: var(--primary);
+      color: #ffffff;
+      text-decoration: none;
+      padding: 0.5rem 1rem;
+      border-radius: 6px;
+      font-weight: 500;
+      font-size: 0.875rem;
+      text-align: center;
+      transition: background-color 0.2s ease;
+    }
+
+    .card-link:hover {
+      background-color: var(--primary-hover);
+    }
+
+    footer {
+      text-align: center;
+      font-size: 0.875rem;
+      color: var(--text-muted);
+      margin-top: 3rem;
+      border-top: 1px solid var(--border);
+      padding-top: 1.5rem;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <header>
+      <h1>🚀 RecursosExpertic</h1>
+      <p class="subtitle">Panel de acceso a herramientas, módulos y pruebas desplegadas en GitHub Pages.</p>
+    </header>
+
+    <main>
+      <!-- MÓDULOS DE PRODUCCIÓN -->
+      <section>
+        <h2>📌 Módulos Principales</h2>
+        <div class="grid">
+
+          <div class="card">
+            <div>
+              <div class="card-header">
+                <h3 class="card-title">Aulas de Entrenamiento</h3>
+                <span class="badge badge-prod">Producción</span>
+              </div>
+              <p class="card-desc">Plataforma y vista principal para el entrenamiento de aulas.</p>
+            </div>
+            <a href="paginas/aulas-entrenamiento.html" class="card-link">Abrir Módulo &rarr;</a>
+          </div>
+
+          <div class="card">
+            <div>
+              <div class="card-header">
+                <h3 class="card-title">Admin Aulas</h3>
+                <span class="badge badge-prod">Producción</span>
+              </div>
+              <p class="card-desc">Panel de administración para la gestión de recursos de aulas.</p>
+            </div>
+            <a href="paginas/admin-aulas.html" class="card-link">Abrir Módulo &rarr;</a>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- LABORATORIO / EXPERIMENTOS -->
+      <section>
+        <h2>🧪 Laboratorio y Pruebas</h2>
+        <div class="grid">
+
+          <div class="card">
+            <div>
+              <div class="card-header">
+                <h3 class="card-title">Ingreso Asignaturas</h3>
+                <span class="badge badge-lab">Turso DB</span>
+              </div>
+              <p class="card-desc">Formulario de prueba para registro de asignaturas.</p>
+            </div>
+            <a href="lab/prueba-turso/ingreso-asignaturas.html" class="card-link">Probar &rarr;</a>
+          </div>
+
+          <div class="card">
+            <div>
+              <div class="card-header">
+                <h3 class="card-title">Prueba Turso DB</h3>
+                <span class="badge badge-lab">Turso DB</span>
+              </div>
+              <p class="card-desc">Página de pruebas de consulta y escritura en Turso.</p>
+            </div>
+            <a href="lab/prueba-turso/prueba-turso.html" class="card-link">Probar &rarr;</a>
+          </div>
+
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <p>Repositorio: <strong>RecursosExpertic</strong> | Desplegado con GitHub Pages</p>
+    </footer>
+  </div>
+
+</body>
+</html>
