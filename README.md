@@ -2,7 +2,7 @@
 
 Repositorio central de herramientas web, módulos de gestión y entorno de pruebas técnicas. Este proyecto está configurado para desplegarse automáticamente mediante **GitHub Pages**.
 
-🌐 **Acceso Público:** [https://tu-usuario.github.io/RecursosExpertic/](https://tu-usuario.github.io/RecursosExpertic/)
+🌐 **Acceso Público:** [RecursosExpertic/](https://recursosExpertic.github.io/RecursosExpertic/)
 
 ---
 
