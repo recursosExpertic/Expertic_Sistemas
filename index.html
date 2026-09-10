@@ -163,7 +163,7 @@
 
     <main>
       <section>
-        <h2>📌 Módulos de Producción</h2>
+        <h2>📌 Módulos de Producción (páginas web)</h2>
         <div class="grid" id="grid-paginas">
           <p class="loading-text">Cargando módulos...</p>
         </div>
@@ -184,12 +184,12 @@
 
   <script>
     // ⚙️ CONFIGURACIÓN: Reemplaza con tu usuario exacto de GitHub
-    const USER = 'recursosExpertic'; 
+    const USER = 'recursosexpertic'; 
     const REPO = 'Expertic_Sistemas';
 
     // Función recursiva para obtener todos los HTML de una carpeta y sus subcarpetas
     async function obtenerArchivosHTML(path) {
-      const url = `https://api.github.com/repos/${USER}/${REPO}/contents/${path}`;
+      const url = `https://api.github.com/repos/${USER}/${REPO}/contents/${path}`; // https://recursosexpertic.github.io/Expertic_Sistemas/
       try {
         const response = await fetch(url);
         if (!response.ok) return [];
