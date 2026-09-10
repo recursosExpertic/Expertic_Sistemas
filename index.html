@@ -110,11 +110,10 @@
       color: var(--badge-prod-text);
     }
 
-    .badge-lab {
-      background-color: var(--badge-lab-bg);
-      color: var(--badge-lab-text);
+    .badge-plantilla {
+      background-color: #e0f2fe;
+      color: #0369a1;
     }
-
     .card-desc {
       font-size: 0.875rem;
       color: var(--text-muted);
@@ -164,16 +163,16 @@
 
     <main>
       <section>
-        <h2>📌 Módulos Principales (Producción)</h2>
-        <div class="grid" id="grid-prod">
-          <p class="loading-text">Cargando módulos de producción...</p>
+        <h2>📌 Módulos de Producción</h2>
+        <div class="grid" id="grid-paginas">
+          <p class="loading-text">Cargando módulos...</p>
         </div>
       </section>
 
       <section>
-        <h2>🧪 Laboratorio y Pruebas</h2>
-        <div class="grid" id="grid-lab">
-          <p class="loading-text">Cargando laboratorios y pruebas...</p>
+        <h2>📚 Plantillas de Asignaturas</h2>
+        <div class="grid" id="grid-plantillas">
+          <p class="loading-text">Cargando plantillas...</p>
         </div>
       </section>
     </main>
@@ -244,10 +243,13 @@
       });
     }
 
-    // Inicializar la carga automática
+    // Inicializar la carga con tus carpetas reales
     document.addEventListener('DOMContentLoaded', () => {
-      cargarSeccion('paginas', 'grid-prod', 'Producción', 'badge-prod');
-      cargarSeccion('Plantillas_Asignaturas', 'grid-lab', 'Laboratorio', 'badge-lab');
+      // Carga archivos de la carpeta 'paginas'
+      cargarSeccion('paginas', 'grid-paginas', 'Módulo', 'badge-prod');
+
+      // Carga archivos de la carpeta 'Plantillas_Asignaturas' (respeta mayúsculas)
+      cargarSeccion('Plantillas_Asignaturas', 'grid-plantillas', 'Plantilla', 'badge-lab');
     });
   </script>
 </body>
