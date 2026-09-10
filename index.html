@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>RecursosExpertic - Panel de Control</title>
+  <title>RecursosExpertic - Panel Dinámico</title>
   <style>
     :root {
       --bg-color: #f8fafc;
@@ -59,9 +59,6 @@
       border-bottom: 1px solid var(--border);
       padding-bottom: 0.5rem;
       margin-bottom: 1.25rem;
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
     }
 
     .grid {
@@ -97,6 +94,7 @@
       font-size: 1.1rem;
       font-weight: 600;
       margin: 0;
+      text-transform: capitalize;
     }
 
     .badge {
@@ -121,6 +119,7 @@
       font-size: 0.875rem;
       color: var(--text-muted);
       margin: 0 0 1.25rem 0;
+      word-break: break-all;
     }
 
     .card-link {
@@ -140,6 +139,11 @@
       background-color: var(--primary-hover);
     }
 
+    .loading-text {
+      color: var(--text-muted);
+      font-style: italic;
+    }
+
     footer {
       text-align: center;
       font-size: 0.875rem;
@@ -155,75 +159,96 @@
   <div class="container">
     <header>
       <h1>🚀 RecursosExpertic</h1>
-      <p class="subtitle">Panel de acceso a herramientas, módulos y pruebas desplegadas en GitHub Pages.</p>
+      <p class="subtitle">Panel dinámico generado automáticamente desde el repositorio.</p>
     </header>
 
     <main>
-      <!-- MÓDULOS DE PRODUCCIÓN -->
       <section>
-        <h2>📌 Módulos Principales</h2>
-        <div class="grid">
-
-          <div class="card">
-            <div>
-              <div class="card-header">
-                <h3 class="card-title">Aulas de Entrenamiento</h3>
-                <span class="badge badge-prod">Producción</span>
-              </div>
-              <p class="card-desc">Plataforma y vista principal para el entrenamiento de aulas.</p>
-            </div>
-            <a href="paginas/aulas-entrenamiento.html" class="card-link">Abrir Módulo &rarr;</a>
-          </div>
-
-          <div class="card">
-            <div>
-              <div class="card-header">
-                <h3 class="card-title">Admin Aulas</h3>
-                <span class="badge badge-prod">Producción</span>
-              </div>
-              <p class="card-desc">Panel de administración para la gestión de recursos de aulas.</p>
-            </div>
-            <a href="paginas/admin-aulas.html" class="card-link">Abrir Módulo &rarr;</a>
-          </div>
-
+        <h2>📌 Módulos Principales (Producción)</h2>
+        <div class="grid" id="grid-prod">
+          <p class="loading-text">Cargando módulos de producción...</p>
         </div>
       </section>
 
-      <!-- LABORATORIO / EXPERIMENTOS -->
       <section>
         <h2>🧪 Laboratorio y Pruebas</h2>
-        <div class="grid">
-
-          <div class="card">
-            <div>
-              <div class="card-header">
-                <h3 class="card-title">Ingreso Asignaturas</h3>
-                <span class="badge badge-lab">Turso DB</span>
-              </div>
-              <p class="card-desc">Formulario de prueba para registro de asignaturas.</p>
-            </div>
-            <a href="lab/prueba-turso/ingreso-asignaturas.html" class="card-link">Probar &rarr;</a>
-          </div>
-
-          <div class="card">
-            <div>
-              <div class="card-header">
-                <h3 class="card-title">Prueba Turso DB</h3>
-                <span class="badge badge-lab">Turso DB</span>
-              </div>
-              <p class="card-desc">Página de pruebas de consulta y escritura en Turso.</p>
-            </div>
-            <a href="lab/prueba-turso/prueba-turso.html" class="card-link">Probar &rarr;</a>
-          </div>
-
+        <div class="grid" id="grid-lab">
+          <p class="loading-text">Cargando laboratorios y pruebas...</p>
         </div>
       </section>
     </main>
 
     <footer>
-      <p>Repositorio: <strong>RecursosExpertic</strong> | Desplegado con GitHub Pages</p>
+      <p>Repositorio: <strong>RecursosExpertic</strong> | Conectado a GitHub API</p>
     </footer>
   </div>
 
+  <script>
+    // ⚙️ CONFIGURACIÓN: Reemplaza con tu usuario exacto de GitHub
+    const USER = 'recursosExpertic'; 
+    const REPO = 'RecursosExpertic';
+
+    // Función recursiva para obtener todos los HTML de una carpeta y sus subcarpetas
+    async function obtenerArchivosHTML(path) {
+      const url = `https://api.github.com/repos/${USER}/${REPO}/contents/${path}`;
+      try {
+        const response = await fetch(url);
+        if (!response.ok) return [];
+        const items = await response.json();
+        
+        let archivos = [];
+        for (const item of items) {
+          if (item.type === 'file' && item.name.endsWith('.html') && item.name !== 'index.html') {
+            archivos.push(item);
+          } else if (item.type === 'dir') {
+            const subArchivos = await obtenerArchivosHTML(item.path);
+            archivos = archivos.concat(subArchivos);
+          }
+        }
+        return archivos;
+      } catch (e) {
+        console.error(`Error escaneando ${path}:`, e);
+        return [];
+      }
+    }
+
+    // Renderizar las tarjetas en la vista
+    async function cargarSeccion(carpeta, containerId, badgeText, badgeClass) {
+      const container = document.getElementById(containerId);
+      const archivos = await obtenerArchivosHTML(carpeta);
+
+      container.innerHTML = ''; // Limpiar mensaje de carga
+
+      if (archivos.length === 0) {
+        container.innerHTML = '<p class="loading-text">No se encontraron archivos .html en esta carpeta.</p>';
+        return;
+      }
+
+      archivos.forEach(file => {
+        // Formatear el nombre visual (ej: "ingreso-asignaturas.html" -> "Ingreso asignaturas")
+        const titulo = file.name.replace('.html', '').replace(/-/g, ' ');
+
+        const card = document.createElement('div');
+        card.className = 'card';
+        card.innerHTML = `
+          <div>
+            <div class="card-header">
+              <h3 class="card-title">${titulo}</h3>
+              <span class="badge ${badgeClass}">${badgeText}</span>
+            </div>
+            <p class="card-desc">Ruta: <code>${file.path}</code></p>
+          </div>
+          <a href="${file.path}" class="card-link">Abrir recurso &rarr;</a>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    // Inicializar la carga automática
+    document.addEventListener('DOMContentLoaded', () => {
+      cargarSeccion('paginas', 'grid-prod', 'Producción', 'badge-prod');
+      cargarSeccion('lab', 'grid-lab', 'Laboratorio', 'badge-lab');
+    });
+  </script>
 </body>
 </html>
