@@ -16,7 +16,6 @@ RecursosExpertic/
 │   ├── Admin_Asignaturas.html
 │   └── Aulas_Entrenamiento.html
 ├── Plantillas_Asignaturas/           # Creacion de plantillas especificas para las asignaturas
-│   └── prueba-turso/
-│       └── ingreso-asignaturas.html
+│   └── Calculo3.html
 ├── index.html                        # Panel de navegación principal
 └── README.md                         # Documentación del proyecto
