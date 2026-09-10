@@ -1,0 +1,1062 @@
+<div>
+    <meta charset="UTF-8">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        :root {
+            --color-primary: #085294;
+            --color-secondary-bg: #f9f9f9;
+            --color-text-dark: #000;
+            --color-border: #eee;
+            --color-summary-bg: rgb(239, 145, 77);
+            --color-summary-bg-hover: #b0b0b0;
+            --color-footer-bg: rgb(171, 171, 171);
+            --color-footer: rgb(255, 255, 255);
+            --color-footer-shadow: rgba(112, 112, 112, 0.3);
+
+            --shadow-light: rgba(116, 116, 116, 0.08);
+            --shadow-medium: rgba(0, 0, 0, 0.12);
+
+            --font-family-display: "Humanst521 BT", Garamond, "Times New Roman", Times, serif;
+            --font-family-body: Garamond, "Times New Roman", Times, serif;
+
+            --spacing-xss: 0.2rem;
+            --spacing-xs: 0.5rem;
+            --spacing-sm: 1rem;
+            --spacing-md: 1.5rem;
+            --spacing-lg: 2rem;
+            --spacing-xl: 2.5rem;
+            --spacing-xll: 4rem;
+
+            --font-size-body: clamp(16px, 4vw, 20px);
+            --font-size-h1: clamp(20px, 6vw, 24px);
+            --font-size-h5: clamp(16px, 4vw, 19px);
+
+            --line-height-body: 1.6;
+            --line-height-heading: 1.3;
+
+            --logo-max-width: 500px;
+            --book-cover-width: 250px;
+            --book-cover-height: 350px;
+        }
+        html, body {
+            width: 100%;
+            height: 100%;
+            font-family: var(--font-family-body);
+            font-size: var(--font-size-body);
+            line-height: var(--line-height-body);
+            color: var(--color-text-dark);
+            background-color: #fff;
+            overflow-x: hidden;
+        }
+        ul, ol {
+            font-size: var(--font-size-body);
+            text-align: justify;
+            padding-left: var(--spacing-lg);
+        }
+        ul li, ol li {
+            margin: var(--spacing-sm) 0;
+            line-height: var(--line-height-body);
+        }
+        button {
+            font-family: var(--font-family-display);
+            cursor: pointer;
+        }
+        header {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: var(--spacing-md);
+            margin: var(--spacing-xs) var(--spacing-xs) 0;
+            background-color: #fff;
+            border-radius: 4px;
+            box-shadow: 0 -2px 5px var(--shadow-light);
+            gap: var(--spacing-md);
+            text-align: center;
+            z-index: 1;
+        }
+        header::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://lh3.google.com/u/2/d/19zveI4Mvf5Kj_orNFPML_m1sjY-zstOB=w1920-h953-iv1') center/cover no-repeat;
+            opacity: 0.1;
+            z-index: -1;
+            border-radius: 4px;
+        }
+        .logo-medium {
+            width: 100%;
+            max-width: var(--logo-max-width);
+            height: auto;
+            display: block;
+        }
+        .entrada-aula {
+            animation: entradaCombinada 7s ease-out both;
+        }
+        @keyframes entradaCombinada {
+            0%   { opacity: 0; transform: scale(0.5) translateY(20px) rotate(0deg); }
+            50%  { opacity: 1; transform: scale(1.1) translateY(-5px) rotate(0deg); }
+            75%   { opacity: 0; transform: scale(0.5) translateY(20px) rotate(0deg); }
+            100%  { opacity: 1; transform: scale(1) translateY(-5px) rotate(0deg); }
+        }
+        .new-image {
+            position: absolute;
+            top: var(--spacing-sm);
+            right: var(--spacing-sm);
+            width: 100px;
+            height: auto;
+            object-fit: contain;
+        }
+        header h2 {
+            color: var(--color-primary);
+            font-family: var(--font-family-display);
+            font-size: clamp(24px, 7vw, 36px);
+            font-weight: bold;
+            margin: 0;
+            line-height: var(--line-height-heading);
+        }
+        header p {
+            color: var(--color-text-dark);
+            font-family: var(--font-family-body);
+            font-size: clamp(14px, 3.5vw, 18px);
+            margin: var(--spacing-xs) 0;
+            line-height: var(--line-height-body);
+        }
+        header h4 {
+            color: var(--color-primary);
+            font-family: var(--font-family-display);
+            font-size: clamp(16px, 4vw, 20px);
+            font-weight: bold;
+            margin: var(--spacing-xs) 0;
+        }
+        .button-link {
+            display: inline-block;
+            padding: var(--spacing-xs) var(--spacing-xs);
+            font-size: clamp(14px, 3.5vw, 18px);
+            text-decoration: none;
+            border: 2px solid var(--color-primary);
+            border-radius: 5px;
+            background-color: transparent;
+            transition: all 0.3s ease;
+            font-family: var(--font-family-display);
+            cursor: pointer;
+            margin-top: var(--spacing-sm);
+            color: var(--color-primary);
+        }
+        .button-link:hover, .button-link:focus {
+            background-color: var(--color-primary);
+            color: #fff;
+            outline: none;
+        }
+        .button-link--footer {
+            color: var(--color-footer);
+            border-color: var(--color-footer);
+        }
+        .button-link--footer:hover,
+        .button-link--footer:focus {
+            background-color: var(--color-primary);
+            color: white;
+            outline: none;
+        }
+        .header-logos-extras {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 60px;
+        }
+        section {
+            margin: 0 var(--spacing-xss) var(--spacing-xss);
+        }
+        details {
+            margin-bottom: 0;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+        summary {
+            background-color: var(--color-summary-bg);
+            color: var(--color-text-dark);
+            border: none;
+            padding: var(--spacing-sm);
+            text-align: left;
+            cursor: pointer;
+            outline: none;
+            transition: background-color 0.3s ease;
+            font-family: var(--font-family-display);
+            font-size: clamp(18px, 5vw, 24px);
+            font-weight: bold;
+            box-shadow: var(--shadow-light) 0 -2px 5px;
+            border-radius: 4px;
+            margin-bottom: 5px;
+        }
+        summary:hover, summary:focus {background-color: var(--color-summary-bg-hover);}
+        .content-container {
+            font-family: Garamond, 'Times New Roman', Times, serif;
+            padding: 15px;
+            background-color: #f9f9f9;
+            border-radius: 4px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            transition: box-shadow 0.3s ease;
+        }
+        .content-container h1{
+            font-size: 24px;
+            font-weight: bold;
+            text-align: center;
+            color: #085294;
+            margin: 0 0 15px 0;
+            font-family: "Humanst521 BT", Garamond, "Times New Roman", Times, serif;
+        }
+        .content-container > div:not(.recursos-container) {padding: 20px 30px;}
+        .content-container ul {
+            font-size: var(--font-size-body);
+            text-align: left;
+            list-style-position: outside;
+            padding-left: var(--spacing-lg);
+        }
+        .content-container ul li {
+            font-family: var(--font-family-display);
+            font-size: var(--font-size-body);
+            text-align: left;
+            margin: var(--spacing-sm) 0;
+            line-height: var(--line-height-body);
+        }
+        .content-container ol {
+            font-size: var(--font-size-body);
+            text-align: left;
+            padding-left: var(--spacing-lg);
+        }
+        .content-container ol li {
+            margin: var(--spacing-xs) 0;
+            line-height: var(--line-height-body);
+        }
+        #pdf-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.1rem;
+            padding: var(--spacing-md);
+        }
+        .frameResumen-container {
+            position: relative;
+            width: 100%;
+            max-width: 900px;
+            padding-bottom: 56.25%;
+            height: 0;
+            overflow: hidden;
+            border-radius: 12px;
+            box-shadow: 0 4px 16px var(--shadow-medium);
+            margin: var(--spacing-md) 0;
+        }
+        .frameResumen {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+            border-radius: 12px;
+        }
+        .recursos-container {
+            width: 100%;
+            max-width: 1100px;
+            margin: var(--spacing-md) auto;
+            position: relative;
+        }
+        .custom-carousel {
+            position: relative;
+            width: 100%;
+            overflow: hidden;
+            background: #fff;
+            box-shadow: none;
+        }
+        .carousel-track {
+            display: flex;
+            transition: none !important;
+        }
+        .nav-btn,
+        .nav-btn:focus,
+        .nav-btn:active,
+        .nav-btn:focus-visible {
+            outline: none !important;
+            box-shadow: none !important;
+        }
+        .nav-btn:hover {background: #085294;}
+        .nav-btn:hover svg {stroke: #fff;}
+        .carousel-slide {
+            min-width: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: var(--spacing-xs);
+            padding: 0;
+        }
+        .carousel-item {
+            flex: 1;
+            width: 100%;
+            max-width: 100%;
+            text-align: center;
+            text-decoration: none;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: var(--spacing-xs);
+        }
+        .horizontal-cover img {
+            width: 100%;
+            max-width: 100%;
+            aspect-ratio: 16 / 9;
+            object-fit: cover;
+            border-radius: 8px;
+            border: 1px solid var(--color-border);
+            transition: transform 0.3s ease;
+        }
+        .book-cover img {
+            width: 100%;
+            max-width: var(--book-cover-width);
+            height: auto;
+            aspect-ratio: 250 / 350;
+            object-fit: cover;
+            border-radius: 0;
+            border: none;
+            box-shadow: 2px 2px 10px var(--shadow-medium);
+            transition: transform 0.3s ease;
+            display: block;
+            margin: 0 auto;
+        }
+        .carousel-info h5 {
+            color: var(--color-primary);
+            font-size: var(--font-size-h5);
+            font-family: var(--font-family-display);
+            font-weight: bold;
+            margin: 0;
+            line-height: var(--line-height-heading);
+            text-align: center;
+        }
+        .nav-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255, 255, 255, 0.95);
+            border: 2px solid var(--color-primary);
+            border-radius: 50%;
+            width: 48px;
+            height: 48px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10;
+            transition: all 0.3s ease;
+        }
+        .nav-btn:hover, .nav-btn:focus {background: var(--color-primary);}
+        .nav-btn:hover svg, .nav-btn:focus svg {stroke: #fff;}
+        .nav-btn:focus {
+            outline: 2px solid var(--color-primary);
+            outline-offset: 2px;
+        }
+        .prev-btn { left: var(--spacing-xs); }
+        .next-btn { right: var(--spacing-xs); }
+        .carousel-dots {
+            display: flex;
+            justify-content: center;
+            gap: var(--spacing-sm);
+            padding: var(--spacing-md) 0;
+            flex-wrap: wrap;
+        }
+        .dot {
+            width: 12px;
+            height: 12px;
+            background: #ccc;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            border: 2px solid transparent;
+        }
+        .dot:hover, .dot:focus {border-color: var(--color-primary);}
+        .dot.active {background: var(--color-primary);}
+        .texto {
+            font-size: var(--font-size-body);
+            text-align: justify;
+            padding: 0 var(--spacing-sm);
+            line-height: var(--line-height-body);
+        }
+        .texto-centrado {
+            font-size: var(--font-size-body);
+            text-align: center;
+            font-style: italic;
+            line-height: var(--line-height-body);
+            padding: 0 var(--spacing-sm);
+        }
+        .logo-bot {
+            width: 100%;
+            max-width: 200px;
+            height: auto;
+            margin: 0;
+        }
+        .pie-pagina {
+            background-color: var(--color-footer-bg);
+            color: var(--color-footer);
+            padding: var(--spacing-md) var(--spacing-md);
+            border-radius: 8px;
+            box-shadow: 0 -2px 3px var(--color-footer-shadow);
+            margin: 0 var(--spacing-xss) var(--spacing-xss);
+            padding-bottom: 10px;
+        }
+        .pie-pagina div:last-child {
+            margin-top: 0 !important;
+        }
+        .pie-pagina p {
+            font-family: var(--font-family-body);
+            font-size: clamp(14px, 3.5vw, 18px);
+            color: var(--color-footer);
+            margin: 0;
+            line-height: var(--line-height-body);
+        }
+        .footer-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: var(--spacing-xs);
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+        .footer-content img {
+            height: 100px;
+            width: auto;
+        }
+        @media (min-width: 768px) {
+            :root {
+                --spacing-md: 2rem;
+                --spacing-lg: 2.5rem;
+                --spacing-xl: 3rem;
+            }
+            header {
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: center;
+                padding: var(--spacing-lg);
+                gap: var(--spacing-xl);
+                text-align: left;
+            }
+            .header-logos-extras {
+                margin-top: var(--spacing-xll);
+            }
+            .carousel-slide {
+                flex-direction: row;
+                padding: var(--spacing-xl);
+                gap: var(--spacing-xl);
+                justify-content: space-around;
+                padding: var(--spacing-sm) var(--spacing-xl);
+            }
+            .carousel-item {
+                flex: 0 1 45%;
+                max-width: 450px;
+            }
+            .content-container ul,
+            .content-container ol {
+                padding-left: var(--spacing-xl);
+            }
+            .content-container:hover {
+                box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            }
+            .content-container li {
+                transition: transform 0.2s ease, color 0.2s;
+            }
+            .content-container li:hover {
+                transform: translateX(5px);
+                color: #085294;
+            }
+            .content-container > div:not(.recursos-container) {
+                padding: 30px 50px;
+            }
+            .footer-content {
+                flex-direction: row;
+                justify-content: space-between;
+            }
+        }
+        @media (min-width: 1024px) {
+            .carousel-item {
+                flex: 0 1 45%;
+                max-width: 500px;
+            }
+        }
+        @media (max-width: 767px) {
+            header {
+                gap: 0.75rem;
+            }
+            .logo-uis {
+                position: static !important;
+                display: block;
+                width: 80px;
+                margin: 0 auto 0.5rem auto;
+            }
+            .logo-uis .new-image {
+                position: static !important;
+                top: auto !important;
+                right: auto !important;
+                width: 80px;
+                height: auto;
+            }
+            .logo-asignatura {
+                display: block;
+                width: 120px !important;
+                height: 120px !important;
+                margin: 0 auto 0.25rem auto;
+            }
+            header .button-link {
+                margin-top: 0.25rem;
+            }
+            .header-logos-extras {
+                margin-top: 0;
+            }
+            .custom-carousel .nav-btn {
+                display: none;
+            }
+            .content-container > div:has(> .logo-bot) {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+                gap: 1rem;
+            }
+            .content-container .texto-centrado {
+                text-align: center;
+                margin: 0;
+            }
+            .content-container .button-link {
+                display: inline-block;
+                width: auto;
+                margin: 0 auto;
+            }
+        }
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation: none !important;
+                transition: none !important;
+            }
+        }
+        @media (prefers-contrast: more) {
+            summary {
+                font-weight: bold;
+                border: 1px solid var(--color-text-dark);
+            }
+            .button-link {
+                border-width: 3px;
+            }
+        }
+        button:focus-visible, a:focus-visible, summary:focus-visible {
+            outline: 3px solid var(--color-primary);
+            outline-offset: 2px;
+        }
+    </style>
+
+    <header style="position: relative; display: flex; justify-content: space-between; align-items: center; padding: 10px; margin: var(--spacing-xss) var(--spacing-xss) var(--spacing-xs) var(--spacing-xss); box-shadow: rgba(1, 67, 87, 0.66) 0px -2px 5px; z-index: 1; border-radius: 4px; text-align: center;">
+        <a href="https://mat.uis.edu.co/eisi/" target="_blank" class="logo-asignatura" style="width: 250px; height: 150px;">
+            <img alt="Logo de la Asignatura" class="logo-medium" src="https://drive.google.com/thumbnail?id=1_GoIQwT5mj9Vi-gQCMidTu16ONm8kHXZ&amp;sz=w1000">
+        </a>
+        <a href="https://www.uis.edu.co" class="logo-uis" target="_blank" style="position: absolute; top: 10px; right: 10px;">
+            <img alt="Logo UIS" class="new-image" src="https://web.uis.edu.co/wp-content/uploads/elementor/thumbs/Logo-UIS-web-qbqj494k91py9kvbai0ukya46twhbb1tj22br6je4k.webp">
+        </a>
+        <div style="max-width: 700px; padding: 10px">
+            <h2 id="nombre-asignatura" style="color: #085294; font-family: garamond; font-size: 36px; font-weight: bold;"></h2>
+            <div style="color:black;font-family:garamond;font-size:24px"><span id="nombre-escuela"></span><br><span id="nombre-facultad"></span><br>Universidad Industrial de Santander</div>
+            <h4 class="editable" style="color: #085294; font-family: garamond; font-size: 20px">
+                <b id="nombre-modulo"></b>
+                <br>
+                <b id="nombre-leccion"></b>
+            </h4>
+            <div class="nav-lecciones">
+                <a class="button-link" href="https://expertic.uis.edu.co/Lesson/20254_01-m1l2/20254">Lección Siguiente</a>
+            </div>
+        </div>
+        <div class="header-logos-extras">
+            <a href="https://expertic.uis.edu.co/acerca-de-nosotros" target="_blank">
+                <img alt="Expertic Logo" class="logo-medium" src="https://drive.google.com/thumbnail?id=13b3yJXB-Dake7AQLJEf9uf9CFF_eLAvs">
+            </a>
+            <a href="https://xpertl.sm-edge.workers.dev/experticuis" target="_blank">
+                <img alt="AulasEntrenamiento Logo" class="logo-medium entrada-aula" src="https://drive.google.com/thumbnail?id=1RW5yqbVdc7asCLeOH39A0yuUH11MLppC">
+            </a>
+        </div>
+    </header>
+
+    <section style="margin: var(--spacing-xss);">
+        <details>
+            <summary>1. Preparación de la lección</summary>
+            <div class="content-container">
+                <div style="padding: 10px">
+                    <h1><b>Competencias de la lección</b></h1>
+                    <div id="lista-competencias"></div>
+                </div>
+                <div id="pdf-container" style="text-align: center; width: 100%;">
+                    <h1><b>Resumen de la lección</b></h1>
+                    <a style="margin-bottom: 15px;" id="btn-resumen" class="button-link" href="" target="_blank">Ver en Pantalla Completa</a>
+                    <div class="frameResumen-container" style="display: flex; justify-content: center; margin: 0">
+                        <iframe allowfullscreen="" class="frameResumen" id="pdfFrame" src=""></iframe>
+                    </div>
+                </div>
+                <div>
+                    <!-- Videos -->
+                    <h1><b>Catálogo de Vídeos</b></h1>
+                    <div id="carrusel-videos"></div>
+
+                    <!-- Simuladores -->
+                    <h1><b>Catálogo de Simuladores</b></h1>
+                    <div id="carrusel-simuladores"></div>
+
+                    <!-- Libros -->
+                    <h1><b>Catálogo de Libros</b></h1>
+                    <div id="carrusel-libros"></div>
+                </div>
+            </div>
+        </details>
+    </section>
+
+    <section style="margin: 0 var(--spacing-xss) var(--spacing-xss);">
+        <details>
+            <summary class="editable">2. Profundización de la lección</summary>
+            <div class="content-container">
+                <div style="padding: 10px; width: 100%;">
+                    <h1><b>Biblioteca virtual UIS</b></h1>
+                    <p class="texto">Si quiere profundizar en las temáticas tratadas, consulte la siguiente bibliografía:</p>
+                    <ol id="bibliografia-container" type="a">
+                    </ol> 
+                </div>
+            </div>
+        </details>
+    </section>
+
+    <section style="margin: 0 var(--spacing-xss) var(--spacing-xss);">
+        <details style="margin-bottom: 0">
+            <summary>3. Reto de la lección</summary>
+            <div class="content-container">
+                <h1><b>Aula de entrenamiento ExperTIC</b></h1>
+                <p class="texto">
+                    Realice los talleres propuestos para esta lección en el aula de entrenamiento que encontrará en las
+                    <a href="https://xpertl.sm-edge.workers.dev/experticuis" target="_blank">aulas de entrenamiento ExperTIC</a>.
+                </p>
+            </div>
+        </details>
+    </section>
+
+    <section style="margin: 0 var(--spacing-xss) var(--spacing-xss);">
+        <details>
+            <summary>4. Cierre de la lección</summary>
+            <div class="content-container">
+                <div style="padding: 10px">
+                    <h1><b>Autoevaluación</b></h1>
+                    <div id="lista-preguntas"></div>
+                </div>
+                <div style="display: flex; align-items: center; text-align: center;">
+                    <img src="https://drive.google.com/thumbnail?id=1BzgsW-LOt7G-eNdAq72oY8pAjMEhHcCu" alt="Logo de ExperBot" class="logo-bot">
+                    <div style="flex-direction: column;">
+                        <p class="texto-centrado"><i>Estimados estudiantes, ahora que hemos concluido esta leccién, es importante contar con su opinion para seguir mejorando. A continuacion, les invitamos a revisar el contenido presentado y a completar un formulario con observaciones, posibles errores y recomendaciones, que nos permitira evaluar y fortalecer la calidad de esta leccién.</i></p>
+                        <a href="https://docs.google.com/forms/d/e/1FAIpQLSc0K331_jmxz_TagVq7UgLzM3B0fAiQPrrMTYtSaWIGD9vANA/viewform?usp=pp_url&amp;entry.47511481=C%C3%A1lculo+III&amp;entry.556883279=L4.2.+Lecci%C3%B3n+11+de+C3&amp;entry.769704434=v1.0-20230920" target="_blank" class="button-link">Evalúe la lección </a>
+                    </div>
+                </div>
+            </div>
+        </details>
+    </section>
+
+    <footer class="pie-pagina">
+        <div class="footer-content">
+            <p>© 2026 ExperTIC. All rights reserved.</p>
+            <img alt="Footer Logo" src="https://expertic.uis.edu.co/assets/expertic-logo.png" style="height: 40px">
+        </div>
+        <div style="text-align: center; margin-top: var(--spacing-md);">
+            <a class="button-link button-link--footer" href="https://expertic.uis.edu.co/lesson/20254_01-M1L1/20254" target="_blank">Ver página en nueva pestaña</a>
+        </div>
+    </footer>
+
+    <script>
+        // ============================================================
+        // CONFIGURACIÓN DE TURSO (REEMPLAZO DE SUPABASE)
+        // ============================================================
+        // Convertimos el protocolo 'libsql://' a 'https://' y añadimos el endpoint /v2/pipeline
+        const TURSO_URL = 'https://expertic-db-recursosexpertic.aws-us-east-1.turso.io/v2/pipeline'; 
+        const TURSO_READ_TOKEN = 'eyJhbGciOiJFZERTQSIsInR5cCI6IkpXVCJ9.eyJhIjoicm8iLCJpYXQiOjE3ODQxNjM4MTIsImlkIjoiMDE5ZjQ5OGYtNTkwMS03ZDY0LTgyYmYtNDUzZmE0MWYwOTkyIiwia2lkIjoiVVd5WTg3cDRpSzc1VUpYT19BZC1WUGRxMEs2RWx5d2dpUHI1NGFvT2xUZyIsInJpZCI6IjEzNGZlMWFlLTkwOWUtNDlhZS04OGQ5LTI1MmI3MzQxNjAyZiJ9.RpnNA0AFh0jRDOmNmJQWFY4PqqBlTt25vOAzFb5CKWW5cy05i65LHUYmhnPr4GlRvV3-SZxL2z3bN9hKXA5qCw';        
+
+        // ============================================================
+        // CONFIGURACIÓN DE BÚSQUEDA
+        // ============================================================
+        const MATERIA_A_BUSCAR = 'Cálculo 3';
+        const LECCION_A_BUSCAR = 'Lección 1.1 Función vectorial y función de varias variables.';
+
+        // ============================================================
+        // FUNCIÓN PRINCIPAL: busca los datos en Turso y rellena el HTML
+        // ============================================================
+        async function cargarLeccion() {
+            try {
+                // 1. Consulta a Turso con Fetch API
+                const response = await fetch(TURSO_URL, {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': `Bearer ${TURSO_READ_TOKEN}`,
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        requests: [
+                            {
+                                type: "execute",
+                                stmt: {
+                                    // Hacemos el JOIN para traer la asignatura junto a la lección
+                                    sql: `SELECT l.*, 
+                                        a.nombre AS asig_nombre, 
+                                        a.escuela AS asig_escuela, 
+                                        a.facultad AS asig_facultad 
+                                        FROM lecciones l 
+                                        INNER JOIN asignaturas a ON l.asignatura_id = a.id 
+                                        WHERE a.nombre = ? AND l.leccion = ? 
+                                        LIMIT 1`,
+                                    args: [
+                                        { type: "text", value: MATERIA_A_BUSCAR },
+                                        { type: "text", value: LECCION_A_BUSCAR }
+                                    ]
+                                }
+                            },
+                            { type: "close" } // Cerramos conexión inmediatamente por optimización
+                        ]
+                    })
+                });
+
+                if (!response.ok) {
+                    throw new Error(`Error en la petición a Turso: ${response.statusText}`);
+                }
+
+                const resData = await response.json();
+                
+                // Extraemos los resultados de la primera query enviada
+                const result = resData.results[0].response.result;
+
+                if (!result.rows || result.rows.length === 0) {
+                    console.warn('No se encontraron datos para la lección especificada.');
+                    return;
+                }
+
+                // Mapeamos el formato plano de filas de Turso a un objeto JS manipulable
+                const cols = result.cols.map(c => c.name);
+                const rawRow = result.rows[0];
+                const row = {};
+                cols.forEach((colName, index) => {
+                    row[colName] = rawRow[index].value;
+                });
+
+                // Función auxiliar para transformar los textos JSON de SQLite de vuelta a arrays/objetos reales
+                const parseJson = (val) => {
+                    if (!val) return [];
+                    try {
+                        return typeof val === 'string' ? JSON.parse(val) : val;
+                    } catch (e) {
+                        console.error("Error al parsear columna JSON:", e);
+                        return [];
+                    }
+                };
+
+                // Reconstruimos la estructura para que sea idéntica a la que arrojaba Supabase
+                const leccion = {
+                    ...row,
+                    competencias: parseJson(row.competencias),
+                    preguntas_autoevaluacion: parseJson(row.preguntas_autoevaluacion),
+                    catalogo_videos: parseJson(row.catalogo_videos),
+                    catalogo_simuladores: parseJson(row.catalogo_simuladores),
+                    catalogo_libros: parseJson(row.catalogo_libros),
+                    bibliografia: parseJson(row.bibliografia),
+                    asignaturas: {
+                        nombre: row.asig_nombre,
+                        escuela: row.asig_escuela,
+                        facultad: row.asig_facultad
+                    }
+                };
+
+                console.log('Datos cargados desde Turso:', leccion);
+
+                // 1. Rellenar los textos básicos
+                setTexto('nombre-asignatura', leccion.asignaturas.nombre);
+                setTexto('nombre-escuela', leccion.asignaturas.escuela);
+                setTexto('nombre-facultad', leccion.asignaturas.facultad);
+                setTexto('nombre-modulo', leccion.modulo);
+                setTexto('nombre-leccion', leccion.leccion);
+
+                // 2. Generar las listas de viñetas
+                generarLista(leccion, 'competencias', 'lista-competencias');
+                generarLista(leccion, 'preguntas_autoevaluacion', 'lista-preguntas');
+
+                // 3. Generar iframe para Resumen de la lección
+                    // Enlace del botón "Ver en Pantalla Completa"
+                setLink('btn-resumen', leccion.resumen_link);
+                    // src del iframe
+                setLink('pdfFrame', leccion.resumen_link, 'src');
+
+                // 4. Carruseles de recursos
+                generarCarrusel(leccion.catalogo_videos, 'carrusel-videos', 'horizontal-cover', 2);
+                generarCarrusel(leccion.catalogo_simuladores, 'carrusel-simuladores', 'horizontal-cover', 2);
+                generarCarrusel(leccion.catalogo_libros, 'carrusel-libros', 'book-cover',       2);
+
+                //5. Generar Bibliografia
+                generarBibliografia(leccion.bibliografia, 'bibliografia-container');
+            } catch (err) {
+                console.error('Error al cargar la lección:', err.message);
+            }
+        }
+
+        // ============================================================
+        // AUXILIAR: inserta texto en un elemento por su ID
+        // ============================================================
+        function setTexto(id, texto) {
+            const el = document.getElementById(id);
+            if (el && texto !== undefined) {
+                el.textContent = texto;
+            }
+        }
+
+        // ============================================================
+        // AUXILIAR: genera un <ul> con <li> desde una columna JSON
+        // ============================================================
+        function generarLista(leccion, columna, contenedorId) {
+            const contenedor = document.getElementById(contenedorId);
+            if (!contenedor) {
+                console.warn(`Contenedor "#${contenedorId}" no encontrado en el HTML.`);
+                return;
+            }
+
+            const items = leccion[columna];
+
+            if (!Array.isArray(items) || items.length === 0) {
+                contenedor.innerHTML = '<p>No hay datos disponibles.</p>';
+                return;
+            }
+
+            const ul = document.createElement('ul');
+            items.forEach(item => {
+                const li = document.createElement('li');
+                li.textContent = item;
+                ul.appendChild(li);
+            });
+
+            contenedor.innerHTML = '';
+            contenedor.appendChild(ul);
+        }
+
+        // ============================================================
+        // AUXILIAR: asigna un href/src a un elemento por su ID
+        // ============================================================
+        function setLink(id, url, atributo = 'href') {
+            const el = document.getElementById(id);
+            if (el && url) {
+                el.setAttribute(atributo, url);
+            }
+        }
+
+        // ============================================================
+        // AUXILIAR: genera el carrusel de recursos (videos, simuladores, libros)
+        // ============================================================
+        function crearSVGFlecha(direccion) {
+            const d = direccion === 'prev' ? 'M15 18l-6-6 6-6' : 'M9 18l6-6-6-6';
+
+            const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+            svg.setAttribute('width', '24');
+            svg.setAttribute('height', '24');
+            svg.setAttribute('viewBox', '0 0 24 24');
+            svg.setAttribute('fill', 'none');
+            svg.setAttribute('stroke', '#085294');
+            svg.setAttribute('stroke-width', '3');
+            svg.setAttribute('stroke-linecap', 'round');
+            svg.setAttribute('stroke-linejoin', 'round');
+
+            const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+            path.setAttribute('d', d);
+            svg.appendChild(path);
+
+            return svg;
+        }
+
+        function generarCarrusel(items, contenedorId, tipoTarjeta = 'horizontal-cover', porSlide = 2) {
+            const contenedor = document.getElementById(contenedorId);
+            if (!contenedor) {
+                console.warn(`Contenedor "#${contenedorId}" no encontrado.`);
+                return;
+            }
+
+            if (!Array.isArray(items) || items.length === 0) {
+                contenedor.innerHTML = '<p>No hay recursos disponibles.</p>';
+                return;
+            }
+
+            const slides = [];
+            for (let i = 0; i < items.length; i += porSlide) {
+                slides.push(items.slice(i, i + porSlide));
+            }
+
+            const slidesHTML = slides.map(grupo =>
+                `<div class="carousel-slide">
+                    ${grupo.map(item => `
+                        <a class="carousel-item ${tipoTarjeta}" href="${item.link}" target="_blank">
+                            <img alt="${item.titulo}" src="${item.imagen}">
+                            <div class="carousel-info"><h5>${item.titulo}</h5></div>
+                        </a>`
+                    ).join('')}
+                </div>`
+            ).join('');
+
+            contenedor.innerHTML = `
+                <div class="recursos-container">
+                    <div class="custom-carousel">
+                        <button class="nav-btn prev-btn"></button>
+                        <div class="carousel-track">
+                            ${slidesHTML}
+                        </div>
+                        <button class="nav-btn next-btn"></button>
+                    </div>
+                    <div class="carousel-dots"></div>
+                </div>`;
+
+            contenedor.querySelector('.prev-btn').appendChild(crearSVGFlecha('prev'));
+            contenedor.querySelector('.next-btn').appendChild(crearSVGFlecha('next'));
+
+            iniciarCarrusel(contenedor.querySelector('.custom-carousel'));
+        }
+
+        function iniciarCarrusel(carousel) {
+            const track = carousel.querySelector('.carousel-track');
+            const slides = carousel.querySelectorAll('.carousel-slide');
+            const nextBtn = carousel.querySelector('.next-btn');
+            const prevBtn = carousel.querySelector('.prev-btn');
+            const dotsContainer = carousel.closest('.recursos-container')?.querySelector('.carousel-dots');
+
+            if (!track || !slides.length || !dotsContainer) return;
+
+            let currentIndex = 0;
+            const totalSlides = slides.length;
+
+            dotsContainer.innerHTML = '';
+
+            if (totalSlides <= 1) {
+                if (nextBtn) nextBtn.style.display = 'none';
+                if (prevBtn) prevBtn.style.display = 'none';
+                dotsContainer.style.display = 'none';
+                return;
+            }
+
+            for (let i = 0; i < totalSlides; i++) {
+                const dot = document.createElement('div');
+                dot.classList.add('dot');
+                if (i === 0) dot.classList.add('active');
+                dot.addEventListener('click', () => goToSlide(i));
+                dotsContainer.appendChild(dot);
+            }
+
+            function updateCarousel() {
+                track.style.transform = `translateX(-${currentIndex * 100}%)`;
+                dotsContainer.querySelectorAll('.dot').forEach((dot, idx) => {
+                    dot.classList.toggle('active', idx === currentIndex);
+                });
+            }
+
+            function goToSlide(index) {
+                currentIndex = index;
+                updateCarousel();
+            }
+
+            if (nextBtn) nextBtn.addEventListener('click', () => {
+                currentIndex = (currentIndex + 1) % totalSlides;
+                updateCarousel();
+            });
+            if (prevBtn) prevBtn.addEventListener('click', () => {
+                currentIndex = (currentIndex - 1 + totalSlides) % totalSlides;
+                updateCarousel();
+            });
+
+            // Swipe táctil
+            let touchStartX = 0, touchStartY = 0;
+            const minSwipeDistance = 50;
+
+            carousel.addEventListener('touchstart', e => {
+                touchStartX = e.changedTouches[0].screenX;
+                touchStartY = e.changedTouches[0].screenY;
+            }, { passive: true });
+
+            carousel.addEventListener('touchmove', e => {
+                const deltaX = e.changedTouches[0].screenX - touchStartX;
+                const deltaY = e.changedTouches[0].screenY - touchStartY;
+                if (Math.abs(deltaX) > Math.abs(deltaY) && Math.abs(deltaX) > 10) {
+                    e.preventDefault();
+                }
+            }, { passive: false });
+
+            carousel.addEventListener('touchend', e => {
+                const deltaX = e.changedTouches[0].screenX - touchStartX;
+                const deltaY = e.changedTouches[0].screenY - touchStartY;
+                if (Math.abs(deltaX) > minSwipeDistance && Math.abs(deltaX) > Math.abs(deltaY)) {
+                    currentIndex = deltaX > 0
+                        ? (currentIndex - 1 + totalSlides) % totalSlides
+                        : (currentIndex + 1) % totalSlides;
+                    updateCarousel();
+                }
+                touchStartX = 0;
+                touchStartY = 0;
+            });
+
+            updateCarousel();
+        }
+
+        // ============================================================
+        // AUXILIAR: Genera la estructura de bibliografía anidada
+        // ============================================================
+        function generarBibliografia(bibliografia, contenedorId) {
+            const contenedor = document.getElementById(contenedorId);
+            if (!contenedor) {
+                console.warn(`Contenedor "#${contenedorId}" no encontrado en el HTML.`);
+                return;
+            }
+
+            if (!Array.isArray(bibliografia) || bibliografia.length === 0) {
+                contenedor.innerHTML = '<li>No hay bibliografía disponible.</li>';
+                return;
+            }
+
+            // 1. Recorrer cada Tema (ej: (T1.1) Funciones vectoriales)
+            const htmlTemas = bibliografia.map(temaObj => {
+                const tituloTema = temaObj.tema;
+
+                // 2. Recorrer los Subtemas de este tema
+                const subtemasHTML = temaObj.subtemas.map(subtema => {
+                    
+                    // 3. Recorrer y construir los links usando el valor directo de la base de datos
+                    const referenciasHTML = subtema.referencias.map(ref => {
+                        return `<a href="${ref.link}" target="_blank" style="color: #085294;">${ref.libro}</a>`;
+                    }).join(', '); 
+
+                    // Retorna el <li> del subtema con sus libros formateados
+                    return `<li>${subtema.nombre} (Bibliografía: ${referenciasHTML}).</li>`;
+                }).join('');
+
+                // Retorna el bloque completo del Tema
+                return `
+                    <li><b>${tituloTema}:</b>
+                        <ul style="list-style-type: disc;">
+                            ${subtemasHTML}
+                        </ul>
+                    </li>
+                `;
+            }).join('');
+
+            // Insertar todo el HTML generado en el contenedor
+            contenedor.innerHTML = htmlTemas;
+        }
+
+        // ============================================================
+        // INICIAR al cargar la página
+        // ============================================================
+        cargarLeccion();
+    </script>
+</div>
