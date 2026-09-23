@@ -1,0 +1,1948 @@
+<div class="editable">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    html {
+      scroll-behavior: smooth;
+    }
+
+    /* CSS Variables */
+    :root {
+      --bg-dark: #0a1535;
+      --bg-dark-2: #0d1b4b;
+      --card-blue: #1a2f6b;
+      --accent-green: #6dbe45;
+      --accent-green-light: #d4edba;
+      --text-light: #e8eaf6;
+      --text-white: #ffffff;
+      --text-dark: #1a2340;
+      --border-subtle: rgba(255, 255, 255, 0.1);
+      --shadow-card: 0 4px 24px rgba(0, 0, 0, 0.18);
+      --radius: 10px;
+      --transition: 0.28s ease;
+    }
+
+    .ae-page *,
+    .ae-page *::before,
+    .ae-page *::after {
+      box-sizing: border-box;
+    }
+
+    /* Scoped resets (only inside .ae-page) */
+    .ae-page {
+      font-family: 'Source Serif 4', Georgia, serif;
+      font-size: 20px;
+      background: var(--bg-dark);
+      color: var(--text-light);
+      line-height: 1.7;
+    }
+
+    .ae-page img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    .ae-page a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .ae-page button {
+      cursor: pointer;
+      border: none;
+      outline: none;
+    }
+
+    .ae-page h1,
+    .ae-page h2,
+    .ae-page h3,
+    .ae-page h4,
+    .ae-page h5 {
+      font-family: Garamond;
+      font-weight: 700;
+      line-height: 1.2;
+    }
+
+    /* Utility */
+    .ae-page .ae-container {
+      width: 92%;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .ae-page .section-pad {
+      padding: 80px 0;
+    }
+
+    /* NAVBAR */
+    .ae-page #navbar {
+      position: sticky;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      background: var(--bg-dark-2);
+      box-shadow: 0 2px 20px rgba(0, 0, 0, 0.4);
+      padding: 0;
+    }
+
+    .ae-page .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 80px;
+      width: 92%;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .ae-page .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-family: Garamond;
+      font-weight: 600;
+      font-size: 1.25rem;
+      color: var(--text-white);
+    }
+
+    .ae-page .nav-logo img {
+      height: 50px;
+      width: auto;
+      object-fit: contain;
+    }
+
+    .ae-page .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .ae-page .nav-links a {
+      font-family: Garamond;
+      font-weight: 600;
+      font-size: 1.05rem;
+      color: var(--text-white);
+      padding: 8px 16px;
+      border-radius: 6px;
+      transition: background var(--transition);
+    }
+
+    .ae-page .nav-links a:hover {
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    @media (max-width: 768px) {
+      .ae-page .nav-links {
+        display: none;
+      }
+    }
+
+    /* HERO */
+    .ae-page #inicio {
+      background-image: url('https://drive.google.com/thumbnail?id=184mStV9iVGxRHkwAAOSVFmSc9mH422s-&sz=w2000');
+      background-size: cover;
+      background-position: center center;
+      background-repeat: no-repeat;
+      position: relative;
+      overflow: hidden;
+      padding-top: 225px;
+      padding-bottom: 60px;
+      min-height: 640px;
+      display: flex;
+      align-items: center;
+    }
+
+    .ae-page #inicio::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(90deg, rgba(4, 13, 40, 0.62) 0%, rgba(4, 13, 40, 0.42) 45%, rgba(4, 13, 40, 0.58) 100%);
+      z-index: 0;
+    }
+
+    .ae-page .hero-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0;
+      align-items: center;
+      width: 100%;
+      position: relative;
+      z-index: 1;
+    }
+
+    .ae-page .hero-visual {
+      display: none;
+    }
+
+    .ae-page .hero-robot-img {
+      max-height: 400px;
+      width: auto;
+      object-fit: contain;
+      position: relative;
+      z-index: 2;
+      filter: drop-shadow(0 0 40px rgba(109, 190, 69, 0.35));
+    }
+
+    .ae-page .formula-badge {
+      position: absolute;
+      background: rgba(26, 47, 107, 0.82);
+      border: 1px solid rgba(109, 190, 69, 0.4);
+      border-radius: 8px;
+      padding: 6px 12px;
+      font-family: Garamond;
+      font-size: 0.85rem;
+      color: var(--text-light);
+      backdrop-filter: blur(4px);
+      z-index: 3;
+    }
+
+    .ae-page .formula-badge.f1 {
+      top: 8%;
+      left: 2%;
+    }
+
+    .ae-page .formula-badge.f2 {
+      top: 5%;
+      right: 4%;
+    }
+
+    .ae-page .formula-badge.f3 {
+      bottom: 18%;
+      left: 0%;
+    }
+
+    .ae-page .formula-badge.f4 {
+      bottom: 8%;
+      right: 2%;
+    }
+
+    .ae-page .formula-badge.f5 {
+      top: 42%;
+      left: -2%;
+    }
+
+    .ae-page .hero-glow {
+      position: absolute;
+      width: 320px;
+      height: 320px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(109, 190, 69, 0.15) 0%, transparent 70%);
+      z-index: 1;
+    }
+
+    .ae-page .hero-eyebrow {
+      font-family: 'Source Serif 4', serif;
+      font-size: 1rem;
+      color: rgba(255, 255, 255, 0.9);
+      margin-bottom: 8px;
+    }
+
+    .ae-page .hero-title {
+      font-size: clamp(2.8rem, 4.5vw, 4rem);
+      color: var(--text-white);
+      margin-bottom: 20px;
+    }
+
+    .ae-page .hero-desc {
+      font-size: 1.2rem;
+      color: rgba(255, 255, 255, 0.93);
+      max-width: 440px;
+      margin-bottom: 36px;
+    }
+
+    .ae-page .hero-content {
+      max-width: 560px;
+      margin-left: auto;
+      padding-right: 8px;
+    }
+
+    .ae-page .hero-buttons {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      max-width: 380px;
+    }
+
+    /* BUTTONS */
+    .ae-page .btn {
+      box-sizing: border-box;
+      display: block;
+      width: 100%;
+      padding: 16px 28px;
+      border-radius: 8px;
+      font-family: Garamond;
+      font-weight: 600;
+      font-size: 1.1rem;
+      text-align: center;
+      transition: transform var(--transition), background var(--transition);
+    }
+
+    .ae-page .btn:hover {
+      transform: translateY(-2px);
+    }
+
+    .ae-page .btn-green {
+      background: var(--accent-green);
+      color: var(--text-dark);
+    }
+
+    .ae-page .btn-green:hover {
+      background: #7acc4f;
+    }
+
+    .ae-page .btn-blue {
+      background: var(--card-blue);
+      color: var(--text-white);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+    }
+
+    .ae-page .btn-blue:hover {
+      background: #243580;
+    }
+
+    .ae-page .btn-outline {
+      background: transparent;
+      color: var(--text-white);
+      border: 1.5px solid rgba(255, 255, 255, 0.3);
+    }
+
+    .ae-page .btn-outline:hover {
+      background: rgba(255, 255, 255, 0.08);
+    }
+
+    .ae-page .btn-acceso {
+      max-width: 350px;       
+      width: auto;            
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    @media (max-width: 768px) {
+      .ae-page #inicio {
+        min-height: 540px;
+      }
+
+      .ae-page .hero-grid {
+        gap: 0;
+      }
+
+      .ae-page .hero-content {
+        margin-left: 0;
+        padding-right: 0;
+      }
+
+      .ae-page .hero-buttons {
+        max-width: 100%;
+        /* Opcional: centrar los botones si el contenedor no lo hace */
+        align-items: center;
+      }
+
+      /* Ajuste específico para los botones en móvil */
+      .ae-page .hero-buttons .btn {
+        padding: 14px 20px;   /* padding reducido para evitar botones muy altos */
+        font-size: 1rem;      /* fuente ligeramente menor */
+        max-width: 360px;     /* evita que se estiren demasiado en tablets */
+        margin: 0 auto;       /* centrado si el contenedor no es flex en cross */
+      }
+
+      .ae-page .formula-badge {
+        font-size: 0.75rem;
+        padding: 4px 8px;
+      }
+    }
+
+    /* Ajuste extra para pantallas muy pequeñas (ej. teléfonos antiguos) */
+    @media (max-width: 400px) {
+      .ae-page .hero-buttons .btn {
+        padding: 12px 16px;
+        font-size: 0.95rem;
+        max-width: 100%;      /* toda la pantalla pero con padding cómodo */
+      }
+    }
+
+    /* SECTION COMMON */
+    .ae-page .section-title {
+      font-size: clamp(2rem, 3.2vw, 2.9rem);
+      text-align: center;
+      margin-bottom: 14px;
+    }
+
+    .ae-page .section-title.dark {
+      color: var(--text-dark);
+    }
+
+    .ae-page .section-subtitle {
+      text-align: center;
+      max-width: 720px;
+      margin: 0 auto 48px;
+      font-size: 1.05rem;
+    }
+
+    /* ACCESO */
+    .ae-page #acceso {
+      background: #f5f7fa;
+      color: var(--text-dark);
+    }
+
+    .ae-page .steps-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 24px;
+    }
+
+    .ae-page .step-card {
+      background: #f9fff1;
+      border: 1px solid #d5e8c0;
+      border-radius: 14px;
+      padding: 24px 22px;
+      display: grid;
+      grid-template-columns: 78px 1fr;
+      column-gap: 14px;
+      row-gap: 8px;
+      align-items: start;
+      box-shadow: 0 8px 20px rgba(18, 34, 67, 0.08);
+    }
+
+    .ae-page .step-number {
+      flex-shrink: 0;
+      width: 58px;
+      height: 58px;
+      border-radius: 50%;
+      background: linear-gradient(160deg, #2d468a 0%, #1a2f6b 100%);
+      color: #fff;
+      border: 3px solid #b6db6b;
+      box-shadow: 0 6px 16px rgba(26, 47, 107, 0.25);
+      font-family: Garamond;
+      font-weight: 700;
+      font-size: 1.5rem;
+      line-height: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 2px;
+    }
+
+    .ae-page .step-emoji {
+      font-size: 1.2rem;
+      margin-right: 5px;
+      vertical-align: middle;
+    }
+
+    .ae-page .step-text {
+      font-size: 1.08rem;
+      color: #2a3a1f;
+      line-height: 1.6;
+      margin: 0;
+      grid-column: 2;
+    }
+
+    .ae-page .step-card .btn {
+      align-self: flex-start;
+      padding: 10px 22px;
+      font-size: 0.95rem;
+      width: auto;
+      grid-column: 2;
+      margin-top: 6px;
+    }
+
+    @media (max-width: 768px) {
+      .ae-page .steps-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .ae-page .step-card {
+        grid-template-columns: 66px 1fr;
+        padding: 20px 16px;
+      }
+
+      .ae-page .step-number {
+        width: 50px;
+        height: 50px;
+        font-size: 1.25rem;
+      }
+    }
+
+    /* INSTRUCTIVO */
+    .ae-page #instructivo {
+      background: #ffffff;
+      color: var(--text-dark);
+    }
+
+    .ae-page .schools-title {
+      font-size: 1.7rem;
+      color: var(--text-dark);
+      margin-bottom: 20px;
+      padding-bottom: 12px;
+      border-bottom: 2px dashed #c5cae9;
+    }
+
+    /* DETAILS (accordions nativos) */
+    .ae-page details {
+      border: 1px solid #dde2f0;
+      border-radius: var(--radius);
+      overflow: hidden;
+      margin-bottom: 12px;
+    }
+
+    .ae-page details summary {
+      padding: 18px 22px;
+      background: #fff;
+      color: var(--card-blue);
+      font-family: Garamond;
+      font-weight: 700;
+      font-size: 1.15rem;
+      cursor: pointer;
+      list-style: none;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      user-select: none;
+    }
+
+    .ae-page details summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .ae-page details summary::after {
+      font-size: 0.85em;
+      transition: transform 0.25s;
+    }
+
+    .ae-page details[open] summary::after {
+      transform: rotate(180deg);
+    }
+
+    .ae-page details summary:hover {
+      background: #f0f4ff;
+    }
+
+    .ae-page details[open] summary {
+      background: #eef2ff;
+    }
+
+    .ae-page .details-body {
+      padding: 20px;
+      background: #fafbff;
+    }
+
+    /* Biologia */
+    .libro-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1.5rem;
+      margin: 1rem 0 2rem;
+    }
+    .libro-card {
+      border: 1px solid #e0e0e0;
+      border-radius: 10px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      background: #fff;
+    }
+    .libro-card-img { width: 100%; height: 180px; object-fit: cover; }
+    .libro-card-img-placeholder {
+      width: 100%; height: 180px;
+      display: flex; align-items: center; justify-content: center;
+      background: #f5f5f5; color: #aaa; font-size: 14px;
+    }
+    .libro-card-body { padding: 1rem; flex: 1; display: flex; flex-direction: column; gap: 5px; }
+    .libro-titulo { font-size: 15px; font-weight: 600; margin: 0 0 6px; }
+    .libro-meta { font-size: 13px; color: #555; margin: 0; display: flex; gap: 6px; }
+    .libro-meta-label { color: #999; min-width: 62px; }
+    .libro-card-footer { padding: 0.75rem 1rem; border-top: 1px solid #f0f0f0; }
+    .lecciones-section { margin-top: 1.5rem; }
+    .lecciones-wrap { overflow-x: auto; }
+    .lecciones-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+    .lecciones-table th, .lecciones-table td {
+      text-align: left; padding: 8px 10px;
+      border-bottom: 1px solid #f0f0f0;
+    }
+    .lecciones-table th { font-weight: 600; color: #555; white-space: nowrap; }
+    .leccion-link { color: #1a73e8; text-decoration: none; }
+    .leccion-link:hover { text-decoration: underline; }
+    .no-link { color: #bbb; }
+
+    #tabla-bio .libro-card {
+      border-radius: var(--radius);  /* mismo radio que tu tabla */
+      box-shadow: var(--shadow-card);
+    }
+
+    /* Centrar los enlaces "✔️" en todas las celdas excepto la primera columna */
+    .lecciones-table td:not(:first-child) {
+      text-align: center;
+      vertical-align: middle;  /* opcional: centrado vertical también */
+    }
+
+    .lecciones-table td .leccion-link {
+      display: inline-block;
+      padding: 4px 12px;
+      background: #eef2f0;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      transition: background 0.2s;
+    }
+
+    .lecciones-table td .leccion-link:hover {
+      background: #d9eccc;
+      text-decoration: none;
+    }
+
+    /* FAQ dark details */
+    .ae-page .faq-details {
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius);
+      overflow: hidden;
+      margin-bottom: 10px;
+    }
+
+    .ae-page .faq-details summary {
+      padding: 18px 22px;
+      background: rgba(255, 255, 255, 0.04);
+      color: var(--text-white);
+      font-family: Garamond;
+      font-weight: 700;
+      font-size: 1.05rem;
+      cursor: pointer;
+      list-style: none;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      user-select: none;
+    }
+
+    .ae-page .faq-details summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .ae-page .faq-details summary::after {
+      font-size: 0.85em;
+      transition: transform 0.25s;
+    }
+
+    .ae-page .faq-details[open] summary::after {
+      transform: rotate(180deg);
+    }
+
+    .ae-page .faq-details summary:hover {
+      background: rgba(255, 255, 255, 0.09);
+    }
+
+    .ae-page .faq-details[open] summary {
+      background: rgba(109, 190, 69, 0.12);
+      color: var(--accent-green);
+    }
+
+    .ae-page .faq-details .details-body {
+      background: rgba(255, 255, 255, 0.02);
+      color: rgba(232, 234, 246, 0.82);
+      font-size: 0.92rem;
+    }
+
+    /* COURSE TABLES */
+    .ae-page .course-table-wrap {
+      overflow-x: auto;
+      border-radius: var(--radius);
+    }
+
+    .ae-page .course-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.875rem;
+      min-width: 640px;
+    }
+
+    .ae-page .course-table thead tr {
+      background: var(--card-blue);
+      color: #fff;
+      text-align: left;
+    }
+
+    .ae-page .course-table th {
+      padding: 10px 14px;
+      font-family: Garamond;
+      font-weight: 600;
+      font-size: 0.8rem;
+      white-space: nowrap;
+    }
+
+    .ae-page .course-table tbody tr {
+      border-bottom: 1px solid #e5e7f0;
+    }
+
+    .ae-page .course-table tbody tr:last-child {
+      border-bottom: none;
+    }
+
+    .ae-page .course-table tbody tr:hover {
+      background: #f0f4ff;
+    }
+
+    .ae-page .course-table td {
+      padding: 10px 14px;
+      color: #2a3050;
+      vertical-align: middle;
+    }
+
+    .ae-page .platform-badge {
+      display: inline-block;
+      padding: 2px 9px;
+      border-radius: 20px;
+      font-size: 0.73rem;
+      font-weight: 700;
+      font-family: Garamond;
+      white-space: nowrap;
+    }
+
+    .ae-page .platform-connect {
+      background: #dce9ff;
+      color: #1a2f6b;
+    }
+
+    .ae-page .platform-aleks {
+      background: #fff4dc;
+      color: #7a4a00;
+    }
+
+    .ae-page .pin-badge {
+      cursor: pointer;                /* ya lo tenías, ahora además */
+      touch-action: manipulation;     /* evita retrasos en doble toque */
+      user-select: none;              /* evita que se seleccione texto accidentalmente al tocar */
+      display: inline-block;
+      padding: 8px 14px;              /* aumenta el área de toque */
+      font-size: 0.9rem;              /* un poco más grande para leer y tocar */
+      border-radius: 8px;
+      transition: background 0.2s, transform 0.1s;
+      -webkit-tap-highlight-color: transparent; /* quita el sombreado azul en iOS */
+    }
+
+    /* Efecto al tocar para dar feedback */
+    .ae-page .pin-badge:active {
+      transform: scale(0.96);
+      background: #c2e0a7; /* un verde más claro, puedes ajustar */
+    }
+
+    .ae-page .icon-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      color: var(--card-blue);
+      font-size: 0.78rem;
+      text-decoration: none;
+      padding: 3px 9px;
+      border-radius: 5px;
+      border: 1px solid #c5cae9;
+      margin: 2px 2px 2px 0;
+      white-space: nowrap;
+    }
+
+    .ae-page .icon-link:hover {
+      background: #eef2ff;
+    }
+
+    .ae-page .btn-course {
+      display: inline-block;
+      padding: 6px 14px;
+      background: var(--accent-green);
+      color: #1a2340;
+      border-radius: 6px;
+      font-family: Garamond;
+      font-weight: 700;
+      font-size: 0.78rem;
+      white-space: nowrap;
+    }
+
+    .ae-page .btn-course:hover {
+      background: #7acc4f;
+    }
+
+    .ae-page .no-pin {
+      color: #aaa;
+      font-size: 0.82rem;
+    }
+
+    /* FAQ */
+    .ae-page #faq {
+      background: var(--bg-dark-2);
+    }
+
+    .ae-page #faq .section-title {
+      color: var(--text-white);
+    }
+
+    .ae-page #faq .section-subtitle {
+      color: rgba(232, 234, 246, 0.65);
+    }
+
+    /* SOBRE NOSOTROS */
+    .ae-page #sobre-nosotros {
+      background: linear-gradient(160deg, #060f28 0%, #0d1b4b 100%);
+    }
+
+    .ae-page .sn-details {
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius);
+      overflow: hidden;
+      margin-bottom: 14px;
+    }
+
+    .ae-page .sn-details summary {
+      padding: 16px 22px;
+      background: rgba(255, 255, 255, 0.05);
+      color: var(--text-white);
+      font-family: Garamond;
+      font-weight: 700;
+      font-size: 1rem;
+      cursor: pointer;
+      list-style: none;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      user-select: none;
+    }
+
+    .ae-page .sn-details summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .ae-page .sn-details summary::after {
+      font-size: 0.85em;
+      transition: transform 0.25s;
+    }
+
+    .ae-page .sn-details[open] summary::after {
+      transform: rotate(180deg);
+    }
+
+    .ae-page .sn-details summary:hover {
+      background: rgba(255, 255, 255, 0.09);
+    }
+
+    .ae-page .sn-details[open] summary {
+      background: rgba(109, 190, 69, 0.1);
+      color: var(--accent-green);
+    }
+
+    .ae-page .sn-details .details-body {
+      background: rgba(255, 255, 255, 0.02);
+      padding: 24px;
+      color: rgba(232, 234, 246, 0.82);
+      font-size: 0.92rem;
+    }
+
+    .ae-page .sn-intro {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      align-items: start;
+    }
+
+    .ae-page .sn-intro-text h3 {
+      font-size: 1.5rem;
+      color: var(--text-white);
+      margin-bottom: 12px;
+    }
+
+    .ae-page .sn-intro-text p {
+      color: rgba(232, 234, 246, 0.75);
+      font-size: 0.92rem;
+      margin-bottom: 14px;
+    }
+
+    .ae-page .sn-feature-list {
+      list-style: none;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .ae-page .sn-feature-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      color: rgba(232, 234, 246, 0.82);
+      font-size: 0.9rem;
+    }
+
+    .ae-page .sn-feature-list li::before {
+      content: '';
+      flex-shrink: 0;
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--accent-green);
+      margin-top: 7px;
+    }
+
+    .ae-page .sn-info-cards {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .ae-page .sn-info-card {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: var(--radius);
+      padding: 16px 18px;
+      display: grid;
+      grid-template-columns: 34px 1fr;
+      column-gap: 10px;
+      row-gap: 4px;
+      align-items: start;
+    }
+
+    .ae-page .sn-info-card-icon {
+      font-size: 1.3rem;
+      margin-bottom: 0;
+      grid-row: 1 / span 2;
+      align-self: start;
+      margin-top: 2px;
+    }
+
+    .ae-page .sn-info-card h4 {
+      font-size: 0.9rem;
+      color: var(--text-white);
+      margin-bottom: 4px;
+      grid-column: 2;
+      margin-top: 0;
+    }
+
+    .ae-page .sn-info-card p {
+      font-size: 0.82rem;
+      color: rgba(232, 234, 246, 0.62);
+      margin: 0;
+      grid-column: 2;
+    }
+
+    .ae-page .sn-benefits-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+    }
+
+    .ae-page .sn-benefit-card {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 12px;
+      padding: 24px;
+      text-align: center;
+    }
+
+    .ae-page .sn-benefit-icon {
+      font-size: 2.2rem;
+      margin-bottom: 12px;
+      display: block;
+    }
+
+    .ae-page .sn-benefit-card h4 {
+      font-size: 0.95rem;
+      color: var(--text-white);
+      margin-bottom: 7px;
+    }
+
+    .ae-page .sn-benefit-card p {
+      font-size: 0.83rem;
+      color: rgba(232, 234, 246, 0.62);
+      margin: 0;
+    }
+
+    .ae-page .sn-recs {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 14px;
+    }
+
+    .ae-page .sn-rec-item {
+      display: flex;
+      gap: 14px;
+      align-items: flex-start;
+      background: rgba(255, 255, 255, 0.04);
+      border-radius: 10px;
+      padding: 18px;
+      border: 1px solid rgba(255, 255, 255, 0.07);
+    }
+
+    .ae-page .sn-rec-check {
+      flex-shrink: 0;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: rgba(109, 190, 69, 0.12);
+      border: 2px solid var(--accent-green);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+    }
+
+    .ae-page .sn-rec-item h4 {
+      font-size: 0.9rem;
+      color: var(--text-white);
+      margin-bottom: 3px;
+    }
+
+    .ae-page .sn-rec-item p {
+      font-size: 0.82rem;
+      color: rgba(232, 234, 246, 0.6);
+      margin: 0;
+    }
+
+    .ae-page .sn-platform-card {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(109, 190, 69, 0.2);
+      border-radius: 12px;
+      padding: 24px;
+      margin-bottom: 16px;
+    }
+
+    .ae-page .sn-platform-card h3 {
+      font-size: 1.1rem;
+      color: var(--text-white);
+      margin-bottom: 10px;
+    }
+
+    .ae-page .sn-platform-card p {
+      font-size: 0.88rem;
+      color: rgba(232, 234, 246, 0.7);
+      margin-bottom: 16px;
+    }
+
+    .ae-page .sn-func-list {
+      list-style: none;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .ae-page .sn-func-list li {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.88rem;
+      color: rgba(232, 234, 246, 0.82);
+    }
+
+    .ae-page .sn-func-icon {
+      width: 30px;
+      height: 30px;
+      border-radius: 7px;
+      background: rgba(109, 190, 69, 0.15);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.95rem;
+      flex-shrink: 0;
+    }
+
+    .ae-page .sn-timeline {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .ae-page .sn-timeline-item {
+      display: flex;
+      gap: 14px;
+    }
+
+    .ae-page .sn-tl-track {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      flex-shrink: 0;
+    }
+
+    .ae-page .sn-tl-dot {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: var(--accent-green);
+      color: var(--text-dark);
+      font-family: Garamond;
+      font-weight: 700;
+      font-size: 0.82rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .ae-page .sn-tl-line {
+      flex: 1;
+      width: 2px;
+      background: rgba(109, 190, 69, 0.25);
+      min-height: 18px;
+    }
+
+    .ae-page .sn-tl-content {
+      padding: 4px 0 20px;
+    }
+
+    .ae-page .sn-tl-content h4 {
+      font-size: 0.9rem;
+      color: var(--text-white);
+      margin-bottom: 3px;
+    }
+
+    .ae-page .sn-tl-content p {
+      font-size: 0.82rem;
+      color: rgba(232, 234, 246, 0.62);
+      margin: 0;
+    }
+
+    @media (max-width: 768px) {
+      .ae-page .sn-intro {
+        grid-template-columns: 1fr;
+      }
+
+      .ae-page .sn-benefits-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .ae-page .sn-recs {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* FOOTER */
+    .ae-page footer {
+      background: #070e28;
+      color: rgba(232, 234, 246, 0.55);
+      padding: 36px 0;
+      text-align: center;
+    }
+
+    .ae-page .footer-inner {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .ae-page .footer-logo {
+      height: 40px;
+      width: auto;
+      object-fit: contain;
+      opacity: 0.85;
+    }
+
+    .ae-page .footer-text {
+      font-size: 0.85rem;
+      line-height: 1.6;
+    }
+
+    .ae-page .footer-text a {
+      color: var(--accent-green);
+    }
+
+    .ae-page .table-e3t thead tr {
+      background: #c5acf6;
+      color: #2a1a4b;
+    }
+
+    .ae-page .table-e3t tbody tr {
+      background: #ede9f6;
+    }
+
+    .ae-page .table-e3t tbody tr:hover {
+      background: #ddd4f0;
+    }
+
+    .ae-page .table-e3t td {
+      color: #2a1a4b;
+    }
+
+    .ae-page .table-fisica thead tr {
+      background: #97bef1;
+      color: #1a2a4b;
+    }
+
+    .ae-page .table-fisica tbody tr {
+      background: #e9f0f6;
+    }
+
+    .ae-page .table-fisica tbody tr:hover {
+      background: #d4e4f2;
+    }
+
+    .ae-page .table-fisica td {
+      color: #1a2a4b;
+    }
+
+    .ae-page .table-quimica thead tr {
+      background: #f19f97;
+      color: #4b1a18;
+    }
+
+    .ae-page .table-quimica tbody tr {
+      background: #f6ebe9;
+    }
+
+    .ae-page .table-quimica tbody tr:hover {
+      background: #edd8d5;
+    }
+
+    .ae-page .table-quimica td {
+      color: #4b1a18;
+    }
+
+    .ae-page .table-biologia thead tr {
+      background: #b9f197;
+      color: #1a3a0a;
+    }
+
+    .ae-page .table-biologia tbody tr {
+      background: #eff6e9;
+    }
+
+    .ae-page .table-biologia tbody tr:hover {
+      background: #d9eccc;
+    }
+
+    .ae-page .table-biologia td {
+      color: #1a3a0a;
+    }
+
+    .ae-page .table-matematicas thead tr {
+      background: #f1e397;
+      color: #3a3a0a;
+    }
+
+    .ae-page .table-matematicas tbody tr {
+      background: #f6f4e9;
+    }
+
+    .ae-page .table-matematicas tbody tr:hover {
+      background: #ece8d4;
+    }
+
+    .ae-page .table-matematicas td {
+      color: #3a3a0a;
+    }
+
+    /* FAQ — zona de reporte al pie */
+    .ae-page .faq-report-zone {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 16px;
+      margin-top: 28px;
+      padding: 18px 24px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius);
+    }
+
+    .ae-page .faq-report-zone p {
+      margin: 0;
+      font-size: 0.95rem;
+      color: rgba(232, 234, 246, 0.65);
+      font-family: Garamond;
+    }
+
+    .ae-page .faq-report-btns {
+      display: flex;
+      gap: 10px;
+      flex-shrink: 0;
+    }
+
+    .ae-page .btn-report {
+      padding: 9px 18px;
+      border-radius: 8px;
+      font-family: Garamond;
+      font-weight: 600;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: background var(--transition), transform var(--transition);
+      text-decoration: none;
+      display: inline-block;
+    }
+
+    .ae-page .btn-report:hover {
+      transform: translateY(-1px);
+    }
+
+    .ae-page .btn-report-outline {
+      background: transparent;
+      color: var(--text-white);
+      border: 1px solid rgba(255, 255, 255, 0.25);
+    }
+
+    .ae-page .btn-report-outline:hover {
+      background: rgba(255, 255, 255, 0.07);
+    }
+
+    .ae-page .btn-report-primary {
+      background: var(--card-blue);
+      color: var(--text-white);
+      border: 1px solid rgba(109, 190, 69, 0.35);
+    }
+
+    .ae-page .btn-report-primary:hover {
+      background: #243580;
+    }
+
+    @media (max-width: 600px) {
+      .ae-page .faq-report-zone {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+  </style>
+  <div class="ae-page"> <!-- NAVBAR -->
+    <nav id="navbar">
+      <div class="nav-inner"> <a class="nav-logo" href="#inicio"> <img
+            src="https://drive.google.com/thumbnail?id=1t1sX_fIPlq9Jnpg3y03lD_yq_kIqBldk&amp;sz=w400"
+            alt="Logo Aulas de Entrenamiento"> <span>Aulas de entrenamiento</span> </a>
+        <ul class="nav-links">
+          <li style="font-size:19px;"><a href="#inicio">Inicio</a></li>
+          <li style="font-size:19px;"><a href="#instructivo">Instructivo</a></li>
+          <li style="font-size:19px;"><a href="#acceso">Acceso</a></li>
+          <li style="font-size:19px;"><a href="#faq">FAQ</a></li>
+          <li style="font-size:19px;"><a href="#sobre-nosotros">Sobre nosotros</a></li>
+        </ul>
+      </div>
+    </nav> <!-- HERO -->
+    <section id="inicio">
+      <div class="ae-container">
+        <div class="hero-grid">
+          <div class="hero-content">
+            <p class="hero-eyebrow" style="font-size:20px;">Bienvenido a</p>
+            <h1 class="hero-title" style="font-size:42px;">Aulas de<br>Entrenamiento</h1>
+            <p class="hero-desc" style="font-size:20px;">Una estrategia de ExperTIC para el fortalecimiento de tus
+              habilidades en diferentes áreas.</p>
+            <div class="hero-buttons"> 
+              <a href="#acceso" class="btn btn-blue">Ya soy miembro</a> 
+              <a href="#instructivo" class="btn btn-green">Quiero empezar</a> 
+              <a href="#faq" class="btn btn-outline">FAQ</a> 
+            </div>
+          </div>
+        </div>
+      </div>
+    </section> <!-- INSTRUCTIVO -->
+    <section id="instructivo" class="section-pad">
+      <div class="ae-container">
+        <h2 class="section-title dark" style="font-size:34px;">Instructivo de acceso a los cursos</h2>
+        <p class="section-subtitle" style="font-size:20px;color:#455075;">Consulte las aulas de entrenamiento disponibles,
+          ingrese a su asignatura y realice la prueba de 14 días. Lea primero toda la información y luego siga las
+          indicaciones.</p>
+        <div class="steps-grid">
+          <div class="step-card"> <span class="step-number">1</span>
+            <p class="step-text" style="font-size:20px;"><span class="step-emoji">📖</span>Lea el instructivo para conocer
+              los talleres y el registro. Regístrese <strong>solo después</strong> y con su correo institucional.</p> <a
+              href="https://docs.google.com/presentation/d/e/2PACX-1vR32p7p61LixIdqQDj7pfGf1KZqf4FX0ITIjfRdTVPwZHD04JO2ACshWME8ZcwrlBFAO3C_Yvft5EgX/pub?start=true&amp;loop=true&amp;delayms=3000" class="btn btn-green" target="_blank" rel="noopener noreferrer">Ver instructivo</a>
+          </div>
+          <div class="step-card"> <span class="step-number">2</span>
+            <p class="step-text" style="font-size:20px;"><span class="step-emoji">🔍</span>Busque su escuela, luego la
+              asignatura que desea y haga clic en el botón del enlace al curso.</p>
+          </div>
+          <div class="step-card"> <span class="step-number">3</span>
+            <p class="step-text" style="font-size:20px;"><span class="step-emoji">🔑</span>Si la plataforma le solicita un
+              <strong>PIN</strong>, utilice el que aparece en la sección de información del instructivo.</p>
+          </div>
+          <div class="step-card"> <span class="step-number">4</span>
+            <p class="step-text" style="font-size:20px;"><span class="step-emoji">📋</span>Al terminar los 14 días de
+              prueba, llene el formulario de pines para continuar usando la plataforma durante el semestre.</p>
+            <a href="https://docs.google.com/forms/d/e/1FAIpQLSfTzvYDwVwN6Z12rPKzLZ77D_bgYXmZbihMo64Gxx4jepEViA/viewform?pli=1" class="btn btn-green" target="_blank" rel="noopener noreferrer">Formulario</a>
+          </div>
+          <div class="step-card"> <span class="step-number">5</span>
+            <p class="step-text" style="font-size:20px;"><span class="step-emoji">📅</span>Revise los temarios y agendas
+              para conocer cuándo se activan los talleres y los contenidos.</p>
+          </div>
+          <div class="step-card"> <span class="step-number">6</span>
+            <p class="step-text" style="font-size:20px;"><span class="step-emoji">🎯</span>Cada lección incluye tres
+              niveles: básico, medio y avanzado, con dos formas de avanzar: paso a paso o comenzando por el nivel alto.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section> <!-- ACESSO -->
+    <section id="acceso" class="section-pad">
+      <div class="ae-container">
+        <h2 class="section-title dark" style="font-size:34px;">Acceso a los cursos</h2>
+        <p class="section-subtitle" style="font-size:20px;color:#455075; margin-bottom:40px;">Una vez inscrito en los cursos, puede ingresar a través del siguiente botón, recuerde que debe ingresar su usuario (correo electrónico institucional) y contraseña.</p>
+        <a href="https://accounts.mheducation.com/login?app=connect.mheducation.com" class="btn btn-green btn-acceso" target="_blank" rel="noopener noreferrer">Ingresar a los cursos</a>
+        <h3 class="schools-title" style="font-size:24px;">Escuelas disponibles</h3>
+        <div id="cursos-container">
+            <div id="tabla-e3t"></div>
+            <div id="tabla-mat"></div>
+            <div id="tabla-fis"></div>
+            <div id="tabla-bio"></div>
+            <div id="tabla-qui"></div>
+        </div>
+      </div>
+    </section> 
+    <!-- FAQ -->
+    <section id="faq" class="section-pad">
+      <div class="ae-container">
+        <h2 class="section-title" style="font-size:34px;">Preguntas frecuentes</h2>
+        <p class="section-subtitle" style="font-size:20px;color:rgba(232,234,246,0.65);">Resolvemos las dudas más comunes
+          sobre las Aulas de Entrenamiento.</p>
+        <details class="faq-details">
+          <summary style="font-size:20px;">¿Cómo me registro en las aulas de entrenamiento?</summary>
+          <div class="details-body">Lea el instructivo completo antes de registrarse. Luego diríjase al enlace del curso
+            de su asignatura, cree una cuenta con su correo institucional UIS (@correo.uis.edu.co) y siga los pasos
+            indicados en la plataforma.</div>
+        </details>
+        <details class="faq-details">
+          <summary style="font-size:20px;">¿Qué es el PIN de acceso?</summary>
+          <div class="details-body">El PIN es un código de acceso que permite ingresar a ciertos cursos. Encuéntrelo en la
+            sección de información del instructivo de cada asignatura. Sin el PIN correcto, la plataforma no le permitirá
+            matricularse.</div>
+        </details>
+        <details class="faq-details">
+          <summary style="font-size:20px;">¿Puedo acceder desde mi celular?</summary>
+          <div class="details-body">Sí. La plataforma es accesible desde cualquier dispositivo con conexión a internet. Se
+            recomienda usar un navegador actualizado (Chrome, Firefox, Edge o Safari).</div>
+        </details>
+        <details class="faq-details">
+          <summary style="font-size:20px;">¿Qué pasa si se vence la prueba de 14 días?</summary>
+          <div class="details-body">Al finalizar los 14 días, debe diligenciar el formulario de pines para obtener acceso
+            durante el resto del semestre. Hágalo por cada curso inscrito.</div>
+        </details>
+        <details class="faq-details">
+          <summary style="font-size:20px;">¿Con qué correo debo registrarme?</summary>
+          <div class="details-body">Debe usar exclusivamente su <strong>correo institucional UIS</strong>
+            (usuario@correo.uis.edu.co). No se aceptan correos personales (Gmail, Hotmail, etc.).</div>
+        </details>
+        <!-- Zona de reporte de errores -->
+        <div class="faq-report-zone">
+          <p>¿Tuviste algún inconveniente o quieres compartir tu opinión sobre las plataformas?</p>
+          <div class="faq-report-btns">
+            <a href="https://docs.google.com/forms/d/e/1FAIpQLSfcnOGWl2lPhVLNfE0N915oN4x8_NmxOxBwREZSNoo1UONZsw/viewform?usp=dialog" target="_blank" rel="noopener noreferrer" class="btn-report btn-report-outline">
+              Experiencia y Satisfacción
+            </a>
+            <a href="https://docs.google.com/forms/d/e/1FAIpQLSdWhT9I-NvBmbCuOy0rhzpW7csbZOMT23C3B-7yvVTcI0z_Yw/viewform?usp=dialog" target="_blank" rel="noopener noreferrer" class="btn-report btn-report-primary">
+              Atención y Sugerencias
+            </a>
+          </div>
+        </div>
+      </div>
+    </section> 
+    <!-- SOBRE NOSOTROS -->
+    <section id="sobre-nosotros" class="section-pad">
+      <div class="ae-container">
+        <h2 class="section-title" style="font-size:34px;">Sobre nosotros</h2>
+        <p class="section-subtitle" style="font-size:20px;color:rgba(232,234,246,0.6);">Conoce ExperTIC, la estrategia
+          académica de la Universidad Industrial de Santander.</p>
+        <details class="sn-details" open="">
+          <summary style="font-size:20px;">¿Qué es ExperTIC?</summary>
+          <div class="details-body">
+            <div class="sn-intro">
+              <div class="sn-intro-text">
+                <h3 style="font-size:24px;">ExperTIC UIS</h3>
+                <p style="font-size:20px;">Es una <strong style="color:var(--accent-green)">estrategia académica</strong>
+                  que integra herramientas digitales para fortalecer el aprendizaje de los estudiantes de la Universidad
+                  Industrial de Santander.</p>
+                <p style="font-size:20px;">Su objetivo es mejorar la comprensión de los temas y promover un aprendizaje
+                  <em>autónomo, flexible y accesible</em> desde cualquier lugar.</p>
+                <ul class="sn-feature-list">
+                  <li style="font-size:19px;">Espacios virtuales de formación estructurados por módulos</li>
+                  <li style="font-size:19px;">Recursos interactivos: videos, lecturas y ejercicios</li>
+                  <li style="font-size:19px;">Aulas de entrenamiento para reforzar conocimientos</li>
+                  <li style="font-size:19px;">Actividades y evaluaciones para medir el progreso</li>
+                </ul>
+              </div>
+              <div class="sn-info-cards">
+                <div class="sn-info-card">
+                  <div class="sn-info-card-icon">🎓</div>
+                  <h4>¿Qué son las aulas de entrenamiento?</h4>
+                  <p style="font-size:20px;">Espacios virtuales donde puedes practicar temas vistos en clase y realizar
+                    actividades progresivas de forma autónoma.</p>
+                </div>
+                <div class="sn-info-card">
+                  <div class="sn-info-card-icon">📚</div>
+                  <h4>Contenido de las aulas</h4>
+                  <p style="font-size:20px;">Lecciones por temas, actividades prácticas, evaluaciones y recursos
+                    multimedia organizados por semanas.</p>
+                </div>
+                <div class="sn-info-card">
+                  <div class="sn-info-card-icon">🧭</div>
+                  <h4>Navegación dentro del aula</h4>
+                  <p style="font-size:20px;">Selecciona un módulo, revisa el contenido, realiza las actividades y completa
+                    las evaluaciones.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </details>
+        <details class="sn-details">
+          <summary style="font-size:20px;">Plataforma Connect</summary>
+          <div class="details-body">
+            <div class="sn-platform-card">
+              <h3 style="font-size:24px;">Plataforma Connect (ExperTIC)</h3>
+              <p style="font-size:20px;">Es la plataforma donde se alojan las aulas de entrenamiento. Accede a todos los
+                cursos y haz seguimiento de tu progreso desde cualquier dispositivo.</p>
+              <ul class="sn-func-list">
+                <li style="font-size:19px;"><span class="sn-func-icon">📖</span> Acceso a cursos organizados por escuela
+                </li>
+                <li style="font-size:19px;"><span class="sn-func-icon">📈</span> Seguimiento del progreso por módulo</li>
+                <li style="font-size:19px;"><span class="sn-func-icon">💬</span> Interacción con contenidos multimedia
+                </li>
+                <li style="font-size:19px;"><span class="sn-func-icon">🌐</span> Disponible desde cualquier dispositivo
+                </li>
+              </ul>
+            </div>
+            <div class="sn-timeline" style="margin-top:20px;">
+              <div class="sn-timeline-item">
+                <div class="sn-tl-track">
+                  <div class="sn-tl-dot">1</div>
+                  <div class="sn-tl-line"></div>
+                </div>
+                <div class="sn-tl-content">
+                  <h4>Ingresa al enlace de la plataforma</h4>
+                  <p style="font-size:20px;">Accede a ExperTIC UIS desde el botón de la sección de Acceso.</p>
+                </div>
+              </div>
+              <div class="sn-timeline-item">
+                <div class="sn-tl-track">
+                  <div class="sn-tl-dot">2</div>
+                  <div class="sn-tl-line"></div>
+                </div>
+                <div class="sn-tl-content">
+                  <h4>Inicia sesión con usuario institucional</h4>
+                  <p style="font-size:20px;">Usa tu correo @correo.uis.edu.co. No se aceptan cuentas personales.</p>
+                </div>
+              </div>
+              <div class="sn-timeline-item">
+                <div class="sn-tl-track">
+                  <div class="sn-tl-dot">3</div>
+                  <div class="sn-tl-line"></div>
+                </div>
+                <div class="sn-tl-content">
+                  <h4>Entra al curso correspondiente</h4>
+                  <p style="font-size:20px;">Busca tu escuela y la asignatura que necesitas reforzar.</p>
+                </div>
+              </div>
+              <div class="sn-timeline-item">
+                <div class="sn-tl-track">
+                  <div class="sn-tl-dot">4</div>
+                </div>
+                <div class="sn-tl-content">
+                  <h4>Busca las "aulas de entrenamiento"</h4>
+                  <p style="font-size:20px;">Dentro del curso, ubica y abre el aula correspondiente.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </details>
+        <details class="sn-details">
+          <summary style="font-size:20px;">Beneficios</summary>
+          <div class="details-body">
+            <div class="sn-benefits-grid">
+              <div class="sn-benefit-card"><span class="sn-benefit-icon">🏆</span>
+                <h4>Mejora tu rendimiento académico</h4>
+                <p style="font-size:20px;">Refuerza los temas de clase con práctica guiada y actividades progresivas.</p>
+              </div>
+              <div class="sn-benefit-card"><span class="sn-benefit-icon">⏱️</span>
+                <h4>Aprende a tu ritmo</h4>
+                <p style="font-size:20px;">Accede cuando quieras y avanza según tu disponibilidad, sin presión de
+                  horarios.</p>
+              </div>
+              <div class="sn-benefit-card"><span class="sn-benefit-icon">🔁</span>
+                <h4>Refuerza conocimientos</h4>
+                <p style="font-size:20px;">Tres niveles por lección (básico, medio, avanzado) para repasar desde donde
+                  necesites.</p>
+              </div>
+              <div class="sn-benefit-card"><span class="sn-benefit-icon">🌐</span>
+                <h4>Acceso desde cualquier lugar</h4>
+                <p style="font-size:20px;">Disponible desde computador, tablet o celular con conexión a internet.</p>
+              </div>
+            </div>
+          </div>
+        </details>
+        <details class="sn-details">
+          <summary style="font-size:20px;">Recomendaciones</summary>
+          <div class="details-body">
+            <div class="sn-recs">
+              <div class="sn-rec-item">
+                <div class="sn-rec-check">👁️</div>
+                <div>
+                  <h4>Revisa las aulas constantemente</h4>
+                  <p style="font-size:20px;">Los contenidos se activan por semanas. Consulta el temario para no perderte
+                    ningún taller.</p>
+                </div>
+              </div>
+              <div class="sn-rec-item">
+                <div class="sn-rec-check">✅</div>
+                <div>
+                  <h4>Completa todas las actividades</h4>
+                  <p style="font-size:20px;">Cada actividad afianza un concepto. Saltarlas puede afectar tu comprensión
+                    del módulo siguiente.</p>
+                </div>
+              </div>
+              <div class="sn-rec-item">
+                <div class="sn-rec-check">📶</div>
+                <div>
+                  <h4>Asegura buena conexión a internet</h4>
+                  <p style="font-size:20px;">Se recomienda conexión estable para videos y actividades interactivas.</p>
+                </div>
+              </div>
+              <div class="sn-rec-item">
+                <div class="sn-rec-check">💡</div>
+                <div>
+                  <h4>Aprovecha todos los recursos</h4>
+                  <p style="font-size:20px;">Encontrarás videos, lecturas y ejercicios complementarios para profundizar.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </details>
+      </div>
+    </section> <!-- FOOTER -->
+    <footer>
+      <div class="ae-container">
+        <div class="footer-inner"> <img
+            src="https://drive.google.com/thumbnail?id=1kHj_19duUO52yWLbwa4GnuLcLmvyDPg8&amp;sz=w400" alt="ExperTIC UIS"
+            class="footer-logo">
+          <p class="footer-text" style="font-size:20px;"> Aulas de Entrenamiento — una estrategia de <a
+              href="https://expertic.uis.edu.co" target="_blank" rel="noopener noreferrer">ExperTIC</a> · Universidad
+            Industrial de Santander </p>
+        </div>
+      </div>
+    </footer>
+  </div>
+  <!--Script para enviar la altura-->
+  <script>
+    (function() {
+        function enviarAltura() {
+        var altura = document.documentElement.scrollHeight;
+        parent.postMessage({ tipo: 'setAltura', altura: altura }, '*');
+        }
+
+        // Enviar cuando el DOM esté listo y cada vez que cambie el contenido
+        window.addEventListener('load', enviarAltura);
+        window.addEventListener('resize', enviarAltura);
+
+        // También monitorear cambios en el DOM (útil si el contenido se modifica dinámicamente)
+        var observer = new MutationObserver(enviarAltura);
+        observer.observe(document.body, { childList: true, subtree: true, attributes: true });
+    })();
+  </script>
+  <!--Script para navegacion-->
+  <script>
+    (function () {
+      var NAVBAR_HEIGHT = 80;
+      var internalLinks = document.querySelectorAll('.ae-page a[href^="#"]');
+
+      internalLinks.forEach(function (link) {
+        link.addEventListener('click', function (e) {
+          e.preventDefault();
+          var targetId = this.getAttribute('href').substring(1);
+          var target = document.getElementById(targetId);
+          if (!target) return;
+
+          if (window.parent !== window) {
+            var rect = target.getBoundingClientRect();
+            window.parent.postMessage(
+              { tipo: 'scrollTo', top: rect.top + window.scrollY },
+              '*'
+            );
+          } else {
+            var offsetTop = target.getBoundingClientRect().top + window.scrollY - NAVBAR_HEIGHT;
+            window.scrollTo({ top: offsetTop, behavior: 'smooth' });
+          }
+        });
+      });
+    })();
+  </script>
+  <!--Script para leer los datos de las sheets-->
+  <script>
+    // ==================== CONFIGURACIÓN ====================
+    const BASE_TSV = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vROVAjcR21cudmX98yuu4YqqIqdMPTfG9xXK1mJkSNUfGkSjcccqAn8UzjW2OcIVC0tlgvozS3nMKRj/pub?output=tsv';
+    const LIBROS_TSV = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRzSQCZ_Jd3FOErN7ercHV3-tbXxnghKa94xErG8roHN3761dUfw9nhGVeETq5g3g/pub?gid=951247696&single=true&output=tsv';
+
+    const SCHOOLS = [
+        { gid: 2547548,      containerId: 'tabla-e3t', title: 'Escuela E3T',           tableClass: 'table-e3t' },
+        { gid: 704898453,    containerId: 'tabla-mat', title: 'Escuela de Matemáticas', tableClass: 'table-matematicas' },
+        { gid: 915914968,    containerId: 'tabla-fis', title: 'Escuela de Física',      tableClass: 'table-fisica' },
+        { gid: 373143542,    containerId: 'tabla-qui', title: 'Escuela de Química',     tableClass: 'table-quimica' },
+        { gid: 405299746,    containerId: 'tabla-bio', title: 'Escuela de Biología',    tableClass: 'table-biologia' }
+    ];
+
+    // ==================== FUNCIÓN PARA CARGAR UNA ESCUELA ====================
+    async function cargarHoja(school) {
+        const url = `${BASE_TSV}&gid=${school.gid}`;
+        try {
+            const res = await fetch(url);
+            const texto = await res.text();
+            const filas = texto.trim().split('\n').map(fila => fila.split('\t'));
+
+            if (filas.length === 0) {
+                document.getElementById(school.containerId).innerHTML = '<p>Hoja vacía.</p>';
+                return;
+            }
+
+            const headers = filas[0].map(h => h.trim());
+            const dataRows = filas.slice(1);
+            const filasHTML = dataRows.map(row => buildRow(row, headers)).join('');
+
+            // Construimos el bloque details
+            const detallesHTML = `
+                <details>
+                    <summary style="font-size:20px;">${school.title}</summary>
+                    <div class="details-body">
+                        <div class="course-table-wrap">
+                            <table class="course-table ${school.tableClass}">
+                                <thead>
+                                    <tr>
+                                        <th>Asignatura</th>
+                                        <th>Código</th>
+                                        <th>Plataforma</th>
+                                        <th>Libro</th>
+                                        <th>PIN de acceso</th>
+                                        <th>Temario ExperTIC</th>
+                                        <th>Acceso</th>
+                                    </tr>
+                                </thead>
+                                <tbody>${filasHTML}</tbody>
+                            </table>
+                        </div>
+                    </div>
+                </details>
+            `;
+
+            const container = document.getElementById(school.containerId);
+            container.innerHTML = detallesHTML;
+
+            // 🧬 SOLO PARA BIOLOGÍA: después de inyectar la tabla, agregamos los libros dentro del mismo details
+            if (school.title === 'Escuela de Biología') {
+                await agregarLibrosBiologia(container);
+            }
+
+        } catch (error) {
+            document.getElementById(school.containerId).innerHTML = '<p>Error al cargar datos.</p>';
+            console.error(error);
+        }
+    }
+
+    // ==================== FUNCIÓN PARA AGREGAR LIBROS DENTRO DEL DETAILS DE BIOLOGÍA ====================
+    async function agregarLibrosBiologia(container) {
+        try {
+            const res = await fetch(LIBROS_TSV);
+            const texto = await res.text();
+            const filas = texto.trim().split('\n').map(f => f.split('\t').map(c => c.trim()));
+
+            // Metadatos de libros (filas 3 a 8, índices 2 a 7)
+            const fNombre    = filas[2];
+            const fAutores   = filas[3];
+            const fEditorial = filas[4];
+            const fEdicion   = filas[5];
+            const fImagenes  = filas[6];
+            const fEnlaces   = filas[7];
+
+            const numLibros = fNombre.length - 1;
+
+            // Tabla de lecciones (fila 9 en adelante)
+            const filasLecciones = filas.slice(8);
+            const headersLecciones = filasLecciones[0];
+            const dataLecciones = filasLecciones.slice(1);
+
+            // Generar tarjetas de libros
+            const tarjetasHTML = Array.from({ length: numLibros }, (_, i) => {
+                const col = i + 1;
+                const nombre    = fNombre[col]    || '—';
+                const autores   = fAutores[col]   || '—';
+                const editorial = fEditorial[col] || '—';
+                const edicion   = fEdicion[col]   || '—';
+                const imagen    = fImagenes[col]  || '';
+                const enlace    = fEnlaces[col]   || '';
+
+                const imgHTML = imagen && imagen.startsWith('http')
+                    ? `<img src="${imagen}" alt="Portada de ${nombre}" class="libro-card-img" width="150" height="200">`
+                    : `<div class="libro-card-img-placeholder">📖</div>`;
+
+                const btnHTML = enlace && enlace.startsWith('http')
+                    ? `<a href="${enlace}" target="_blank" class="btn-course">Ir al curso →</a>`
+                    : `<span class="no-link">Enlace por confirmar</span>`;
+
+                return `
+                    <div class="libro-card">
+                        ${imgHTML}
+                        <div class="libro-card-body">
+                            <p class="libro-titulo">${nombre}</p>
+                            <p class="libro-meta"><span class="libro-meta-label">Autores</span>${autores}</p>
+                            <p class="libro-meta"><span class="libro-meta-label">Editorial</span>${editorial}</p>
+                            <p class="libro-meta"><span class="libro-meta-label">Edición</span>${edicion}</p>
+                        </div>
+                        <div class="libro-card-footer">${btnHTML}</div>
+                    </div>`;
+            }).join('');
+
+            // Tabla de lecciones
+            const thLibros = Array.from({ length: numLibros }, (_, i) =>
+                `<th>${headersLecciones[i + 1] || `Libro ${i + 1}`}</th>`
+            ).join('');
+
+            const filasTablaHTML = dataLecciones.map(row => {
+                const leccion = row[0] || '';
+                if (!leccion) return '';
+                const celdas = Array.from({ length: numLibros }, (_, i) => {
+                    const enlace = (row[i + 1] || '').trim();
+                    return enlace && enlace.startsWith('http')
+                        ? `<td><a href="${enlace}" target="_blank" class="leccion-link">✔️</a></td>`
+                        : `<td><span class="no-link">—</span></td>`;
+                }).join('');
+                return `<tr><td>${leccion}</td>${celdas}</tr>`;
+            }).join('');
+
+            const librosHTML = `
+                <div style="margin-top: 2rem; border-top: 1px solid #ddd; padding-top: 1rem;">
+                    <h3>📚 Libros de Biología</h3>
+                    <div class="libro-grid">${tarjetasHTML}</div>
+                    <div class="lecciones-section">
+                        <details>
+                            <summary>Lecciones por libro</summary>
+                            <div class="lecciones-wrap">
+                                <table class="lecciones-table table-biologia">
+                                    <thead><tr><th>${headersLecciones[0] || 'Lección'}</th>${thLibros}</tr></thead>
+                                    <tbody>${filasTablaHTML}</tbody>
+                                </table>
+                            </div>
+                        </details>
+                    </div>
+                </div>
+            `;
+
+            // Buscamos el .details-body dentro del container (que es el div #tabla-bio que contiene el details)
+            const detailsBody = container.querySelector('details .details-body');
+            if (detailsBody) {
+                detailsBody.insertAdjacentHTML('beforeend', librosHTML);
+            }
+
+        } catch (error) {
+            console.error('Error cargando libros de Biología:', error);
+            const detailsBody = container.querySelector('details .details-body');
+            if (detailsBody) {
+                detailsBody.insertAdjacentHTML('beforeend', '<p style="color:red;">Error al cargar los libros.</p>');
+            }
+        }
+    }
+
+    // ==================== FUNCIÓN PARA CONSTRUIR FILAS DE LA TABLA ====================
+    function buildRow(row, headers) {
+        const get = (colName) => {
+            const idx = headers.indexOf(colName);
+            return idx !== -1 ? (row[idx] || '').trim() : '';
+        };
+
+        const asignatura = get('Asignatura');
+        const codigo = get('Código') || '—';
+        const plataforma = get('Plataforma');
+        const libro = get('Libros Connect');
+        const pin = get('Pin de acceso');
+        const TemarioExperTIC = get('Temario ExperTIC');
+        const enlaceCurso = get('Enlace al curso');
+
+        let plataformaHTML = '';
+        const platLower = plataforma.toLowerCase();
+        if (platLower === 'connect') {
+            plataformaHTML = '<span class="platform-badge platform-connect">Connect</span>';
+        } else if (platLower === 'aleks') {
+            plataformaHTML = '<span class="platform-badge platform-aleks">Aleks</span>';
+        } else {
+            plataformaHTML = `<span class="platform-badge">${plataforma}</span>`;
+        }
+
+        let pinHTML = '';
+        if (!pin || pin === '—') {
+            pinHTML = '<span class="no-pin">—</span>';
+        } else {
+            pinHTML = `<span class="pin-badge" data-pin="${pin}">${pin}</span>`;
+        }
+
+        let recursosHTML = '';
+        if (TemarioExperTIC && TemarioExperTIC.startsWith('http')) {
+            recursosHTML = `<a href="${TemarioExperTIC}" target="_blank" class="icon-link">📄 Temario ExperTIC</a>`;
+        } else {
+            recursosHTML = '—';
+        }
+
+        let accesoHTML = '';
+        if (enlaceCurso && enlaceCurso.startsWith('http')) {
+            accesoHTML = `<a href="${enlaceCurso}" target="_blank" class="btn-course">Ir al curso →</a>`;
+        } else {
+            accesoHTML = '<span class="no-pin">Enlace por confirmar</span>';
+        }
+
+        return `
+            <tr>
+                <td>${asignatura}</td>
+                <td>${codigo}</td>
+                <td>${plataformaHTML}</td>
+                <td>${libro}</td>
+                <td>${pinHTML}</td>
+                <td>${recursosHTML}</td>
+                <td>${accesoHTML}</td>
+            </tr>`;
+    }
+
+    // ==================== INICIALIZACIÓN ====================
+    window.addEventListener('DOMContentLoaded', () => {
+        SCHOOLS.forEach(school => cargarHoja(school));
+    });// para asociar timers a cada badge
+
+    // ==================== COPIAR PIN (funciona para todas las tablas) ====================
+    document.addEventListener('click', function (e) {
+        const badge = e.target.closest('.pin-badge');
+        if (!badge) return;
+        e.preventDefault();
+
+        const pinOriginal = badge.getAttribute('data-pin');
+        if (!pinOriginal) return;   // Si no hay atributo o está vacío, no hacemos nada
+
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+            navigator.clipboard.writeText(pinOriginal)
+                .then(() => mostrarConfirmacion(badge, pinOriginal))
+                .catch(() => copiarFallback(badge, pinOriginal));
+        } else {
+            copiarFallback(badge, pinOriginal);
+        }
+    });
+
+    const timers = new WeakMap();
+
+    function mostrarConfirmacion(badge, pinOriginal) {
+        // Si ya hay un temporizador activo en este badge, lo cancelamos
+        if (timers.has(badge)) {
+            clearTimeout(timers.get(badge));
+        }
+        badge.textContent = '¡Copiado!';
+        const timer = setTimeout(() => {
+            badge.textContent = pinOriginal;   // ← aquí restauramos con el PIN original
+            timers.delete(badge);
+        }, 1500);
+        timers.set(badge, timer);
+    }
+
+    function mostrarConfirmacion(badge, textoOriginal) {
+        badge.textContent = '¡Copiado!';
+        setTimeout(() => { badge.textContent = textoOriginal; }, 1500);
+    }
+
+    function copiarFallback(badge, texto) {
+        const textarea = document.createElement('textarea');
+        textarea.value = texto;
+        textarea.style.position = 'fixed';
+        textarea.style.opacity = '0';
+        document.body.appendChild(textarea);
+        textarea.select();
+        try {
+            document.execCommand('copy');
+            mostrarConfirmacion(badge, texto);
+        } catch (err) {
+            console.error('No se pudo copiar el PIN', err);
+        }
+        document.body.removeChild(textarea);
+    }
+  </script>
+</div>
