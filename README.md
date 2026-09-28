@@ -10,9 +10,13 @@ Repositorio central de herramientas web, módulos de gestión y entorno de prueb
 
 ```text
 RecursosExpertic/
+├── Diseño Grafico/                   # Módulos estables en producción y mejoramiento -> Diseñador Grafico
+│   ├── Paginas Web              
+│       └──Prototipo - Aulas de Entrenamiento.html
+│   └── Imaganes                      #  Imaganes utilizadas en las páginas web de ExperTIC
 ├── css/                              # Hojas de estilo compartidas y específicas
 │   └── calculo.css 
-├── paginas/                          # Módulos estables en producciónny mejoramiento
+├── Paginas Sistemas/                 # Módulos estables en producción y mejoramiento -> Grupo de Sistemas
 │   ├── Admin_Asignaturas.html
 │   └── Aulas_Entrenamiento.html
 ├── Plantillas_Asignaturas/           # Creacion de plantillas especificas para las asignaturas
