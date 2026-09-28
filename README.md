@@ -13,7 +13,7 @@ RecursosExpertic/
 ├── Diseño Grafico/                   # Módulos estables en producción y mejoramiento -> Diseñador Grafico
 │   ├── Paginas Web              
 │       └──Prototipo - Aulas de Entrenamiento.html
-│   └── Imaganes                      #  Imaganes utilizadas en las páginas web de ExperTIC
+│   └── Imaganes                      # Imaganes utilizadas en las páginas web de ExperTIC
 ├── css/                              # Hojas de estilo compartidas y específicas
 │   └── calculo.css 
 ├── Paginas Sistemas/                 # Módulos estables en producción y mejoramiento -> Grupo de Sistemas
