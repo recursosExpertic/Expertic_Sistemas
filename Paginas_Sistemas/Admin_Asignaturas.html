@@ -1,0 +1,1730 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>CMS Académico</title>
+
+        <!-- Import Map para módulos externos -->
+        <script type="importmap">
+            {
+            "imports": {
+                "@libsql/client": "https://cdn.jsdelivr.net/npm/@libsql/client@0.14.0/+esm",
+                "zod": "https://cdn.jsdelivr.net/npm/zod@3.23.8/+esm"
+            }
+            }
+        </script>
+
+        <style>
+            /* ---------- Reset & Variables ---------- */
+            * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            }
+
+            :root {
+            --bg: #f7f8fc;
+            --card-bg: #ffffff;
+            --text: #1e1e2f;
+            --text-secondary: #4a4a5a;
+            --border: #e6e8f0;
+            --shadow: 0 8px 24px rgba(0, 0, 0, 0.04);
+            --radius: 16px;
+            --radius-sm: 10px;
+            --primary: #4a6cf7;
+            --primary-hover: #3b5de7;
+            --primary-light: #eef2ff;
+            --green: #22a67e;
+            --red: #e35f5f;
+            --transition: 0.2s ease;
+            --font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            --max-width: 1200px;
+            }
+
+            body {
+            font-family: var(--font);
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.5;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            padding: 2rem 1.5rem;
+            }
+
+            #app {
+            width: 100%;
+            max-width: var(--max-width);
+            }
+
+            /* ---------- Tipografía ---------- */
+            h1 {
+            font-size: 2rem;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+            }
+            h2 {
+            font-size: 1.5rem;
+            font-weight: 500;
+            letter-spacing: -0.01em;
+            }
+            h3 {
+            font-size: 1.1rem;
+            font-weight: 500;
+            }
+            p {
+            color: var(--text-secondary);
+            }
+
+            /* ---------- Tarjetas ---------- */
+            .card {
+            background: var(--card-bg);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            padding: 1.8rem 2rem;
+            transition: transform var(--transition), box-shadow var(--transition);
+            border: 1px solid var(--border);
+            }
+            .card:hover {
+            box-shadow: 0 12px 32px rgba(0, 0, 0, 0.06);
+            }
+
+            /* ---------- Botones ---------- */
+            .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.6rem 1.4rem;
+            border-radius: 50px;
+            border: none;
+            font-weight: 500;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: background var(--transition), transform var(--transition), box-shadow var(--transition);
+            background: var(--primary);
+            color: #fff;
+            text-decoration: none;
+            line-height: 1;
+            }
+            .btn:hover {
+            background: var(--primary-hover);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(74, 108, 247, 0.3);
+            }
+            .btn-secondary {
+            background: var(--border);
+            color: var(--text);
+            }
+            .btn-secondary:hover {
+            background: #d0d4e0;
+            box-shadow: none;
+            transform: none;
+            }
+            .btn-outline {
+            background: transparent;
+            border: 1.5px solid var(--border);
+            color: var(--text);
+            }
+            .btn-outline:hover {
+            background: var(--bg);
+            transform: none;
+            box-shadow: none;
+            }
+            .btn-danger {
+            background: var(--red);
+            color: #fff;
+            }
+            .btn-danger:hover {
+            background: #cc4f4f;
+            box-shadow: 0 4px 12px rgba(227, 95, 95, 0.3);
+            }
+            .btn-success {
+            background: var(--green);
+            color: #fff;
+            }
+            .btn-success:hover {
+            background: #1a8f66;
+            box-shadow: 0 4px 12px rgba(34, 166, 126, 0.3);
+            }
+            .btn-sm {
+            padding: 0.3rem 1rem;
+            font-size: 0.85rem;
+            }
+            .btn-icon {
+            padding: 0.5rem 0.7rem;
+            border-radius: 50%;
+            aspect-ratio: 1/1;
+            justify-content: center;
+            }
+
+            /* ---------- Inputs ---------- */
+            input,
+            textarea,
+            select {
+            font-family: var(--font);
+            width: 100%;
+            padding: 0.6rem 0.9rem;
+            border: 1.5px solid var(--border);
+            border-radius: var(--radius-sm);
+            background: #fafbfd;
+            font-size: 0.95rem;
+            transition: border var(--transition), box-shadow var(--transition);
+            color: var(--text);
+            }
+            input:focus,
+            textarea:focus,
+            select:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px var(--primary-light);
+            background: #fff;
+            }
+            label {
+            font-weight: 500;
+            font-size: 0.9rem;
+            display: block;
+            margin-bottom: 0.3rem;
+            color: var(--text-secondary);
+            }
+            .form-group {
+            margin-bottom: 1.2rem;
+            }
+            .form-group .error {
+            color: var(--red);
+            font-size: 0.8rem;
+            margin-top: 0.2rem;
+            }
+
+            /* ---------- Layouts ---------- */
+            .flex {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            }
+            .flex-center {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            }
+            .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            }
+            @media (max-width: 768px) {
+            .grid-2 {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+            }
+
+            /* ---------- Vistas ---------- */
+            .view {
+            display: none;
+            animation: fadeUp 0.3s ease;
+            }
+            .view.active {
+            display: block;
+            }
+
+            @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+            }
+
+            /* ---------- Home ---------- */
+            .home-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-top: 3rem;
+            }
+            @media (max-width: 600px) {
+            .home-grid {
+                grid-template-columns: 1fr;
+            }
+            }
+            .home-card {
+            padding: 3rem 2rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all var(--transition);
+            border: 2px solid transparent;
+            }
+            .home-card:hover {
+            border-color: var(--primary);
+            transform: translateY(-4px);
+            }
+            .home-card .icon {
+            font-size: 3rem;
+            display: block;
+            margin-bottom: 1rem;
+            }
+            .home-card h2 {
+            margin-bottom: 0.3rem;
+            }
+            .home-card p {
+            color: var(--text-secondary);
+            }
+
+            /* ---------- Búsqueda ---------- */
+            .search-bar {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+            }
+            .search-bar input {
+            flex: 1;
+            min-width: 200px;
+            }
+            .results-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.2rem;
+            }
+            .result-card {
+            padding: 1.2rem 1.5rem;
+            }
+            .result-card .title {
+            font-weight: 600;
+            font-size: 1.1rem;
+            }
+            .result-card .sub {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            }
+            .result-card .actions {
+            margin-top: 0.8rem;
+            display: flex;
+            gap: 0.5rem;
+            }
+
+            /* ---------- Edit Dashboard ---------- */
+            .edit-dashboard {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 2rem;
+            margin-top: 1.5rem;
+            }
+            @media (max-width: 900px) {
+            .edit-dashboard {
+                grid-template-columns: 1fr;
+            }
+            }
+
+            .info-panel .card {
+            padding: 1.5rem;
+            }
+            .info-panel .card .form-group:last-child {
+            margin-bottom: 0;
+            }
+
+            .lessons-panel .lessons-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+            }
+
+            /* Acordeón */
+            .accordion {
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            overflow: hidden;
+            background: var(--card-bg);
+            }
+            .accordion-header {
+            padding: 0.8rem 1.2rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #fafbfd;
+            transition: background var(--transition);
+            font-weight: 500;
+            }
+            .accordion-header:hover {
+            background: #f0f2f8;
+            }
+            .accordion-header .arrow {
+            transition: transform var(--transition);
+            }
+            .accordion.open .accordion-header .arrow {
+            transform: rotate(180deg);
+            }
+            .accordion-body {
+            display: none;
+            padding: 1.2rem 1.2rem 1.8rem;
+            border-top: 1px solid var(--border);
+            background: #fff;
+            }
+            .accordion.open .accordion-body {
+            display: block;
+            animation: fadeUp 0.2s ease;
+            }
+
+            /* Tabs */
+            .tabs {
+            display: flex;
+            gap: 0.2rem;
+            flex-wrap: wrap;
+            border-bottom: 1.5px solid var(--border);
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.2rem;
+            }
+            .tab-btn {
+            background: transparent;
+            border: none;
+            padding: 0.5rem 1.2rem;
+            font-weight: 500;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            cursor: pointer;
+            border-radius: 50px 50px 0 0;
+            transition: all var(--transition);
+            position: relative;
+            }
+            .tab-btn:hover {
+            color: var(--text);
+            background: var(--primary-light);
+            }
+            .tab-btn.active {
+            color: var(--primary);
+            background: var(--primary-light);
+            }
+            .tab-btn.active::after {
+            content: '';
+            position: absolute;
+            bottom: -1.5px;
+            left: 0;
+            right: 0;
+            height: 2.5px;
+            background: var(--primary);
+            border-radius: 4px 4px 0 0;
+            }
+            .tab-panel {
+            display: none;
+            animation: fadeUp 0.2s ease;
+            }
+            .tab-panel.active {
+            display: block;
+            }
+
+            /* Listas dinámicas */
+            .dynamic-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+            }
+            .dynamic-item {
+            display: flex;
+            gap: 0.6rem;
+            align-items: center;
+            flex-wrap: wrap;
+            background: #fafbfd;
+            padding: 0.6rem 0.8rem;
+            border-radius: var(--radius-sm);
+            border: 1px solid var(--border);
+            }
+            .dynamic-item input {
+            flex: 1;
+            min-width: 120px;
+            }
+            .dynamic-item .btn {
+            flex-shrink: 0;
+            }
+
+            /* Tarjetas de video, simulador, libro */
+            .media-card {
+            background: #fafbfd;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            padding: 1rem;
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: 0.8rem;
+            align-items: start;
+            }
+            .media-card .fields {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            flex: 1;
+            }
+            .media-card .fields input {
+            width: 100%;
+            }
+            .media-card .btn-danger {
+            align-self: center;
+            }
+
+            /* Bibliografía */
+            .tema-group {
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            padding: 1rem;
+            margin-bottom: 1rem;
+            background: #fafbfd;
+            }
+            .tema-group .tema-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.8rem;
+            }
+            .subtema-group {
+            border-left: 3px solid var(--primary-light);
+            padding-left: 1rem;
+            margin-bottom: 0.8rem;
+            }
+            .referencia-item {
+            display: flex;
+            gap: 0.6rem;
+            margin: 0.4rem 0;
+            align-items: center;
+            flex-wrap: wrap;
+            }
+
+            /* Botón flotante guardar */
+            .floating-save {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            z-index: 100;
+            box-shadow: 0 8px 24px rgba(74, 108, 247, 0.3);
+            padding: 0.8rem 1.8rem;
+            border-radius: 50px;
+            background: var(--primary);
+            color: #fff;
+            border: none;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            }
+            .floating-save:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 32px rgba(74, 108, 247, 0.4);
+            }
+            .floating-save:disabled {
+            opacity: 0.5;
+            pointer-events: none;
+            }
+
+            /* Toasts */
+            .toast-container {
+            position: fixed;
+            top: 1.5rem;
+            right: 1.5rem;
+            z-index: 999;
+            display: flex;
+            flex-direction: column;
+            gap: 0.6rem;
+            max-width: 360px;
+            width: 100%;
+            }
+            .toast {
+            padding: 0.9rem 1.4rem;
+            border-radius: var(--radius-sm);
+            background: var(--card-bg);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+            border-left: 4px solid var(--primary);
+            animation: slideIn 0.3s ease;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            }
+            .toast.success {
+            border-left-color: var(--green);
+            }
+            .toast.error {
+            border-left-color: var(--red);
+            }
+            @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+            }
+
+            /* Skeleton */
+            .skeleton {
+            background: linear-gradient(90deg, #e8ecf4 25%, #f2f4fa 50%, #e8ecf4 75%);
+            background-size: 200% 100%;
+            animation: shimmer 1.5s infinite;
+            border-radius: var(--radius-sm);
+            height: 1.2rem;
+            width: 100%;
+            margin-bottom: 0.5rem;
+            }
+            @keyframes shimmer {
+            0% {
+                background-position: 200% 0;
+            }
+            100% {
+                background-position: -200% 0;
+            }
+            }
+
+            /* Scroll suave */
+            html {
+            scroll-behavior: smooth;
+            }
+
+            /* Utilidades */
+            .mb-1 {
+            margin-bottom: 0.5rem;
+            }
+            .mb-2 {
+            margin-bottom: 1rem;
+            }
+            .mt-2 {
+            margin-top: 1rem;
+            }
+            .gap-1 {
+            gap: 0.5rem;
+            }
+            .flex-wrap {
+            flex-wrap: wrap;
+            }
+            .text-center {
+            text-align: center;
+            }
+            .w-full {
+            width: 100%;
+            }
+            .relative {
+            position: relative;
+            }
+        </style>
+    </head>
+    <body>
+    <div id="app">
+        <!-- TOASTS -->
+        <div id="toastContainer" class="toast-container"></div>
+
+        <!-- VISTA HOME -->
+        <section id="viewHome" class="view active">
+        <header style="margin-bottom: 1rem;">
+            <h1>📚 Administrador Académico</h1>
+            <p style="color: var(--text-secondary);">Gestiona asignaturas y sus lecciones</p>
+        </header>
+        <div class="home-grid">
+            <div class="card home-card" id="btnBuscar">
+            <span class="icon">🔍</span>
+            <h2>Buscar asignatura</h2>
+            <p>Por ID o nombre</p>
+            </div>
+            <div class="card home-card" id="btnCrear">
+            <span class="icon">➕</span>
+            <h2>Crear nueva asignatura</h2>
+            <p>Comienza desde cero</p>
+            </div>
+        </div>
+        </section>
+
+        <!-- VISTA BUSCAR -->
+        <section id="viewSearch" class="view">
+        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.8rem; margin-bottom: 1.5rem;">
+            <h2>🔍 Buscar asignatura</h2>
+            <button class="btn btn-secondary" id="btnBackHomeFromSearch">← Volver</button>
+        </div>
+        <div class="search-bar">
+            <input type="text" id="searchInput" placeholder="Buscar por ID o nombre..." />
+            <button class="btn" id="btnSearch">Buscar</button>
+        </div>
+        <div id="searchResults" class="results-grid">
+            <!-- Resultados dinámicos -->
+            <div class="skeleton" style="height:120px;"></div>
+            <div class="skeleton" style="height:120px;"></div>
+        </div>
+        </section>
+
+        <!-- VISTA CREAR -->
+        <section id="viewCreate" class="view">
+        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.8rem; margin-bottom: 1.5rem;">
+            <h2>➕ Crear asignatura</h2>
+            <button class="btn btn-secondary" id="btnBackHomeFromCreate">← Volver</button>
+        </div>
+        <div class="edit-dashboard">
+            <!-- Columna izquierda: Creacion de asignatura -->
+            <div class="card" style="max-width: 500px;">
+                <form id="createForm">
+                <div class="form-group">
+                    <label for="createNombre">Nombre</label>
+                    <input type="text" id="createNombre" required />
+                </div>
+                <div class="form-group">
+                    <label for="createEscuela">Escuela</label>
+                    <input type="text" id="createEscuela" required />
+                </div>
+                <div class="form-group">
+                    <label for="createFacultad">Facultad</label>
+                    <input type="text" id="createFacultad" required />
+                </div>
+                <div class="form-group">
+                    <label for="createCodigo">Código</label>
+                    <input type="text" id="createCodigo" required />
+                </div>
+                <button type="submit" class="btn btn-success">Guardar asignatura</button>
+                </form>
+            </div>
+
+            <!-- Columna derecha: Asiganturas creadas -->
+            <div class="lessons-panel">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                    <h3>Asignaturas Creadas</h3>
+                </div>
+                <div id="allAsignaturasContainer" class="results-grid">
+                    <!-- Aquí se cargarán las asignaturas -->
+                </div>
+            </div>
+        </div>
+        </section>
+
+        <!-- VISTA EDITAR -->
+        <section id="viewEdit" class="view">
+        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.8rem; margin-bottom: 1rem;">
+            <h2 id="editTitle">✏️ Editar asignatura</h2>
+            <button class="btn btn-secondary" id="btnBackHomeFromEdit">← Volver</button>
+        </div>
+
+        <div class="edit-dashboard">
+            <!-- Columna izquierda: info asignatura -->
+            <div class="info-panel">
+                <div class="card">
+                    <h3>Información de la asignatura</h3>
+                    <form id="editAsignaturaForm">
+                    <div class="form-group">
+                        <label for="editNombre">Nombre</label>
+                        <input type="text" id="editNombre" required />
+                    </div>
+                    <div class="form-group">
+                        <label for="editEscuela">Escuela</label>
+                        <input type="text" id="editEscuela" required />
+                    </div>
+                    <div class="form-group">
+                        <label for="editFacultad">Facultad</label>
+                        <input type="text" id="editFacultad" required />
+                    </div>
+                    <button type="submit" class="btn btn-success">Guardar cambios</button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Columna derecha: lecciones -->
+            <div class="lessons-panel">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                    <h3>Lecciones</h3>
+                    <button class="btn btn-primary btn-sm" id="btnNewLesson">➕ Nueva lección</button>
+                </div>
+                <div id="lessonsContainer" class="lessons-list">
+                    <!-- Acordeones cargados dinámicamente -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Botón flotante guardar TODO -->
+        <button class="floating-save" id="btnSaveAll">💾 Guardar todos los cambios</button>
+        </section>
+    </div>
+
+    <script type="module">
+        // --------------------------------------------
+        // 1. IMPORTS
+        // --------------------------------------------
+        import { createClient } from '@libsql/client';
+        import { z } from 'zod';
+
+        // --------------------------------------------
+        // 2. CONFIGURACIÓN TURSO (¡cambia aquí tus credenciales!)
+        // --------------------------------------------
+        const TURSO_URL = 'libsql://expertic-db-recursosexpertic.aws-us-east-1.turso.io';
+        const TURSO_TOKEN = 'eyJhbGciOiJFZERTQSIsInR5cCI6IkpXVCJ9.eyJhIjoicnciLCJpYXQiOjE3ODQ3NTgzMjgsImlkIjoiMDE5ZjQ5OGYtNTkwMS03ZDY0LTgyYmYtNDUzZmE0MWYwOTkyIiwia2lkIjoiVVd5WTg3cDRpSzc1VUpYT19BZC1WUGRxMEs2RWx5d2dpUHI1NGFvT2xUZyIsInJpZCI6IjEzNGZlMWFlLTkwOWUtNDlhZS04OGQ5LTI1MmI3MzQxNjAyZiJ9.DYtcKRE_nLP1l8pEI914_hwMHt9_hJep_4Afespe6Hq54KlNZdoPd3IzYkPzyEJux7S1aie0Za2lHcPXZRayCQ';
+
+        const client = createClient({
+        url: TURSO_URL,
+        authToken: TURSO_TOKEN,
+        });
+
+        // --------------------------------------------
+        // 3. ESQUEMAS DE VALIDACIÓN (Zod)
+        // --------------------------------------------
+        const AsignaturaSchema = z.object({
+        id: z.number().optional(),
+        nombre: z.string().min(1, 'Nombre requerido'),
+        escuela: z.string().min(1, 'Escuela requerida'),
+        facultad: z.string().min(1, 'Facultad requerida'),
+        });
+
+        const LeccionSchema = z.object({
+        id: z.number().optional(),
+        asignatura_id: z.number(),
+        modulo: z.string().min(1, 'Módulo requerido'),
+        leccion: z.string().min(1, 'Lección requerida'),
+        resumen_link: z.string().url('Debe ser una URL válida').or(z.string().max(0)),
+        competencias: z.array(z.string()).default([]),
+        catalogo_videos: z.array(z.object({ titulo: z.string(), link: z.string(), imagen: z.string() })).default([]),
+        catalogo_simuladores: z.array(z.object({ titulo: z.string(), link: z.string(), imagen: z.string() })).default([]),
+        catalogo_libros: z.array(z.object({ titulo: z.string(), link: z.string(), imagen: z.string() })).default([]),
+        bibliografia: z.array(z.object({
+            tema: z.string(),
+            subtemas: z.array(z.object({
+            nombre: z.string(),
+            referencias: z.array(z.object({ libro: z.string(), link: z.string() }))
+            }))
+        })).default([]),
+        preguntas_autoevaluacion: z.array(z.string()).default([]),
+        });
+
+        // --------------------------------------------
+        // 4. ESTADO GLOBAL
+        // --------------------------------------------
+        const state = {
+        currentView: 'home', // home | search | create | edit
+        currentAsignaturaId: null,
+        asignaturas: [], // cache
+        lecciones: [], // cache para la asignatura actual
+        editLeccionIndex: null, // para saber qué lección se está editando en tabs
+        };
+
+        const activeTabMap = {};  // { [lessonIndex]: 'General' | 'Competencias' | ... }
+
+        // --------------------------------------------
+        // 5. SERVICIOS (Turso)
+        // --------------------------------------------
+        const db = {
+        async init() {
+            // Crear tablas si no existen
+            await client.execute(`
+            CREATE TABLE IF NOT EXISTS asignaturas (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                nombre TEXT NOT NULL,
+                escuela TEXT NOT NULL,
+                facultad TEXT NOT NULL
+            )
+            `);
+            await client.execute(`
+            CREATE TABLE IF NOT EXISTS lecciones (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                asignatura_id INTEGER NOT NULL,
+                modulo TEXT NOT NULL,
+                leccion TEXT NOT NULL,
+                resumen_link TEXT,
+                competencias TEXT DEFAULT '[]',
+                catalogo_videos TEXT DEFAULT '[]',
+                catalogo_simuladores TEXT DEFAULT '[]',
+                catalogo_libros TEXT DEFAULT '[]',
+                bibliografia TEXT DEFAULT '[]',
+                preguntas_autoevaluacion TEXT DEFAULT '[]',
+                FOREIGN KEY (asignatura_id) REFERENCES asignaturas(id) ON DELETE CASCADE
+            )
+            `);
+        },
+
+        // Asignaturas
+        async getAsignaturas() {
+            const result = await client.execute('SELECT * FROM asignaturas ORDER BY id DESC');
+            return result.rows;
+        },
+        async getAsignatura(id) {
+            const result = await client.execute({ sql: 'SELECT * FROM asignaturas WHERE id = ?', args: [id] });
+            return result.rows[0] || null;
+        },
+        async createAsignatura(data) {
+            const validated = AsignaturaSchema.parse(data);
+            const result = await client.execute({
+            sql: 'INSERT INTO asignaturas (nombre, escuela, facultad) VALUES (?, ?, ?)',
+            args: [validated.nombre, validated.escuela, validated.facultad],
+            });
+            return result.lastInsertRowid;
+        },
+        async updateAsignatura(id, data) {
+            const validated = AsignaturaSchema.parse({ ...data, id });
+            await client.execute({
+            sql: 'UPDATE asignaturas SET nombre = ?, escuela = ?, facultad = ? WHERE id = ?',
+            args: [validated.nombre, validated.escuela, validated.facultad, id],
+            });
+        },
+        async deleteAsignatura(id) {
+            await client.execute({ sql: 'DELETE FROM asignaturas WHERE id = ?', args: [id] });
+        },
+
+        // Lecciones
+        async getLecciones(asignaturaId) {
+            const result = await client.execute({
+            sql: 'SELECT * FROM lecciones WHERE asignatura_id = ? ORDER BY id',
+            args: [asignaturaId],
+            });
+            return result.rows.map(row => ({
+            ...row,
+            competencias: JSON.parse(row.competencias || '[]'),
+            catalogo_videos: JSON.parse(row.catalogo_videos || '[]'),
+            catalogo_simuladores: JSON.parse(row.catalogo_simuladores || '[]'),
+            catalogo_libros: JSON.parse(row.catalogo_libros || '[]'),
+            bibliografia: JSON.parse(row.bibliografia || '[]'),
+            preguntas_autoevaluacion: JSON.parse(row.preguntas_autoevaluacion || '[]'),
+            }));
+        },
+        async createLeccion(data) {
+            const validated = LeccionSchema.parse(data);
+            const result = await client.execute({
+            sql: `INSERT INTO lecciones 
+                (asignatura_id, modulo, leccion, resumen_link, competencias, catalogo_videos, catalogo_simuladores, catalogo_libros, bibliografia, preguntas_autoevaluacion)
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+            args: [
+                validated.asignatura_id,
+                validated.modulo,
+                validated.leccion,
+                validated.resumen_link,
+                JSON.stringify(validated.competencias),
+                JSON.stringify(validated.catalogo_videos),
+                JSON.stringify(validated.catalogo_simuladores),
+                JSON.stringify(validated.catalogo_libros),
+                JSON.stringify(validated.bibliografia),
+                JSON.stringify(validated.preguntas_autoevaluacion),
+            ],
+            });
+            return result.lastInsertRowid;
+        },
+        async updateLeccion(id, data) {
+            const validated = LeccionSchema.parse({ ...data, id });
+            await client.execute({
+            sql: `UPDATE lecciones SET 
+                modulo = ?, leccion = ?, resumen_link = ?, 
+                competencias = ?, catalogo_videos = ?, catalogo_simuladores = ?, catalogo_libros = ?, bibliografia = ?, preguntas_autoevaluacion = ?
+                WHERE id = ?`,
+            args: [
+                validated.modulo,
+                validated.leccion,
+                validated.resumen_link,
+                JSON.stringify(validated.competencias),
+                JSON.stringify(validated.catalogo_videos),
+                JSON.stringify(validated.catalogo_simuladores),
+                JSON.stringify(validated.catalogo_libros),
+                JSON.stringify(validated.bibliografia),
+                JSON.stringify(validated.preguntas_autoevaluacion),
+                id,
+            ],
+            });
+        },
+        async deleteLeccion(id) {
+            await client.execute({ sql: 'DELETE FROM lecciones WHERE id = ?', args: [id] });
+        },
+        };
+
+        // --------------------------------------------
+        // 6. HELPERS (toast, skeleton, etc.)
+        // --------------------------------------------
+        function showToast(message, type = 'success') {
+        const container = document.getElementById('toastContainer');
+        const toast = document.createElement('div');
+        toast.className = `toast ${type}`;
+        toast.textContent = message;
+        container.appendChild(toast);
+        setTimeout(() => {
+            toast.style.opacity = '0';
+            toast.style.transform = 'translateX(20px)';
+            setTimeout(() => toast.remove(), 300);
+        }, 3500);
+        }
+
+        function showSkeleton(container, count = 2) {
+        container.innerHTML = '';
+        for (let i = 0; i < count; i++) {
+            const div = document.createElement('div');
+            div.className = 'skeleton';
+            div.style.height = '120px';
+            container.appendChild(div);
+        }
+        }
+
+        // --------------------------------------------
+        // 7. RENDERIZADO DE VISTAS
+        // --------------------------------------------
+        function showView(viewName) {
+        document.querySelectorAll('.view').forEach(el => el.classList.remove('active'));
+        document.getElementById(`view${viewName.charAt(0).toUpperCase() + viewName.slice(1)}`).classList.add('active');
+        state.currentView = viewName;
+        }
+
+        // --------------------------------------------
+        // 8. PÁGINA HOME
+        // --------------------------------------------
+        document.getElementById('btnBuscar').addEventListener('click', () => {
+        showView('search');
+        document.getElementById('searchInput').focus();
+        performSearch();
+        });
+        document.getElementById('btnCrear').addEventListener('click', () => {
+        showView('create');
+        loadAllAsignaturas();
+        });
+
+        // --------------------------------------------
+        // 9. BÚSQUEDA
+        // --------------------------------------------
+        const searchInput = document.getElementById('searchInput');
+        const searchResults = document.getElementById('searchResults');
+
+        async function performSearch() {
+        const query = searchInput.value.trim().toLowerCase();
+        showSkeleton(searchResults);
+        try {
+            const all = await db.getAsignaturas();
+            const filtered = all.filter(row =>
+            row.id.toString().includes(query) ||
+            row.nombre.toLowerCase().includes(query) ||
+            row.escuela.toLowerCase().includes(query) ||
+            row.facultad.toLowerCase().includes(query)
+            );
+            renderSearchResults(filtered);
+        } catch (e) {
+            showToast('Error al buscar: ' + e.message, 'error');
+        }
+        }
+
+        function renderSearchResults(rows) {
+        searchResults.innerHTML = '';
+        if (rows.length === 0) {
+            searchResults.innerHTML = '<p style="grid-column:1/-1; text-align:center; color:var(--text-secondary);">No se encontraron asignaturas.</p>';
+            return;
+        }
+        rows.forEach(row => {
+            const card = document.createElement('div');
+            card.className = 'card result-card';
+            card.innerHTML = `
+            <div class="title">${row.nombre}</div>
+            <div class="sub">${row.escuela} · ${row.facultad}</div>
+            <div class="actions">
+                <button class="btn btn-primary btn-sm edit-result" data-id="${row.id}">Editar</button>
+                <button class="btn btn-danger btn-sm delete-result" data-id="${row.id}">Eliminar</button>
+            </div>
+            `;
+            searchResults.appendChild(card);
+        });
+        // Eventos
+        searchResults.querySelectorAll('.edit-result').forEach(btn => {
+            btn.addEventListener('click', () => openEdit(Number(btn.dataset.id)));
+        });
+        searchResults.querySelectorAll('.delete-result').forEach(btn => {
+            btn.addEventListener('click', async () => {
+            if (confirm('¿Eliminar esta asignatura y todas sus lecciones?')) {
+                try {
+                await db.deleteAsignatura(Number(btn.dataset.id));
+                showToast('Asignatura eliminada');
+                performSearch();
+                } catch (e) {
+                showToast('Error: ' + e.message, 'error');
+                }
+            }
+            });
+        });
+        }
+
+        searchInput.addEventListener('input', performSearch);
+        document.getElementById('btnSearch').addEventListener('click', performSearch);
+
+        // Botones volver
+        document.getElementById('btnBackHomeFromSearch').addEventListener('click', () => showView('home'));
+        document.getElementById('btnBackHomeFromCreate').addEventListener('click', () => showView('home'));
+        document.getElementById('btnBackHomeFromEdit').addEventListener('click', () => {
+        if (confirm('¿Volver al inicio? Los cambios no guardados se perderán.')) {
+            showView('home');
+        }
+        });
+
+        // --------------------------------------------
+        // 10. CREAR ASIGNATURA
+        // --------------------------------------------
+        document.getElementById('createForm').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const nombre = document.getElementById('createNombre').value.trim();
+        const escuela = document.getElementById('createEscuela').value.trim();
+        const facultad = document.getElementById('createFacultad').value.trim();
+        try {
+            const id = await db.createAsignatura({ nombre, escuela, facultad });
+            showToast('Asignatura creada con ID ' + id);
+            document.getElementById('createForm').reset();
+            showView('home');
+        } catch (err) {
+            if (err.errors) {
+            err.errors.forEach(e => showToast(e.message, 'error'));
+            } else {
+            showToast('Error: ' + err.message, 'error');
+            }
+        }
+        });
+
+        // --------------------------------------------
+        // 11. EDITAR ASIGNATURA (abrir)
+        // --------------------------------------------
+        async function openEdit(asignaturaId) {
+        state.currentAsignaturaId = asignaturaId;
+        showView('edit');
+        await loadEditData(asignaturaId);
+        }
+
+        async function loadEditData(asignaturaId) {
+        try {
+            // Cargar asignatura
+            const asig = await db.getAsignatura(asignaturaId);
+            if (!asig) {
+            showToast('Asignatura no encontrada', 'error');
+            showView('home');
+            return;
+            }
+            document.getElementById('editTitle').textContent = `✏️ ${asig.nombre}`;
+            document.getElementById('editNombre').value = asig.nombre;
+            document.getElementById('editEscuela').value = asig.escuela;
+            document.getElementById('editFacultad').value = asig.facultad;
+
+            // Cargar lecciones
+            const lecciones = await db.getLecciones(asignaturaId);
+            state.lecciones = lecciones;
+            renderLessons(lecciones);
+        } catch (e) {
+            showToast('Error al cargar datos: ' + e.message, 'error');
+        }
+        }
+
+        // --------------------------------------------
+        // 12. RENDER LECCIONES (acordeones)
+        // --------------------------------------------
+        function renderLessons(lecciones) {
+        const container = document.getElementById('lessonsContainer');
+        container.innerHTML = '';
+        if (lecciones.length === 0) {
+            container.innerHTML = '<p style="color:var(--text-secondary);">No hay lecciones. Crea una nueva.</p>';
+            return;
+        }
+        lecciones.forEach((lec, index) => {
+            const accordion = document.createElement('div');
+            accordion.className = 'accordion';
+            accordion.dataset.index = index;
+            accordion.dataset.id = lec.id;
+            accordion.innerHTML = `
+            <div class="accordion-header">
+                <span>📘 ${lec.leccion}</span>
+                <span class="arrow">▼</span>
+            </div>
+            <div class="accordion-body">
+                <!-- Tabs se renderizarán aquí -->
+                <div id="tabContainer_${index}"></div>
+            </div>
+            `;
+            container.appendChild(accordion);
+
+            // Evento toggle. Dentro del bucle de renderLessons, al crear cada accordion
+            accordion.querySelector('.accordion-header').addEventListener('click', () => {
+                const wasOpen = accordion.classList.contains('open');
+                document.querySelectorAll('.accordion').forEach(a => a.classList.remove('open'));
+                if (!wasOpen) {
+                    accordion.classList.add('open');
+                    const idx = Number(accordion.dataset.index);
+                    // Inicializar pestaña activa si no existe
+                    if (!activeTabMap[idx]) activeTabMap[idx] = 'General';
+                    const tabCont = document.getElementById(`tabContainer_${idx}`);
+                    if (tabCont) {
+                        // Forzar re-renderizado
+                        tabCont.innerHTML = '';
+                        renderTabsForLesson(idx);
+                    }
+                }
+            });
+
+            // Si es la primera, abrirla
+            if (index === 0) {
+            accordion.classList.add('open');
+            renderTabsForLesson(index);
+            }
+        });
+        }
+
+        // --------------------------------------------
+        // 13. TABS DE LECCIÓN
+        // --------------------------------------------
+        function renderTabsForLesson(index) {
+            const container = document.getElementById(`tabContainer_${index}`);
+            if (!container) return;
+
+            const lec = state.lecciones[index];
+            const tabs = ['General', 'Competencias', 'Videos', 'Simuladores', 'Libros', 'Bibliografía', 'Preguntas'];
+            
+            // Obtener la pestaña activa guardada o 'General' por defecto
+            let activeTab = activeTabMap[index] || 'General';
+            if (!tabs.includes(activeTab)) activeTab = 'General';
+
+            // Limpiar el contenedor
+            container.innerHTML = '';
+
+            // Crear wrapper de tabs
+            const tabWrapper = document.createElement('div');
+            tabWrapper.className = 'tabs-wrapper';
+
+            // Botones de tabs
+            const tabBtns = document.createElement('div');
+            tabBtns.className = 'tabs';
+            tabs.forEach(name => {
+                const btn = document.createElement('button');
+                btn.className = `tab-btn ${name === activeTab ? 'active' : ''}`;
+                btn.textContent = name;
+                btn.dataset.tab = name;
+                btn.addEventListener('click', () => {
+                    // Actualizar el mapa con la pestaña seleccionada
+                    activeTabMap[index] = name;
+                    // Actualizar clases sin re-renderizar todo
+                    tabBtns.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                    tabPanels.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+                    document.getElementById(`panel_${index}_${name}`).classList.add('active');
+                });
+                tabBtns.appendChild(btn);
+            });
+            tabWrapper.appendChild(tabBtns);
+
+            // Paneles de contenido
+            const tabPanels = document.createElement('div');
+            tabPanels.className = 'tab-panels';
+            tabs.forEach(name => {
+                const panel = document.createElement('div');
+                panel.className = `tab-panel ${name === activeTab ? 'active' : ''}`;
+                panel.id = `panel_${index}_${name}`;
+                panel.innerHTML = buildTabContent(name, lec, index);
+                tabPanels.appendChild(panel);
+            });
+            tabWrapper.appendChild(tabPanels);
+            container.appendChild(tabWrapper);
+        }
+        // --------------------------------------------
+        // 14. CONSTRUIR CONTENIDO DE CADA TAB
+        // --------------------------------------------
+        function buildTabContent(tabName, lec, index) {
+        switch (tabName) {
+            case 'General':
+            return `
+                <div class="form-group">
+                <label>Módulo *</label>
+                <input type="text" id="gen_modulo_${index}" value="${lec.modulo || ''}" required />
+                </div>
+                <div class="form-group">
+                <label>Lección *</label>
+                <input type="text" id="gen_leccion_${index}" value="${lec.leccion || ''}" required />
+                </div>
+                <div class="form-group">
+                <label>Link resumen</label>
+                <input type="text" id="gen_resumen_${index}" value="${lec.resumen_link || ''}" />
+                </div>
+            `;
+
+            case 'Competencias':
+            return buildDynamicList(index, 'competencias', lec.competencias || [], (item) => `
+                <input type="text" value="${item}" class="comp-input" />
+            `);
+
+            case 'Videos':
+            return buildMediaList(index, 'catalogo_videos', lec.catalogo_videos || [], ['titulo', 'link', 'imagen']);
+
+            case 'Simuladores':
+            return buildMediaList(index, 'catalogo_simuladores', lec.catalogo_simuladores || [], ['titulo', 'link', 'imagen']);
+
+            case 'Libros':
+            return buildMediaList(index, 'catalogo_libros', lec.catalogo_libros || [], ['titulo', 'link', 'imagen']);
+
+            case 'Bibliografía':
+            return buildBibliografia(index, lec.bibliografia || []);
+
+            case 'Preguntas':
+            return buildDynamicList(index, 'preguntas_autoevaluacion', lec.preguntas_autoevaluacion || [], (item) => `
+                <input type="text" value="${item}" class="preg-input" />
+            `);
+
+            default:
+            return '';
+        }
+        }
+
+        // Lista dinámica genérica (competencias, preguntas)
+        function buildDynamicList(index, field, items, inputHtml) {
+        const containerId = `dl_${index}_${field}`;
+        let html = `<div class="dynamic-list" id="${containerId}">`;
+        items.forEach((item, i) => {
+            html += `<div class="dynamic-item" data-idx="${i}">
+            ${inputHtml(item)}
+            <button class="btn btn-danger btn-sm btn-icon remove-item" data-field="${field}" data-idx="${i}">✕</button>
+            </div>`;
+        });
+        html += `</div>
+            <button class="btn btn-secondary btn-sm add-item" data-index="${index}" data-field="${field}">➕ Agregar</button>
+        `;
+        return html;
+        }
+
+        // Lista de tarjetas para videos, simuladores, libros
+        function buildMediaList(index, field, items, keys) {
+        const containerId = `ml_${index}_${field}`;
+        let html = `<div id="${containerId}" style="display:flex;flex-direction:column;gap:0.8rem;">`;
+        items.forEach((item, i) => {
+            html += `<div class="media-card" data-idx="${i}">
+            <div class="fields">
+                ${keys.map(k => `
+                <input type="text" placeholder="${k}" value="${item[k] || ''}" class="media-${k}" />
+                `).join('')}
+            </div>
+            <button class="btn btn-danger btn-sm btn-icon remove-media" data-field="${field}" data-idx="${i}">✕</button>
+            </div>`;
+        });
+        html += `</div>
+            <button class="btn btn-secondary btn-sm add-media" data-index="${index}" data-field="${field}">➕ Agregar</button>
+        `;
+        return html;
+        }
+
+        // Bibliografía
+        function buildBibliografia(index, bibliografia) {
+        const containerId = `bib_${index}`;
+        let html = `<div id="${containerId}">`;
+        bibliografia.forEach((tema, ti) => {
+            html += `<div class="tema-group" data-temaidx="${ti}">
+            <div class="tema-header">
+                <strong>Tema ${ti+1}</strong>
+                <button class="btn btn-danger btn-sm remove-tema" data-temaidx="${ti}">✕</button>
+            </div>
+            <div class="form-group">
+                <label>Nombre del tema</label>
+                <input type="text" class="tema-nombre" value="${tema.tema || ''}" />
+            </div>
+            <div style="margin-top:0.5rem;font-weight:500;">Subtemas</div>
+            ${tema.subtemas.map((sub, si) => `
+                <div class="subtema-group" data-subidx="${si}">
+                <div style="display:flex;justify-content:space-between;align-items:center;">
+                    <strong>Subtema ${si+1}</strong>
+                    <button class="btn btn-danger btn-sm remove-subtema" data-temaidx="${ti}" data-subidx="${si}">✕</button>
+                </div>
+                <div class="form-group">
+                    <label>Nombre</label>
+                    <input type="text" class="subtema-nombre" value="${sub.nombre || ''}" />
+                </div>
+                <div style="margin-top:0.3rem;font-size:0.9rem;color:var(--text-secondary);">Referencias</div>
+                ${sub.referencias.map((ref, ri) => `
+                    <div class="referencia-item" data-refidx="${ri}">
+                    <input type="text" placeholder="Libro" value="${ref.libro || ''}" class="ref-libro" />
+                    <input type="text" placeholder="Link" value="${ref.link || ''}" class="ref-link" />
+                    <button class="btn btn-danger btn-sm remove-ref" data-temaidx="${ti}" data-subidx="${si}" data-refidx="${ri}">✕</button>
+                    </div>
+                `).join('')}
+                <button class="btn btn-secondary btn-sm add-ref" data-temaidx="${ti}" data-subidx="${si}">➕ Referencia</button>
+                </div>
+            `).join('')}
+            <button class="btn btn-secondary btn-sm add-subtema" data-temaidx="${ti}">➕ Subtema</button>
+            </div>`;
+        });
+        html += `</div>
+            <button class="btn btn-secondary btn-sm add-tema" data-index="${index}">➕ Tema</button>
+        `;
+        return html;
+        }
+
+        // --------------------------------------------
+        // 15. EVENTOS DINÁMICOS (delegación)
+        // --------------------------------------------
+        // Escuchamos clics en el panel de lecciones
+        document.getElementById('lessonsContainer').addEventListener('click', async (e) => {
+        const target = e.target.closest('button');
+        if (!target) return;
+
+        // Agregar item (competencias, preguntas)
+        if (target.classList.contains('add-item')) {
+            const index = Number(target.dataset.index);
+            syncLesson(index);                         // Guarda lo escrito
+            const field = target.dataset.field;
+            const lec = state.lecciones[index];
+            if (!lec) return;
+            lec[field].push('');                       // ÚNICA inserción
+            // Re-renderizar
+            renderTabsForLesson(index);
+            return;
+        }
+
+        // Remover item (competencias, preguntas)
+        if (target.classList.contains('remove-item')) {
+            const index = Number(target.closest('[data-index]')?.dataset.index || target.dataset.index);
+            syncLesson(index);
+            const field = target.dataset.field;
+            const idx = Number(target.dataset.idx);
+            const lec = state.lecciones[index];
+            if (!lec) return;
+            lec[field].splice(idx, 1);                 // Única eliminación
+            // Re-renderizar
+            renderTabsForLesson(index);
+            return;
+        }
+
+        // Agregar media (videos, simuladores, libros)
+        if (target.classList.contains('add-media')) {
+            const index = Number(target.dataset.index);
+            syncLesson(index);
+            const field = target.dataset.field;
+            const lec = state.lecciones[index];
+            if (!lec) return;
+            lec[field].push({ titulo: '', link: '', imagen: '' }); // Única inserción
+            // Re-renderizar
+            renderTabsForLesson(index);
+            return;
+        }
+
+        // Remover media
+        if (target.classList.contains('remove-media')) {
+            const index = Number(target.closest('[data-index]')?.dataset.index);
+            syncLesson(index);
+            const field = target.dataset.field;
+            const idx = Number(target.dataset.idx);
+            const lec = state.lecciones[index];
+            if (!lec) return;
+            lec[field].splice(idx, 1);                 // Única eliminación
+            // Re-renderizar
+            renderTabsForLesson(index);
+            return;
+        }
+
+        // Bibliografía: agregar tema
+        if (target.classList.contains('add-tema')) {
+            const index = Number(target.dataset.index);
+            syncLesson(index);
+            const lec = state.lecciones[index];
+            if (!lec) return;
+            lec.bibliografia.push({ tema: '', subtemas: [] });
+            // Re-renderizar
+            renderTabsForLesson(index);
+            return;
+        }
+
+        // Bibliografía: agregar subtema
+        if (target.classList.contains('add-subtema')) {
+            const index = Number(target.closest('[data-index]')?.dataset.index);
+            syncLesson(index);
+            const temaIdx = Number(target.dataset.temaidx);
+            const lec = state.lecciones[index];
+            if (!lec) return;
+            lec.bibliografia[temaIdx].subtemas.push({ nombre: '', referencias: [] });
+            // Re-renderizar
+            renderTabsForLesson(index);
+            return;
+        }
+
+        // Bibliografía: agregar referencia
+        if (target.classList.contains('add-ref')) {
+            const index = Number(target.closest('[data-index]')?.dataset.index);
+            syncLesson(index);
+            const temaIdx = Number(target.dataset.temaidx);
+            const subIdx = Number(target.dataset.subidx);
+            const lec = state.lecciones[index];
+            if (!lec) return;
+            lec.bibliografia[temaIdx].subtemas[subIdx].referencias.push({ libro: '', link: '' });
+            // Re-renderizar
+            renderTabsForLesson(index);
+            return;
+        }
+
+        // Bibliografía: remover tema
+        if (target.classList.contains('remove-tema')) {
+            const index = Number(target.closest('[data-index]')?.dataset.index);
+            syncLesson(index);
+            const temaIdx = Number(target.dataset.temaidx);
+            const lec = state.lecciones[index];
+            if (!lec) return;
+            lec.bibliografia.splice(temaIdx, 1);
+            // Re-renderizar
+            renderTabsForLesson(index);
+            return;
+        }
+
+        // Bibliografía: remover subtema
+        if (target.classList.contains('remove-subtema')) {
+            const index = Number(target.closest('[data-index]')?.dataset.index);
+            syncLesson(index);
+            const temaIdx = Number(target.dataset.temaidx);
+            const subIdx = Number(target.dataset.subidx);
+            const lec = state.lecciones[index];
+            if (!lec) return;
+            lec.bibliografia[temaIdx].subtemas.splice(subIdx, 1);
+            // Re-renderizar
+            renderTabsForLesson(index);
+            return;
+        }
+
+        // Bibliografía: remover referencia
+        if (target.classList.contains('remove-ref')) {
+            const index = Number(target.closest('[data-index]')?.dataset.index);
+            syncLesson(index);
+            const temaIdx = Number(target.dataset.temaidx);
+            const subIdx = Number(target.dataset.subidx);
+            const refIdx = Number(target.dataset.refidx);
+            const lec = state.lecciones[index];
+            if (!lec) return;
+            lec.bibliografia[temaIdx].subtemas[subIdx].referencias.splice(refIdx, 1);
+            // Re-renderizar
+            renderTabsForLesson(index);
+            return;
+        }
+        });
+
+        // --------------------------------------------
+        // 16. RECOGER DATOS DE FORMULARIOS (antes de guardar)
+        // --------------------------------------------
+        function collectLessonData(index) {
+        const lec = state.lecciones[index];
+        if (!lec) return null;
+
+        // General
+        lec.modulo = document.getElementById(`gen_modulo_${index}`)?.value.trim() || '';
+        lec.leccion = document.getElementById(`gen_leccion_${index}`)?.value.trim() || '';
+        lec.resumen_link = document.getElementById(`gen_resumen_${index}`)?.value.trim() || '';
+
+        // Competencias
+        const compInputs = document.querySelectorAll(`#dl_${index}_competencias .comp-input`);
+        lec.competencias = Array.from(compInputs).map(inp => inp.value.trim()).filter(v => v);
+
+        // Preguntas
+        const pregInputs = document.querySelectorAll(`#dl_${index}_preguntas_autoevaluacion .preg-input`);
+        lec.preguntas_autoevaluacion = Array.from(pregInputs).map(inp => inp.value.trim()).filter(v => v);
+
+        // Videos, simuladores, libros
+        ['catalogo_videos', 'catalogo_simuladores', 'catalogo_libros'].forEach(field => {
+            const container = document.getElementById(`ml_${index}_${field}`);
+            if (!container) return;
+            const cards = container.querySelectorAll('.media-card');
+            lec[field] = Array.from(cards).map(card => {
+            const titulo = card.querySelector('.media-titulo')?.value.trim() || '';
+            const link = card.querySelector('.media-link')?.value.trim() || '';
+            const imagen = card.querySelector('.media-imagen')?.value.trim() || '';
+            return { titulo, link, imagen };
+            }).filter(item => item.titulo || item.link);
+        });
+
+        // Bibliografía
+        const bibContainer = document.getElementById(`bib_${index}`);
+        if (bibContainer) {
+            const temas = bibContainer.querySelectorAll('.tema-group');
+            lec.bibliografia = Array.from(temas).map(temaEl => {
+            const temaNombre = temaEl.querySelector('.tema-nombre')?.value.trim() || '';
+            const subtemas = temaEl.querySelectorAll('.subtema-group');
+            const subtemasData = Array.from(subtemas).map(subEl => {
+                const subNombre = subEl.querySelector('.subtema-nombre')?.value.trim() || '';
+                const refs = subEl.querySelectorAll('.referencia-item');
+                const referencias = Array.from(refs).map(refEl => {
+                const libro = refEl.querySelector('.ref-libro')?.value.trim() || '';
+                const link = refEl.querySelector('.ref-link')?.value.trim() || '';
+                return { libro, link };
+                }).filter(r => r.libro || r.link);
+                return { nombre: subNombre, referencias };
+            });
+            return { tema: temaNombre, subtemas: subtemasData };
+            }).filter(t => t.tema || t.subtemas.length > 0);
+        }
+
+        return lec;
+        }
+
+        // --------------------------------------------
+        // 17. GUARDAR TODO (asignatura + lecciones)
+        // --------------------------------------------
+        document.getElementById('btnSaveAll').addEventListener('click', async () => {
+        const id = state.currentAsignaturaId;
+        if (!id) return;
+
+        // Recoger datos de asignatura
+        const nombre = document.getElementById('editNombre').value.trim();
+        const escuela = document.getElementById('editEscuela').value.trim();
+        const facultad = document.getElementById('editFacultad').value.trim();
+
+        try {
+            // Validar y guardar asignatura
+            await db.updateAsignatura(id, { nombre, escuela, facultad });
+
+            // Recoger y guardar cada lección
+            for (let i = 0; i < state.lecciones.length; i++) {
+            const lec = collectLessonData(i);
+            if (!lec) continue;
+            lec.asignatura_id = id;
+            try {
+                LeccionSchema.parse(lec);
+            } catch (err) { /* manejar error */ }
+
+            if (lec.id) {
+                await db.updateLeccion(lec.id, lec);
+            } else {
+                const newId = await db.createLeccion(lec);
+                lec.id = newId; // actualizar el objeto en memoria con el nuevo ID
+            }
+            }
+
+            showToast('¡Todos los cambios guardados!');
+            // Recargar datos para refrescar
+            await loadEditData(id);
+        } catch (err) {
+            if (err.errors) {
+            err.errors.forEach(e => showToast(e.message, 'error'));
+            } else {
+            showToast('Error al guardar: ' + err.message, 'error');
+            }
+        }
+        });
+
+        // --------------------------------------------
+        // 18. NUEVA LECCIÓN
+        // --------------------------------------------
+        document.getElementById('btnNewLesson').addEventListener('click', () => {
+        const id = state.currentAsignaturaId;
+        if (!id) return;
+
+        const newLeccion = {
+            // No tiene 'id' aún (se creará al guardar)
+            asignatura_id: id,
+            modulo: 'Nuevo módulo',
+            leccion: 'Nueva lección',
+            resumen_link: '',
+            competencias: [],
+            catalogo_videos: [],
+            catalogo_simuladores: [],
+            catalogo_libros: [],
+            bibliografia: [],
+            preguntas_autoevaluacion: [],
+        };
+
+        state.lecciones.push(newLeccion);
+        renderLessons(state.lecciones);
+
+        // Abrir el último acordeón
+        const containers = document.querySelectorAll('.accordion');
+        containers.forEach(a => a.classList.remove('open'));
+        if (containers.length > 0) {
+            containers[containers.length - 1].classList.add('open');
+            const idx = containers.length - 1;
+            const tabCont = document.getElementById(`tabContainer_${idx}`);
+            if (tabCont) {
+            tabCont.dataset.rendered = '';
+            tabCont.innerHTML = '';
+            renderTabsForLesson(idx);
+            }
+        }
+        showToast('Nueva lección agregada (sin guardar)');
+        });
+
+        // --------------------------------------------
+        // 19. GUARDAR CAMBIOS DE ASIGNATURA (form)
+        // --------------------------------------------
+        document.getElementById('editAsignaturaForm').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const id = state.currentAsignaturaId;
+        if (!id) return;
+        const nombre = document.getElementById('editNombre').value.trim();
+        const escuela = document.getElementById('editEscuela').value.trim();
+        const facultad = document.getElementById('editFacultad').value.trim();
+        try {
+            await db.updateAsignatura(id, { nombre, escuela, facultad });
+            showToast('Asignatura actualizada');
+            await loadEditData(id);
+        } catch (err) {
+            if (err.errors) {
+            err.errors.forEach(e => showToast(e.message, 'error'));
+            } else {
+            showToast('Error: ' + err.message, 'error');
+            }
+        }
+        });
+
+        // --------------------------------------------
+        // 20. Asignaturas creadas
+        // --------------------------------------------
+        async function loadAllAsignaturas() {
+        const container = document.getElementById('allAsignaturasContainer');
+        showSkeleton(container, 4);
+        try {
+            const rows = await db.getAsignaturas();
+            renderAllAsignaturas(rows);
+        } catch (e) {
+            showToast('Error al cargar: ' + e.message, 'error');
+        }
+        }
+
+        function renderAllAsignaturas(rows) {
+        const container = document.getElementById('allAsignaturasContainer');
+        container.innerHTML = '';
+        if (rows.length === 0) {
+            container.innerHTML = '<p style="grid-column:1/-1; text-align:center; color:var(--text-secondary);">No hay asignaturas.</p>';
+            return;
+        }
+        rows.forEach(row => {
+            const card = document.createElement('div');
+            card.className = 'card result-card';
+            card.style.cursor = 'pointer';
+            card.innerHTML = `
+            <div class="title">📘 ${row.nombre}</div>
+            `;
+            // Al hacer clic en la tarjeta, abrimos la edición
+            card.addEventListener('click', () => openEdit(Number(row.id)));
+            container.appendChild(card);
+        });
+        }
+        
+        // --------------------------------------------
+        // 21. SINCRONIZACION DATOS
+        // --------------------------------------------
+        // Función que sincroniza los datos de la lección 'index' desde el DOM al estado
+        function syncLesson(index) {
+            const lec = state.lecciones[index];
+            if (!lec) return;
+            // Recolecta los datos actuales (incluye lo que haya en los inputs)
+            const freshData = collectLessonData(index);
+            if (!freshData) return;
+            // Conservamos el id y asignatura_id
+            Object.assign(lec, freshData);
+        }
+
+        // --------------------------------------------
+        // 22. INICIALIZACIÓN
+        // --------------------------------------------
+
+        async function init() {
+        try {
+            await db.init();
+            // Cargar algunas asignaturas de ejemplo si está vacío
+            const asigs = await db.getAsignaturas();
+            if (asigs.length === 0) {
+            // Insertar datos de ejemplo
+            await db.createAsignatura({ nombre: 'Cálculo III', escuela: 'Ciencias Básicas', facultad: 'Ingeniería' });
+            await db.createAsignatura({ nombre: 'Física Moderna', escuela: 'Ciencias Básicas', facultad: 'Ingeniería' });
+            await db.createAsignatura({ nombre: 'Programación Avanzada', escuela: 'Informática', facultad: 'Ingeniería' });
+            // Después de crear la tabla asignaturas, agrega la columna codigo
+            await client.execute(`
+            ALTER TABLE asignaturas ADD COLUMN codigo TEXT UNIQUE;
+            `).catch(() => {}); // ignora error si ya existe
+            showToast('Datos de ejemplo creados');
+            }
+            showView('home');
+        } catch (e) {
+            showToast('Error de conexión con Turso: ' + e.message, 'error');
+            console.error(e);
+        }
+        }
+
+        init();
+    </script>
+    </body>
+</html>
