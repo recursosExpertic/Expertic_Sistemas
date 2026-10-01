@@ -1096,6 +1096,19 @@
 
             // Cargar lecciones
             const lecciones = await db.getLecciones(asignaturaId);
+            lecciones.forEach(l => {
+                l._original = structuredClone({
+                    modulo: l.modulo,
+                    leccion: l.leccion,
+                    resumen_link: l.resumen_link,
+                    competencias: l.competencias,
+                    catalogo_videos: l.catalogo_videos,
+                    catalogo_simuladores: l.catalogo_simuladores,
+                    catalogo_libros: l.catalogo_libros,
+                    bibliografia: l.bibliografia,
+                    preguntas_autoevaluacion: l.preguntas_autoevaluacion,
+                });
+            });
             state.lecciones = lecciones;
             renderLessons(lecciones);
         } catch (e) {
@@ -1488,102 +1501,169 @@
         // 16. RECOGER DATOS DE FORMULARIOS (antes de guardar)
         // --------------------------------------------
         function collectLessonData(index) {
-        const lec = state.lecciones[index];
-        if (!lec) return null;
+            const lec = state.lecciones[index];
+            if (!lec) return null;
 
-        // General
-        lec.modulo = document.getElementById(`gen_modulo_${index}`)?.value.trim() || '';
-        lec.leccion = document.getElementById(`gen_leccion_${index}`)?.value.trim() || '';
-        lec.resumen_link = document.getElementById(`gen_resumen_${index}`)?.value.trim() || '';
+            const elModulo = document.getElementById(`gen_modulo_${index}`);
+            if (elModulo) lec.modulo = elModulo.value.trim();
 
-        // Competencias
-        const compInputs = document.querySelectorAll(`#dl_${index}_competencias .comp-input`);
-        lec.competencias = Array.from(compInputs).map(inp => inp.value.trim()).filter(v => v);
+            const elLeccion = document.getElementById(`gen_leccion_${index}`);
+            if (elLeccion) lec.leccion = elLeccion.value.trim();
 
-        // Preguntas
-        const pregInputs = document.querySelectorAll(`#dl_${index}_preguntas_autoevaluacion .preg-input`);
-        lec.preguntas_autoevaluacion = Array.from(pregInputs).map(inp => inp.value.trim()).filter(v => v);
+            const elResumen = document.getElementById(`gen_resumen_${index}`);
+            if (elResumen) lec.resumen_link = elResumen.value.trim();
 
-        // Videos, simuladores, libros
-        ['catalogo_videos', 'catalogo_simuladores', 'catalogo_libros'].forEach(field => {
-            const container = document.getElementById(`ml_${index}_${field}`);
-            if (!container) return;
-            const cards = container.querySelectorAll('.media-card');
-            lec[field] = Array.from(cards).map(card => {
-            const titulo = card.querySelector('.media-titulo')?.value.trim() || '';
-            const link = card.querySelector('.media-link')?.value.trim() || '';
-            const imagen = card.querySelector('.media-imagen')?.value.trim() || '';
-            return { titulo, link, imagen };
-            }).filter(item => item.titulo || item.link);
-        });
+            const compInputs = document.querySelectorAll(`#dl_${index}_competencias .comp-input`);
+            if (compInputs.length > 0) {
+                lec.competencias = Array.from(compInputs).map(i => i.value.trim()).filter(v => v);
+            }
 
-        // Bibliografía
-        const bibContainer = document.getElementById(`bib_${index}`);
-        if (bibContainer) {
-            const temas = bibContainer.querySelectorAll('.tema-group');
-            lec.bibliografia = Array.from(temas).map(temaEl => {
-            const temaNombre = temaEl.querySelector('.tema-nombre')?.value.trim() || '';
-            const subtemas = temaEl.querySelectorAll('.subtema-group');
-            const subtemasData = Array.from(subtemas).map(subEl => {
-                const subNombre = subEl.querySelector('.subtema-nombre')?.value.trim() || '';
-                const refs = subEl.querySelectorAll('.referencia-item');
-                const referencias = Array.from(refs).map(refEl => {
-                const libro = refEl.querySelector('.ref-libro')?.value.trim() || '';
-                const link = refEl.querySelector('.ref-link')?.value.trim() || '';
-                return { libro, link };
-                }).filter(r => r.libro || r.link);
-                return { nombre: subNombre, referencias };
+            const pregInputs = document.querySelectorAll(`#dl_${index}_preguntas_autoevaluacion .preg-input`);
+            if (pregInputs.length > 0) {
+                lec.preguntas_autoevaluacion = Array.from(pregInputs).map(i => i.value.trim()).filter(v => v);
+            }
+
+            ['catalogo_videos', 'catalogo_simuladores', 'catalogo_libros'].forEach(field => {
+                const container = document.getElementById(`ml_${index}_${field}`);
+                if (!container) return;
+                const cards = container.querySelectorAll('.media-card');
+                lec[field] = Array.from(cards).map(card => ({
+                    titulo: card.querySelector('.media-titulo')?.value.trim() || '',
+                    link:   card.querySelector('.media-link')?.value.trim()   || '',
+                    imagen: card.querySelector('.media-imagen')?.value.trim() || '',
+                })).filter(it => it.titulo || it.link || it.imagen);
             });
-            return { tema: temaNombre, subtemas: subtemasData };
-            }).filter(t => t.tema || t.subtemas.length > 0);
-        }
 
-        return lec;
-        }
+            const bibContainer = document.getElementById(`bib_${index}`);
+            if (bibContainer) {
+                const temas = bibContainer.querySelectorAll('.tema-group');
+                lec.bibliografia = Array.from(temas).map(temaEl => {
+                    const temaNombre = temaEl.querySelector('.tema-nombre')?.value.trim() || '';
+                    const subtemas = temaEl.querySelectorAll('.subtema-group');
+                    const subtemasData = Array.from(subtemas).map(subEl => {
+                        const subNombre = subEl.querySelector('.subtema-nombre')?.value.trim() || '';
+                        const refs = subEl.querySelectorAll('.referencia-item');
+                        const referencias = Array.from(refs).map(refEl => ({
+                            libro: refEl.querySelector('.ref-libro')?.value.trim() || '',
+                            link:  refEl.querySelector('.ref-link')?.value.trim()  || '',
+                        })).filter(r => r.libro || r.link);
+                        return { nombre: subNombre, referencias };
+                    });
+                    return { tema: temaNombre, subtemas: subtemasData };
+                }).filter(t => t.tema || t.subtemas.length > 0);
+            }
 
+            return lec;
+        }
+        
         // --------------------------------------------
         // 17. GUARDAR TODO (asignatura + lecciones)
         // --------------------------------------------
-        document.getElementById('btnSaveAll').addEventListener('click', async () => {
-        const id = state.currentAsignaturaId;
-        if (!id) return;
 
-        // Recoger datos de asignatura
-        const nombre = document.getElementById('editNombre').value.trim();
-        const escuela = document.getElementById('editEscuela').value.trim();
-        const facultad = document.getElementById('editFacultad').value.trim();
+        // Motor de diff + UPDATE parcial
+        // Columnas persistibles de una lección
+        const LECCION_COLUMNS = [
+            'modulo', 'leccion', 'resumen_link',
+            'competencias', 'catalogo_videos', 'catalogo_simuladores',
+            'catalogo_libros', 'bibliografia', 'preguntas_autoevaluacion'
+        ];
 
-        try {
-            // Validar y guardar asignatura
-            await db.updateAsignatura(id, { nombre, escuela, facultad });
-
-            // Recoger y guardar cada lección
-            for (let i = 0; i < state.lecciones.length; i++) {
-            const lec = collectLessonData(i);
-            if (!lec) continue;
-            lec.asignatura_id = id;
-            try {
-                LeccionSchema.parse(lec);
-            } catch (err) { /* manejar error */ }
-
-            if (lec.id) {
-                await db.updateLeccion(lec.id, lec);
-            } else {
-                const newId = await db.createLeccion(lec);
-                lec.id = newId; // actualizar el objeto en memoria con el nuevo ID
-            }
-            }
-
-            showToast('¡Todos los cambios guardados!');
-            // Recargar datos para refrescar
-            await loadEditData(id);
-        } catch (err) {
-            if (err.errors) {
-            err.errors.forEach(e => showToast(e.message, 'error'));
-            } else {
-            showToast('Error al guardar: ' + err.message, 'error');
-            }
+        function snapshotLeccion(lec) {
+            const s = {};
+            LECCION_COLUMNS.forEach(c => s[c] = structuredClone(lec[c] ?? null));
+            return s;
         }
+
+        function diffColumns(original, current) {
+            return LECCION_COLUMNS.filter(col => {
+                const a = original?.[col];
+                const b = current?.[col];
+                // normaliza null/undefined/'' para comparar
+                const na = a === undefined || a === null ? '' : a;
+                const nb = b === undefined || b === null ? '' : b;
+                return JSON.stringify(na) !== JSON.stringify(nb);
+            });
+        }
+
+        async function updateLeccionPartial(id, lec, dirtyColumns) {
+            if (dirtyColumns.length === 0) return 0;
+            // Los nombres vienen de LECCION_COLUMNS (constante interna) — sin riesgo de inyección.
+            const setSql = dirtyColumns.map(c => `${c} = ?`).join(', ');
+            const args = dirtyColumns.map(c => {
+                const v = lec[c];
+                return Array.isArray(v) ? JSON.stringify(v) : (v ?? '');
+            });
+            await client.execute({
+                sql: `UPDATE lecciones SET ${setSql} WHERE id = ?`,
+                args: [...args, id]
+            });
+            return dirtyColumns.length;
+        }
+
+
+        document.getElementById('btnSaveAll').addEventListener('click', async () => {
+            const id = state.currentAsignaturaId;
+            if (!id) return;
+
+            const btn = document.getElementById('btnSaveAll');
+            const labelOriginal = btn.textContent;
+            btn.disabled = true;
+            btn.textContent = 'Guardando…';
+
+            // Asignatura
+            const nombre   = document.getElementById('editNombre').value.trim();
+            const escuela  = document.getElementById('editEscuela').value.trim();
+            const facultad = document.getElementById('editFacultad').value.trim();
+
+            let creadas = 0, actualizadas = 0, sinCambios = 0;
+
+            try {
+                await db.updateAsignatura(id, { nombre, escuela, facultad });
+
+                for (let i = 0; i < state.lecciones.length; i++) {
+                    const lec = collectLessonData(i);
+                    if (!lec) continue;
+                    lec.asignatura_id = id;
+
+                    // Validación con Zod
+                    try {
+                        LeccionSchema.parse(lec);
+                    } catch (err) {
+                        const msgs = (err.issues || []).map(x => x.message).join(', ');
+                        showToast(`"${lec.leccion}": ${msgs}`, 'error');
+                        continue;
+                    }
+
+                    // Lección nueva → INSERT
+                    if (!lec.id) {
+                        const newId = await db.createLeccion(lec);
+                        lec.id = Number(newId);
+                        lec._original = snapshotLeccion(lec);
+                        creadas++;
+                        continue;
+                    }
+
+                    // Lección existente → solo columnas con cambios
+                    const dirty = diffColumns(lec._original, lec);
+                    if (dirty.length === 0) {
+                        sinCambios++;
+                        continue;
+                    }
+
+                    await updateLeccionPartial(lec.id, lec, dirty);
+                    lec._original = snapshotLeccion(lec);
+                    actualizadas++;
+                    console.log(`Lección ${lec.id}: actualizadas ${dirty.length} columnas →`, dirty);
+                }
+
+                showToast(`Guardado ✓  ${creadas} nuevas · ${actualizadas} actualizadas · ${sinCambios} sin cambios`);
+            } catch (err) {
+                console.error(err);
+                showToast('Error al guardar: ' + err.message, 'error');
+            } finally {
+                btn.disabled = false;
+                btn.textContent = labelOriginal;
+            }
         });
 
         // --------------------------------------------
