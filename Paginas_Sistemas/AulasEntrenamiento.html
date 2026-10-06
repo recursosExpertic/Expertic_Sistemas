@@ -222,7 +222,7 @@
 
     /* ==================== HERO ==================== */
     .ae-page #inicio {
-      background-image: url('https://drive.google.com/thumbnail?id=184mStV9iVGxRHkwAAOSVFmSc9mH422s-&sz=w2000');
+      background-image: url('https://github.com/recursosExpertic/Expertic_Sistemas/blob/main/Dise%C3%B1o_Grafico/Imagenes/Portada%20home.png?raw=true');
       background-size: cover;
       background-position: center center;
       background-repeat: no-repeat;
@@ -315,6 +315,13 @@
       gap: 14px;
       max-width: 380px;
     }
+    .ae-page .hero-buttons-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      max-width: 460px;
+    }
+    .ae-page .hero-buttons-grid .btn { width: 100%; }
     .ae-page .hero-logo {
       margin-top: 10px;
       max-width: 320px;
@@ -359,13 +366,29 @@
         max-width: 100%;
         align-items: center;
       }
+      .ae-page .hero-buttons-grid {
+        max-width: 100%;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+      }
       .ae-page .hero-buttons .btn {
         padding: 14px 20px;
         font-size: 1rem;
         max-width: 360px;
         margin: 0 auto;
       }
+      .ae-page .hero-buttons-grid .btn {
+        padding: 12px 10px;
+        font-size: 0.88rem;
+        max-width: 100%;
+        margin: 0;
+      }
       .ae-page .formula-badge { font-size: 0.75rem; padding: 4px 8px; }
+    }
+    @media (max-width: 480px) {
+      .ae-page .hero-buttons-grid {
+        grid-template-columns: 1fr;
+      }
     }
     @media (max-width: 400px) {
       .ae-page .hero-buttons .btn {
@@ -457,8 +480,206 @@
       }
     }
 
+    /* ==================== PASOS "PILL" (Inscripción a más cursos) ==================== */
+    .ae-page .pill-steps-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 18px;
+      margin-bottom: 56px;
+    }
+    .ae-page .pill-step-card {
+      background: var(--accent-green-light);
+      border-radius: 28px;
+      padding: 56px 18px 24px;
+      position: relative;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+    }
+    .ae-page .pill-step-number {
+      position: absolute;
+      top: -26px; left: 50%;
+      transform: translateX(-50%);
+      width: 56px; height: 56px;
+      border-radius: 50%;
+      background: var(--bg-dark-2);
+      color: #fff;
+      font-family: Garamond, Georgia, serif;
+      font-weight: 700;
+      font-size: 1.35rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .ae-page .pill-step-text {
+      font-size: 0.95rem;
+      color: #2a3a1f;
+      line-height: 1.6;
+      margin: 0;
+      text-align: justify;
+    }
+    .ae-page .pill-step-card .btn {
+      width: auto;
+      padding: 10px 20px;
+      font-size: 0.9rem;
+      margin-top: 4px;
+    }
+    @media (max-width: 1000px) {
+      .ae-page .pill-steps-grid { grid-template-columns: repeat(3, 1fr); }
+    }
+    @media (max-width: 600px) {
+      .ae-page .pill-steps-grid { grid-template-columns: 1fr; gap: 32px; }
+    }
+
     /* ==================== INSTRUCTIVO ==================== */
-    .ae-page #instructivo { background: #ffffff; color: var(--text-dark); }
+    .ae-page #instructivo { background: #ffffff; color: var(--text-dark); padding: 0; }
+    .ae-page .access-hero {
+      position: relative;
+      min-height: 680px;
+      background-image: url('https://github.com/recursosExpertic/Expertic_Sistemas/blob/main/Dise%C3%B1o_Grafico/Imagenes/Portada%20de%20acceso.png?raw=true');
+      background-size: cover;
+      background-position: left center;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      padding: 40px 64px;
+    }
+    .ae-page .access-hero-panel {
+      background: rgba(238, 242, 251, 0.97);
+      backdrop-filter: blur(6px);
+      border-radius: 28px;
+      box-shadow: 0 24px 60px rgba(4, 13, 40, 0.35);
+      padding: 56px 56px;
+      max-width: 520px;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      overflow: hidden;
+    }
+    .ae-page .access-hero-panel::before {
+      content: '';
+      position: absolute;
+      top: -80px; right: -80px;
+      width: 220px; height: 220px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(109, 190, 69, 0.18) 0%, transparent 70%);
+    }
+    .ae-page .access-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: Garamond, Georgia, serif;
+      font-weight: 700;
+      font-size: 0.82rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--card-blue);
+      background: rgba(26, 47, 107, 0.08);
+      padding: 6px 14px;
+      border-radius: 20px;
+      margin-bottom: 18px;
+      width: fit-content;
+    }
+    .ae-page .access-hero-panel h2 {
+      font-size: clamp(1.9rem, 2.6vw, 2.5rem);
+      color: var(--text-dark);
+      margin-bottom: 14px;
+      position: relative;
+    }
+    .ae-page .access-hero-panel p {
+      font-size: 1.05rem;
+      color: #45506e;
+      max-width: 440px;
+      margin-bottom: 36px;
+      position: relative;
+    }
+    .ae-page .platform-select {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+      max-width: 440px;
+      position: relative;
+    }
+    .ae-page .platform-select-card {
+      background: #fff;
+      border: 1px solid rgba(26, 47, 107, 0.08);
+      border-radius: 16px;
+      padding: 10px 24px;
+      box-shadow: 0 6px 18px rgba(18, 34, 67, 0.08);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition);
+    }
+    .ae-page .platform-select-card img {
+      height: 40px;
+      width: auto;
+      max-width: 170px;
+      object-fit: contain;
+    }
+    .ae-page .platform-select-card .goto-arrow {
+      flex-shrink: 0;
+      width: 34px; height: 34px;
+      border-radius: 50%;
+      background: #f2f5fa;
+      color: var(--card-blue);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      transition: background var(--transition), color var(--transition), transform var(--transition);
+    }
+    .ae-page .platform-select-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 14px 30px rgba(18, 34, 67, 0.16);
+      border-color: rgba(109, 190, 69, 0.4);
+    }
+    .ae-page .platform-select-card:hover .goto-arrow {
+      background: var(--accent-green);
+      color: var(--text-dark);
+      transform: translateX(3px);
+    }
+    .ae-page .access-chat {
+      position: relative;
+      margin-top: 32px;
+      max-width: 440px;
+      display: flex;
+      align-items: flex-end;
+      gap: 10px;
+    }
+    .ae-page .access-chat-bubble {
+      background: var(--accent-green-light);
+      border-radius: 16px 16px 16px 2px;
+      padding: 14px 20px;
+      box-shadow: 0 6px 16px rgba(18, 34, 67, 0.08);
+    }
+    .ae-page .access-chat-bubble p { color: #2a3a1f; font-size: 0.9rem; margin: 0 0 12px; max-width: 100%; }
+    .ae-page .access-chat-btns { display: flex; gap: 8px; }
+    .ae-page .access-chat-btns a {
+      padding: 7px 20px;
+      border-radius: 7px;
+      background: var(--bg-dark-2);
+      color: #fff;
+      font-size: 0.85rem;
+      font-weight: 600;
+    }
+    .ae-page .access-chat-btns a:hover { background: #243580; }
+
+    @media (max-width: 900px) {
+      .ae-page .access-hero {
+        min-height: 0;
+        background-position: 30% center;
+        justify-content: center;
+        padding: 32px 20px;
+      }
+      .ae-page .access-hero-panel { padding: 36px 28px; max-width: 100%; }
+      .ae-page .platform-select,
+      .ae-page .access-chat { max-width: 100%; }
+    }
     .ae-page .schools-title {
       font-size: 1.7rem;
       color: var(--text-dark);
@@ -731,6 +952,14 @@
     .ae-page #sobre-nosotros {
       background: linear-gradient(160deg, #060f28 0%, #0d1b4b 100%);
     }
+    .ae-page .sn-banner {
+      display: block;
+      width: 100%;
+      border-radius: 16px;
+      margin-bottom: 36px;
+      overflow: hidden;
+    }
+    .ae-page .sn-banner img { width: 100%; height: auto; display: block; }
     .ae-page .sn-details {
       border: 1px solid var(--border-subtle);
       border-radius: var(--radius);
@@ -1126,9 +1355,10 @@
         </button>
         <ul class="nav-links" id="navLinks">
           <li style="font-size:19px;"><a href="#inicio">Inicio</a></li>
-          <li style="font-size:19px;"><a href="#instructivo">Instructivo</a></li>
-          <li style="font-size:19px;"><a href="#acceso">Acceso</a></li>
-          <li style="font-size:19px;"><a href="#faq">FAQ</a></li>
+          <li style="font-size:19px;"><a href="#instructivo">Quiero empezar</a></li>
+          <li style="font-size:19px;"><a href="#acceso">Inscripción a más cursos</a></li>
+          <li style="font-size:19px;"><a href="#ya-soy-miembro">Ya soy miembro</a></li>
+          <li style="font-size:19px;"><a href="#faq">¿Tienes dudas?</a></li>
           <li style="font-size:19px;"><a href="#sobre-nosotros">Sobre nosotros</a></li>
         </ul>
       </div>
@@ -1148,58 +1378,76 @@
             <p class="hero-eyebrow" style="font-size:20px;">Bienvenido a</p>
             <h1 class="hero-title" style="font-size:42px;">Aulas de<br>Entrenamiento</h1>
             <p class="hero-desc" style="font-size:20px;">Una estrategia de ExperTIC para el fortalecimiento de tus habilidades en diferentes áreas.</p>
-            <div class="hero-buttons">
-              <a href="#acceso" class="btn btn-blue">Ya soy miembro</a>
-              <a href="#instructivo" class="btn btn-green">Quiero empezar</a>
-              <a href="#faq" class="btn btn-outline">FAQ</a>
-              <a href="#CentroAtencion" style="display:inline-block;">
-                <img src="https://drive.google.com/thumbnail?id=1WFTiE5QKfVq_WCV1jOnJ_3S-hf5yNkZv&sz=w1000" alt="Logo Aulas de Asistencia/Ayuda" class="hero-logo">
-              </a>
+            <div class="hero-buttons-grid">
+              <a href="#ya-soy-miembro" class="btn btn-green">Ya soy miembro</a>
+              <a href="#acceso" class="btn btn-green">Inscripción a más cursos</a>
+              <a href="#instructivo" class="btn btn-blue">Quiero empezar</a>
+              <a href="#faq" class="btn btn-outline">¿Tienes dudas?</a>
             </div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- ==================== INSTRUCTIVO ==================== -->
-    <section id="instructivo" class="slide section-pad">
-      <div class="ae-container">
-        <h2 class="section-title dark" style="font-size:34px;">Instructivo de acceso a los cursos</h2>
-        <p class="section-subtitle" style="font-size:20px;color:#455075;">Consulte las aulas de entrenamiento disponibles, ingrese a su asignatura y realice la prueba de 14 días. Lea primero toda la información y luego siga las indicaciones.</p>
-        <div class="steps-grid">
-          <div class="step-card">
-            <span class="step-number">1</span>
-            <p class="step-text" style="font-size:20px;"><span class="step-emoji">📖</span>Lea el instructivo para conocer los talleres y el registro. Regístrese <strong>solo después</strong> y con su correo institucional.</p>
-            <a href="https://docs.google.com/presentation/d/e/2PACX-1vR32p7p61LixIdqQDj7pfGf1KZqf4FX0ITIjfRdTVPwZHD04JO2ACshWME8ZcwrlBFAO3C_Yvft5EgX/pub?start=true&loop=true&delayms=3000" class="btn btn-green" target="_blank" rel="noopener noreferrer">Ver instructivo</a>
+    <!-- ==================== INSTRUCTIVO (Quiero empezar) ==================== -->
+    <section id="instructivo" class="slide">
+      <div class="access-hero" role="img" aria-label="ExperBOT listo para continuar">
+        <div class="access-hero-panel">
+          <span class="access-eyebrow">🎓 Aulas de entrenamiento</span>
+          <h2>Acceso a las plataformas</h2>
+          <p>Seleccione la plataforma a la que desea ingresar para continuar su proceso de aprendizaje.</p>
+          <div class="platform-select">
+            <a class="platform-select-card" href="https://www.pearsonmylabandmastering.com/" target="_blank" rel="noopener noreferrer">
+              <img src="https://github.com/recursosExpertic/Expertic_Sistemas/blob/main/Dise%C3%B1o_Grafico/Imagenes/Pearson.png?raw=true" alt="Pearson MyLab">
+              <span class="goto-arrow">→</span>
+            </a>
+            <a class="platform-select-card" href="https://accounts.mheducation.com/login?app=connect.mheducation.com" target="_blank" rel="noopener noreferrer">
+              <img src="https://github.com/recursosExpertic/Expertic_Sistemas/blob/main/Dise%C3%B1o_Grafico/Imagenes/connect.png?raw=true" alt="McGraw Hill Connect">
+              <span class="goto-arrow">→</span>
+            </a>
           </div>
-          <div class="step-card">
-            <span class="step-number">2</span>
-            <p class="step-text" style="font-size:20px;"><span class="step-emoji">🔍</span>Busque su escuela, luego la asignatura que desea y haga clic en el botón del enlace al curso.</p>
-          </div>
-          <div class="step-card">
-            <span class="step-number">3</span>
-            <p class="step-text" style="font-size:20px;"><span class="step-emoji">🔑</span>Si la plataforma le solicita un <strong>PIN</strong>, utilice el que aparece en la sección de información del instructivo.</p>
-          </div>
-          <div class="step-card">
-            <span class="step-number">4</span>
-            <p class="step-text" style="font-size:20px;"><span class="step-emoji">📋</span>Al terminar los 14 días de prueba, llene el formulario de pines para continuar usando la plataforma durante el semestre.</p>
-            <a href="https://docs.google.com/forms/d/e/1FAIpQLSfTzvYDwVwN6Z12rPKzLZ77D_bgYXmZbihMo64Gxx4jepEViA/viewform?pli=1" class="btn btn-green" target="_blank" rel="noopener noreferrer">Formulario</a>
-          </div>
-          <div class="step-card">
-            <span class="step-number">5</span>
-            <p class="step-text" style="font-size:20px;"><span class="step-emoji">📅</span>Revise los temarios y agendas para conocer cuándo se activan los talleres y los contenidos.</p>
-          </div>
-          <div class="step-card">
-            <span class="step-number">6</span>
-            <p class="step-text" style="font-size:20px;"><span class="step-emoji">🎯</span>Cada lección incluye tres niveles: básico, medio y avanzado, con dos formas de avanzar: paso a paso o comenzando por el nivel alto.</p>
+          <div class="access-chat">
+            <div class="access-chat-bubble">
+              <p>¿Te gustaría matricular un nuevo curso?</p>
+              <div class="access-chat-btns">
+                <a href="#acceso">Sí</a>
+                <a href="#faq">No</a>
+              </div>
+            </div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- ==================== ACCESO ==================== -->
+    <!-- ==================== ACCESO (Inscripción a más cursos) ==================== -->
     <section id="acceso" class="slide section-pad">
       <div class="ae-container">
+        <h2 class="section-title dark" style="font-size:34px;">Pasos para matricular un nuevo curso en Connect</h2>
+        <p class="section-subtitle" style="font-size:20px;color:#455075;">Consulte las aulas de entrenamiento disponibles, ingrese a su asignatura y realice la prueba de 14 días. Lea primero toda la información y luego siga las indicaciones.</p>
+        <div class="pill-steps-grid">
+          <div class="pill-step-card">
+            <span class="pill-step-number">01</span>
+            <p class="pill-step-text"><span class="step-emoji">🔍</span>Busque su escuela, luego la asignatura que desea y finalmente haga clic en el botón del enlace al curso. Así podrá ingresar al espacio correspondiente.</p>
+          </div>
+          <div class="pill-step-card">
+            <span class="pill-step-number">02</span>
+            <p class="pill-step-text"><span class="step-emoji">🔑</span>Tras los 14 días de prueba, complete el formulario de pines para continuar usando la plataforma durante el semestre (uno por cada curso).</p>
+            <a href="https://docs.google.com/forms/d/e/1FAIpQLSfTzvYDwVwN6Z12rPKzLZ77D_bgYXmZbihMo64Gxx4jepEViA/viewform?pli=1" class="btn btn-green" target="_blank" rel="noopener noreferrer">Formulario</a>
+          </div>
+          <div class="pill-step-card">
+            <span class="pill-step-number">03</span>
+            <p class="pill-step-text"><span class="step-emoji">📋</span>Revise los temarios y agendas para conocer cuándo se activan los talleres y los contenidos. Consulte esta información antes de comenzar las actividades de cada curso.</p>
+          </div>
+          <div class="pill-step-card">
+            <span class="pill-step-number">04</span>
+            <p class="pill-step-text"><span class="step-emoji">📅</span>Busque su escuela, luego la asignatura que desea y finalmente haga clic en el botón del enlace al curso. Así podrá acceder directamente a la asignatura seleccionada.</p>
+          </div>
+          <div class="pill-step-card">
+            <span class="pill-step-number">05</span>
+            <p class="pill-step-text"><span class="step-emoji">🎯</span>Cada lección cuenta con tres niveles y dos rutas de aprendizaje: progresiva o comenzando por el nivel avanzado. Seleccione la ruta que prefiera.</p>
+          </div>
+        </div>
+
         <h2 class="section-title dark" style="font-size:34px;">Acceso a los cursos</h2>
         <p class="section-subtitle" style="font-size:20px;color:#455075; margin-bottom:40px;">Una vez inscrito en los cursos, puede ingresar a través del siguiente botón, recuerde que debe ingresar su usuario (correo electrónico institucional) y contraseña.</p>
         <a href="https://accounts.mheducation.com/login?app=connect.mheducation.com" class="btn btn-green btn-acceso" target="_blank" rel="noopener noreferrer">Ingresar a los cursos</a>
@@ -1211,6 +1459,14 @@
           <div id="tabla-bio"></div>
           <div id="tabla-qui"></div>
         </div>
+      </div>
+    </section>
+
+    <!-- ==================== YA SOY MIEMBRO ==================== -->
+    <section id="ya-soy-miembro" class="slide section-pad">
+      <div class="ae-container">
+        <h2 class="section-title dark" style="font-size:34px;">Ya soy miembro</h2>
+        <p class="section-subtitle" style="font-size:20px;color:#455075; margin-bottom:40px;">Esta sección está en construcción. Pronto encontrarás aquí el acceso directo para quienes ya están inscritos en sus cursos.</p>
       </div>
     </section>
 
@@ -1258,6 +1514,9 @@
     <!-- ==================== SOBRE NOSOTROS ==================== -->
     <section id="sobre-nosotros" class="slide section-pad">
       <div class="ae-container">
+        <div class="sn-banner">
+          <img src="https://github.com/recursosExpertic/Expertic_Sistemas/blob/main/Dise%C3%B1o_Grafico/Imagenes/Banner%20sobre%20nosotros.png?raw=true" alt="Banner Sobre nosotros">
+        </div>
         <h2 class="section-title" style="font-size:34px;">Sobre nosotros</h2>
         <p class="section-subtitle" style="font-size:20px;color:rgba(232,234,246,0.6);">Conoce ExperTIC, la estrategia académica de la Universidad Industrial de Santander.</p>
 
