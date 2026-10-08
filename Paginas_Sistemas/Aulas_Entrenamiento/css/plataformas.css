@@ -1,0 +1,143 @@
+/* ==================== QUIERO EMPEZAR / YA SOY MIEMBRO ====================
+   Misma plantilla para las dos secciones: imagen completa (sin recortes) y el panel
+   "Acceso a las plataformas" encima, a la derecha. En pantallas pequeñas el panel pasa debajo. */
+.ae-page .access-hero {
+  position: relative;
+  background: #011b66;
+  color: var(--text-dark);
+}
+.ae-page .access-hero-img { width: 100%; height: auto; }
+
+.ae-page .access-hero-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 2.5% 5%;
+}
+.ae-page .access-hero-panel {
+  background: rgba(238, 242, 251, 0.97);
+  backdrop-filter: blur(6px);
+  border-radius: 24px;
+  box-shadow: 0 24px 60px rgba(4, 13, 40, 0.35);
+  padding: clamp(24px, 3vw, 44px);
+  max-width: 460px;
+  width: 40%;
+  min-width: 360px;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+}
+.ae-page .access-hero-panel::before {
+  content: '';
+  position: absolute;
+  top: -80px; right: -80px;
+  width: 220px; height: 220px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(109, 190, 69, 0.18) 0%, transparent 70%);
+}
+.ae-page .access-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-titulos);
+  font-weight: 700;
+  font-size: 0.78rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--card-blue);
+  background: rgba(26, 47, 107, 0.08);
+  padding: 5px 14px;
+  border-radius: 20px;
+  margin-bottom: 14px;
+  width: fit-content;
+}
+.ae-page .access-hero-panel h2 {
+  font-size: clamp(1.6rem, 2.3vw, 2.2rem);
+  color: var(--text-dark);
+  margin-bottom: 10px;
+  position: relative;
+}
+.ae-page .access-hero-panel p {
+  font-size: 0.95rem;
+  color: #45506e;
+  margin: 0 0 22px;
+  position: relative;
+}
+.ae-page .platform-select {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  position: relative;
+}
+.ae-page .platform-select-card {
+  background: #fff;
+  border: 1px solid rgba(26, 47, 107, 0.08);
+  border-radius: 16px;
+  padding: 10px 20px;
+  box-shadow: 0 6px 18px rgba(18, 34, 67, 0.08);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition);
+}
+.ae-page .platform-select-card img {
+  height: 36px;
+  width: auto;
+  max-width: 170px;
+  object-fit: contain;
+}
+.ae-page .platform-select-card .goto-arrow {
+  flex-shrink: 0;
+  width: 34px; height: 34px;
+  border-radius: 50%;
+  background: #f2f5fa;
+  color: var(--card-blue);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+  transition: background var(--transition), color var(--transition), transform var(--transition);
+}
+.ae-page .platform-select-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 14px 30px rgba(18, 34, 67, 0.16);
+  border-color: rgba(109, 190, 69, 0.4);
+}
+.ae-page .platform-select-card:hover .goto-arrow {
+  background: var(--accent-green);
+  color: var(--text-dark);
+  transform: translateX(3px);
+}
+.ae-page .access-chat { position: relative; margin-top: 24px; }
+.ae-page .access-chat-bubble {
+  display: inline-block;
+  background: var(--accent-green-light);
+  border-radius: 16px 16px 16px 2px;
+  padding: 12px 18px;
+  box-shadow: 0 6px 16px rgba(18, 34, 67, 0.08);
+}
+.ae-page .access-hero-panel .access-chat-bubble p { color: #2a3a1f; font-size: 0.88rem; margin: 0 0 10px; }
+.ae-page .access-chat-btns { display: flex; gap: 8px; }
+.ae-page .access-chat-btns a {
+  padding: 6px 20px;
+  border-radius: 7px;
+  background: var(--bg-dark-2);
+  color: #fff;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+.ae-page .access-chat-btns a:hover { background: #243580; }
+
+@media (max-width: 980px) {
+  .ae-page .access-hero-overlay {
+    position: static;
+    justify-content: center;
+    padding: 28px 5% 40px;
+    background: var(--bg-dark-2);
+  }
+  .ae-page .access-hero-panel { width: 100%; min-width: 0; max-width: 560px; }
+}
