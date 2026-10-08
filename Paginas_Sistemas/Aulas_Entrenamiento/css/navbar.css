@@ -1,0 +1,136 @@
+/* ==================== NAVBAR ==================== */
+.ae-page #navbar {
+  position: sticky;
+  top: 0; left: 0; right: 0;
+  z-index: 1000;
+  background: var(--bg-dark-2);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  box-shadow: 0 2px 20px rgba(0, 0, 0, 0.4);
+}
+.ae-page .nav-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 76px;
+  width: 92%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+.ae-page .nav-logo { display: flex; align-items: center; }
+.ae-page .nav-logo img { height: 48px; width: auto; object-fit: contain; }
+
+.ae-page .nav-links {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  height: 100%;
+}
+.ae-page .nav-links li { position: relative; z-index: 1; }
+.ae-page .nav-links a {
+  display: block;
+  font-family: var(--font-titulos);
+  font-weight: 500;
+  font-size: 1.1rem;
+  color: var(--text-white);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  padding: 6px 16px;
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.04);
+  transition: background var(--transition);
+}
+.ae-page .nav-links a:hover { background: rgba(255, 255, 255, 0.1); }
+.ae-page .nav-links a[aria-current="page"] { background: transparent; }
+
+/* ---- Recuadro verde oscuro que se desliza al ítem activo (escritorio) ---- */
+.ae-page .nav-indicator {
+  position: absolute;
+  left: 0; top: 0;
+  height: 100%; width: 0;
+  background: #1f3d3a;
+  border-radius: 10px;
+  pointer-events: none;
+}
+.ae-page .nav-indicator.is-ready {
+  transition: transform 0.65s cubic-bezier(0.77, 0, 0.18, 1),
+              width 0.65s cubic-bezier(0.77, 0, 0.18, 1);
+}
+
+/* ---- Botón hamburguesa (solo en pantallas pequeñas) ---- */
+.ae-page .nav-toggle {
+  display: none;
+  width: 46px; height: 46px;
+  padding: 0;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  flex-shrink: 0;
+  background: transparent;
+  border-radius: 8px;
+}
+.ae-page .nav-toggle:hover { background: rgba(255, 255, 255, 0.1); }
+.ae-page .nav-toggle:focus-visible,
+.ae-page .nav-links a:focus-visible {
+  outline: 2px solid var(--accent-green);
+  outline-offset: 2px;
+}
+.ae-page .nav-toggle-bar {
+  display: block;
+  width: 26px; height: 3px;
+  border-radius: 3px;
+  background: var(--text-white);
+  transition: transform 0.3s ease, opacity 0.2s ease;
+}
+.ae-page .nav-toggle[aria-expanded="true"] .nav-toggle-bar:nth-child(1) { transform: translateY(9px) rotate(45deg); }
+.ae-page .nav-toggle[aria-expanded="true"] .nav-toggle-bar:nth-child(2) { opacity: 0; }
+.ae-page .nav-toggle[aria-expanded="true"] .nav-toggle-bar:nth-child(3) { transform: translateY(-9px) rotate(-45deg); }
+
+@media (max-width: 900px) {
+  /* Sin JavaScript el menú queda oculto */
+  .ae-page .nav-links { display: none; }
+  .ae-page .nav-indicator { display: none; }
+
+  /* Con JavaScript: hamburguesa + panel desplegable */
+  .ae-page.is-slider .nav-toggle { display: inline-flex; }
+  .ae-page.is-slider .nav-logo img { height: 42px; }
+  .ae-page.is-slider .nav-links {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 2px;
+    height: auto;
+    position: absolute;
+    top: 100%; left: 0; right: 0;
+    padding: 10px 4% 18px;
+    background: var(--bg-dark-2);
+    border-top: 1px solid var(--border-subtle);
+    box-shadow: 0 22px 30px rgba(0, 0, 0, 0.45);
+    opacity: 0;
+    transform: translateY(-10px);
+    visibility: hidden;
+    pointer-events: none;
+    transition: opacity 0.25s ease, transform 0.25s ease, visibility 0s linear 0.25s;
+  }
+  .ae-page.is-slider .nav-links.is-open {
+    opacity: 1;
+    transform: none;
+    visibility: visible;
+    pointer-events: auto;
+    transition-delay: 0s;
+  }
+  .ae-page.is-slider .nav-links a {
+    padding: 14px 16px;
+    font-size: 1.2rem;
+    border-radius: 8px;
+    background: transparent;
+    border-left: 3px solid transparent;
+  }
+  .ae-page.is-slider .nav-links a[aria-current="page"] {
+    background: #1f3d3a;
+    border-left-color: var(--accent-green);
+  }
+}
