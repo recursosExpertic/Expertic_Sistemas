@@ -1,0 +1,150 @@
+/* ==================== DUDAS: Centro de Atención + Preguntas frecuentes ==================== */
+.ae-page #dudas { background: var(--bg-dark-2); }
+.ae-page #dudas .section-title { color: var(--text-white); }
+.ae-page #dudas .section-subtitle { color: rgba(232, 234, 246, 0.65); }
+.ae-page #dudas .faq-title { margin-top: 64px; }
+
+/* ---- Acordeón oscuro del Centro de Atención ---- */
+.ae-page .sn-details {
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius);
+  overflow: hidden;
+  margin-bottom: 14px;
+}
+.ae-page .sn-details summary {
+  padding: 16px 22px;
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--text-white);
+  font-size: 1.15rem;
+}
+.ae-page .sn-details summary:hover { background: rgba(255, 255, 255, 0.09); }
+.ae-page .sn-details[open] summary {
+  background: rgba(109, 190, 69, 0.1);
+  color: var(--accent-green);
+}
+.ae-page .sn-details .details-body {
+  background: rgba(255, 255, 255, 0.02);
+  padding: 24px;
+  color: rgba(232, 234, 246, 0.82);
+}
+
+/* Resaltado temporal del acordeón al que se navega (#CentroAtencion) */
+.ae-page .sn-details.summary-highlight summary {
+  animation: resaltarSummary 2.2s ease-out forwards;
+}
+@keyframes resaltarSummary {
+  0%, 30% {
+    background: var(--accent-green);
+    color: var(--text-dark);
+    box-shadow: 0 0 0 4px rgba(109, 190, 69, 0.35);
+  }
+  100% {
+    background: rgba(109, 190, 69, 0.1);
+    color: var(--accent-green);
+    box-shadow: 0 0 0 0 transparent;
+  }
+}
+
+/* ---- Tarjetas del Centro de Atención ---- */
+.ae-page .help-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+}
+.ae-page .help-card {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  padding: 24px 28px;
+  text-align: center;
+}
+.ae-page .help-icon {
+  font-size: 2.2rem;
+  margin-bottom: 12px;
+  display: block;
+}
+.ae-page .help-card h3 {
+  font-size: 1.4rem;
+  color: var(--text-white);
+  margin: 0 0 10px;
+}
+.ae-page .help-card p {
+  font-size: 1.05rem;
+  color: rgba(232, 234, 246, 0.7);
+  margin: 0 0 12px;
+}
+.ae-page .help-card .help-left { text-align: left; }
+.ae-page .help-card ul { color: rgba(232, 234, 246, 0.7); font-size: 1.05rem; margin: 0; }
+.ae-page .help-mail { color: #7acc4f; word-break: break-word; }
+
+/* ---- Preguntas frecuentes ---- */
+.ae-page .faq-details {
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius);
+  overflow: hidden;
+  margin-bottom: 10px;
+}
+.ae-page .faq-details summary {
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--text-white);
+  font-size: 1.15rem;
+}
+.ae-page .faq-details summary:hover { background: rgba(255, 255, 255, 0.09); }
+.ae-page .faq-details[open] summary {
+  background: rgba(109, 190, 69, 0.12);
+  color: var(--accent-green);
+}
+.ae-page .faq-details .details-body {
+  background: rgba(255, 255, 255, 0.02);
+  color: rgba(232, 234, 246, 0.82);
+  font-size: 1rem;
+}
+
+/* ---- Zona de reportes ---- */
+.ae-page .faq-report-zone {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-top: 28px;
+  padding: 18px 24px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius);
+}
+.ae-page .faq-report-zone p {
+  margin: 0;
+  font-size: 0.95rem;
+  color: rgba(232, 234, 246, 0.65);
+  font-family: var(--font-titulos);
+}
+.ae-page .faq-report-btns { display: flex; flex-wrap: wrap; gap: 10px; }
+.ae-page .btn-report {
+  padding: 9px 18px;
+  border-radius: 8px;
+  font-family: var(--font-titulos);
+  font-weight: 600;
+  font-size: 0.95rem;
+  transition: background var(--transition), transform var(--transition);
+  display: inline-block;
+}
+.ae-page .btn-report:hover { transform: translateY(-1px); }
+.ae-page .btn-report-outline {
+  color: var(--text-white);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+}
+.ae-page .btn-report-outline:hover { background: rgba(255, 255, 255, 0.07); }
+.ae-page .btn-report-primary {
+  background: var(--card-blue);
+  color: var(--text-white);
+  border: 1px solid rgba(109, 190, 69, 0.35);
+}
+.ae-page .btn-report-primary:hover { background: #243580; }
+
+@media (max-width: 768px) {
+  .ae-page .help-grid { grid-template-columns: 1fr; }
+}
+@media (max-width: 600px) {
+  .ae-page .faq-report-zone { flex-direction: column; align-items: flex-start; }
+}
