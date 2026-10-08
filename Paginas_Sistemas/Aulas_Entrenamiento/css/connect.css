@@ -1,0 +1,286 @@
+/* ==================== CONNECT: pasos, acceso a los cursos y escuelas ====================
+   Se usa en las subpáginas #connect (Quiero empezar), #connect-miembro (Ya soy miembro)
+   y #pearson (plantilla vacía por ahora). */
+
+/* ==================== PASOS "PILL" (pasos de Connect) ==================== */
+.ae-page .pill-steps-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 18px;
+  margin-bottom: 56px;
+}
+.ae-page .pill-step-card {
+  background: var(--accent-green-light);
+  border-radius: 28px;
+  padding: 56px 18px 24px;
+  position: relative;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+.ae-page .pill-step-number {
+  position: absolute;
+  top: -26px; left: 50%;
+  transform: translateX(-50%);
+  width: 56px; height: 56px;
+  border-radius: 50%;
+  background: var(--bg-dark-2);
+  color: #fff;
+  font-family: var(--font-titulos);
+  font-weight: 700;
+  font-size: 1.35rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.ae-page .pill-step-text {
+  font-size: 0.95rem;
+  color: #2a3a1f;
+  line-height: 1.6;
+  margin: 0;
+  text-align: justify;
+}
+.ae-page .step-emoji {
+  font-size: 1.2rem;
+  margin-right: 5px;
+  vertical-align: middle;
+}
+.ae-page .pill-step-card .btn {
+  width: auto;
+  padding: 10px 20px;
+  font-size: 0.9rem;
+  margin-top: 4px;
+}
+@media (max-width: 1000px) {
+  .ae-page .pill-steps-grid { grid-template-columns: repeat(3, 1fr); }
+}
+@media (max-width: 600px) {
+  .ae-page .pill-steps-grid { grid-template-columns: 1fr; gap: 32px; }
+}
+
+.ae-page .schools-title {
+  font-size: 1.7rem;
+  color: var(--text-dark);
+  margin-bottom: 20px;
+  padding-bottom: 12px;
+  border-bottom: 2px dashed #c5cae9;
+}
+
+/* Pearson: espacio reservado hasta tener la información */
+.ae-page .pearson-vacio {
+  min-height: 260px;
+  border: 2px dashed #c5cae9;
+  border-radius: 16px;
+}
+
+/* ==================== TABLAS DE CURSOS ==================== */
+.ae-page .course-table-wrap {
+  overflow-x: auto;
+  border-radius: var(--radius);
+}
+.ae-page .course-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.875rem;
+  min-width: 640px;
+}
+.ae-page .course-table thead tr {
+  background: var(--card-blue);
+  color: #fff;
+  text-align: left;
+}
+.ae-page .course-table th {
+  padding: 10px 14px;
+  font-family: var(--font-titulos);
+  font-weight: 600;
+  font-size: 0.8rem;
+  white-space: nowrap;
+}
+.ae-page .course-table tbody tr { border-bottom: 1px solid #e5e7f0; }
+.ae-page .course-table tbody tr:last-child { border-bottom: none; }
+.ae-page .course-table tbody tr:hover { background: #f0f4ff; }
+.ae-page .course-table td {
+  padding: 10px 14px;
+  color: #2a3050;
+  vertical-align: middle;
+}
+.ae-page .platform-badge {
+  display: inline-block;
+  padding: 2px 9px;
+  border-radius: 20px;
+  font-size: 0.73rem;
+  font-weight: 700;
+  font-family: var(--font-titulos);
+  white-space: nowrap;
+}
+.ae-page .platform-connect { background: #dce9ff; color: #1a2f6b; }
+.ae-page .platform-aleks   { background: #fff4dc; color: #7a4a00; }
+
+.ae-page .pin-badge {
+  cursor: pointer;
+  touch-action: manipulation;
+  user-select: none;
+  display: inline-block;
+  padding: 8px 14px;
+  font-size: 0.9rem;
+  border-radius: 8px;
+  background: #eef2f0;
+  transition: background 0.2s, transform 0.1s;
+  -webkit-tap-highlight-color: transparent;
+}
+.ae-page .pin-badge:active {
+  transform: scale(0.96);
+  background: #c2e0a7;
+}
+
+.ae-page .icon-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  color: var(--card-blue);
+  font-size: 0.78rem;
+  text-decoration: none;
+  padding: 3px 9px;
+  border-radius: 5px;
+  border: 1px solid #c5cae9;
+  margin: 2px 2px 2px 0;
+  white-space: nowrap;
+}
+.ae-page .icon-link:hover { background: #eef2ff; }
+
+.ae-page .btn-course {
+  display: inline-block;
+  padding: 6px 14px;
+  background: var(--accent-green);
+  color: #1a2340;
+  border-radius: 6px;
+  font-family: var(--font-titulos);
+  font-weight: 700;
+  font-size: 0.78rem;
+  white-space: nowrap;
+}
+.ae-page .btn-course:hover { background: #7acc4f; }
+.ae-page .no-pin { color: #aaa; font-size: 0.82rem; }
+
+/* ==================== TABLAS POR COLOR ==================== */
+.ae-page .table-e3t thead tr { background: #c5acf6; color: #2a1a4b; }
+.ae-page .table-e3t tbody tr { background: #ede9f6; }
+.ae-page .table-e3t tbody tr:hover { background: #ddd4f0; }
+.ae-page .table-e3t td { color: #2a1a4b; }
+
+.ae-page .table-fisica thead tr { background: #97bef1; color: #1a2a4b; }
+.ae-page .table-fisica tbody tr { background: #e9f0f6; }
+.ae-page .table-fisica tbody tr:hover { background: #d4e4f2; }
+.ae-page .table-fisica td { color: #1a2a4b; }
+
+.ae-page .table-quimica thead tr { background: #f19f97; color: #4b1a18; }
+.ae-page .table-quimica tbody tr { background: #f6ebe9; }
+.ae-page .table-quimica tbody tr:hover { background: #edd8d5; }
+.ae-page .table-quimica td { color: #4b1a18; }
+
+.ae-page .table-biologia thead tr { background: #b9f197; color: #1a3a0a; }
+.ae-page .table-biologia tbody tr { background: #eff6e9; }
+.ae-page .table-biologia tbody tr:hover { background: #d9eccc; }
+.ae-page .table-biologia td { color: #1a3a0a; }
+
+.ae-page .table-matematicas thead tr { background: #f1e397; color: #3a3a0a; }
+.ae-page .table-matematicas tbody tr { background: #f6f4e9; }
+.ae-page .table-matematicas tbody tr:hover { background: #ece8d4; }
+.ae-page .table-matematicas td { color: #3a3a0a; }
+
+/* ==================== LIBROS DE BIOLOGÍA ==================== */
+.ae-page .libro-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1.5rem;
+  margin: 1rem 0 2rem;
+}
+.ae-page .libro-card {
+  border: 1px solid #e0e0e0;
+  border-radius: 10px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  background: #fff;
+}
+.ae-page .libro-card-img {
+  width: 100%;
+  aspect-ratio: 3 / 4;   /* proporción típica de portada de libro */
+  height: auto;          /* quita el height fijo */
+  object-fit: cover;
+}
+.ae-page .libro-card-img-placeholder {
+  width: 100%;
+  height: 180px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f5f5f5;
+  color: #aaa;
+  font-size: 14px;
+}
+.ae-page .libro-card-body {
+  padding: 1rem;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.ae-page .libro-titulo { font-size: 15px; font-weight: 600; margin: 0 0 6px; }
+.ae-page .libro-meta {
+  font-size: 13px;
+  color: #555;
+  margin: 0;
+  display: flex;
+  gap: 6px;
+}
+.ae-page .libro-meta-label { color: #999; min-width: 62px; }
+.ae-page .libro-card-footer {
+  padding: 0.75rem 1rem;
+  border-top: 1px solid #f0f0f0;
+}
+.ae-page .lecciones-section { margin-top: 1.5rem; }
+.ae-page .lecciones-wrap { overflow-x: auto; }
+.ae-page .lecciones-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+.ae-page .lecciones-table th,
+.ae-page .lecciones-table td {
+  text-align: left;
+  padding: 8px 10px;
+  border-bottom: 1px solid #f0f0f0;
+}
+.ae-page .lecciones-table th {
+  font-weight: 600;
+  color: #555;
+  white-space: nowrap;
+}
+.ae-page .leccion-link { color: #1a73e8; text-decoration: none; }
+.ae-page .leccion-link:hover { text-decoration: underline; }
+.ae-page .no-link { color: #bbb; }
+
+.ae-page [data-escuela="bio"] .libro-card {
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-card);
+}
+
+.ae-page .lecciones-table td:not(:first-child) {
+  text-align: center;
+  vertical-align: middle;
+}
+.ae-page .lecciones-table td .leccion-link {
+  display: inline-block;
+  padding: 4px 12px;
+  background: #eef2f0;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  transition: background 0.2s;
+}
+.ae-page .lecciones-table td .leccion-link:hover {
+  background: #d9eccc;
+  text-decoration: none;
+}
