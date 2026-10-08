@@ -1,0 +1,21 @@
+/* ==================== FOOTER ==================== */
+.ae-page footer {
+  background: #070e28;
+  color: rgba(232, 234, 246, 0.55);
+  padding: 36px 0;
+  text-align: center;
+}
+.ae-page .footer-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+.ae-page .footer-logo {
+  height: 40px;
+  width: auto;
+  object-fit: contain;
+  opacity: 0.85;
+}
+.ae-page .footer-text { font-size: 0.85rem; line-height: 1.6; margin: 0; }
+.ae-page .footer-text a { color: var(--accent-green); }
