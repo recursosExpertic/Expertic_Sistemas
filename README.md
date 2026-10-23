@@ -20,6 +20,11 @@ RecursosExpertic/
 │   ├── Aulas_Entrenamiento
 │   └── Versiones
 ├── Plantillas_Asignaturas/                          # Creacion de plantillas especificas para las asignaturas
-│   └── Calculo3.html
+│   └── Matematicas.html
+│   └── Circuitos.html
+│   └── Fisica.html
+│   └── PensMat.html
+│   └── ProcFis.html
+│   └── ProcQuic.html
 ├── index.html                                       # Panel de navegación principal
 └── README.md                                        # Documentación del proyecto
