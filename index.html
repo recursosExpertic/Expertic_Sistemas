@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Expertic_Sistemas - Panel Dinámico</title>
+  <style>
+    :root {
+      --bg-color: #f8fafc;
+      --card-bg: #ffffff;
+      --text-main: #0f172a;
+      --text-muted: #64748b;
+      --primary: #2563eb;
+      --primary-hover: #1d4ed8;
+      --border: #e2e8f0;
+      --badge-prod-bg: #dcfce7;
+      --badge-prod-text: #166534;
+      --badge-lab-bg: #fef3c7;
+      --badge-lab-text: #92400e;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background-color: var(--bg-color);
+      color: var(--text-main);
+      margin: 0;
+      padding: 2.5rem 1rem;
+      line-height: 1.5;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    header {
+      margin-bottom: 2.5rem;
+      border-bottom: 2px solid var(--border);
+      padding-bottom: 1.5rem;
+    }
+
+    h1 {
+      font-size: 2rem;
+      margin: 0 0 0.5rem 0;
+    }
+
+    p.subtitle {
+      color: var(--text-muted);
+      font-size: 1rem;
+      margin: 0;
+    }
+
+    section {
+      margin-bottom: 2.5rem;
+    }
+
+    h2 {
+      font-size: 1.35rem;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 0.5rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1.25rem;
+    }
+
+    .card {
+      background-color: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1.25rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05);
+    }
+
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 0.75rem;
+    }
+
+    .card-title {
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin: 0;
+      text-transform: capitalize;
+    }
+
+    .badge {
+      font-size: 0.75rem;
+      font-weight: 600;
+      padding: 0.2rem 0.5rem;
+      border-radius: 9999px;
+      text-transform: uppercase;
+    }
+
+    .badge-prod {
+      background-color: var(--badge-prod-bg);
+      color: var(--badge-prod-text);
+    }
+
+    .badge-plantilla {
+      background-color: #e0f2fe;
+      color: #0369a1;
+    }
+    .card-desc {
+      font-size: 0.875rem;
+      color: var(--text-muted);
+      margin: 0 0 1.25rem 0;
+      word-break: break-all;
+    }
+
+    .card-link {
+      display: inline-block;
+      background-color: var(--primary);
+      color: #ffffff;
+      text-decoration: none;
+      padding: 0.5rem 1rem;
+      border-radius: 6px;
+      font-weight: 500;
+      font-size: 0.875rem;
+      text-align: center;
+      transition: background-color 0.2s ease;
+    }
+
+    .card-link:hover {
+      background-color: var(--primary-hover);
+    }
+
+    .loading-text {
+      color: var(--text-muted);
+      font-style: italic;
+    }
+
+    footer {
+      text-align: center;
+      font-size: 0.875rem;
+      color: var(--text-muted);
+      margin-top: 3rem;
+      border-top: 1px solid var(--border);
+      padding-top: 1.5rem;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <header>
+      <h1>🚀 Expertic Sistemas</h1>
+      <p class="subtitle">Panel dinámico generado automáticamente desde el repositorio.</p>
+    </header>
+
+    <main>
+      <section>
+        <h2>📌 Módulos de Producción (páginas web Sistemas)</h2>
+        <div class="grid" id="grid-Paginas_Sistemas">
+          <p class="loading-text">Cargando módulos...</p>
+        </div>
+      </section>
+
+      <section>
+        <h2>📌 Módulos de Producción (páginas web Diseño Grafico)</h2>
+        <div class="grid" id="grid-Paginas_DG">
+          <p class="loading-text">Cargando módulos...</p>
+        </div>
+      </section>
+
+      <section>
+        <h2>📚 Plantillas de Asignaturas</h2>
+        <div class="grid" id="grid-plantillas">
+          <p class="loading-text">Cargando plantillas...</p>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <p>Repositorio: <strong>RecursosExpertic</strong> | Conectado a GitHub API</p>
+    </footer>
+  </div>
+
+  <script>
+    // ⚙️ CONFIGURACIÓN: Reemplaza con tu usuario exacto de GitHub
+    const USER = 'recursosexpertic'; 
+    const REPO = 'Expertic_Sistemas';
+
+    // Función recursiva para obtener todos los HTML de una carpeta y sus subcarpetas
+    async function obtenerArchivosHTML(path) {
+      const url = `https://api.github.com/repos/${USER}/${REPO}/contents/${path}`; // https://recursosexpertic.github.io/Expertic_Sistemas/
+      try {
+        const response = await fetch(url);
+        if (!response.ok) return [];
+        const items = await response.json();
+        
+        let archivos = [];
+        for (const item of items) {
+          if (item.type === 'file' && item.name.endsWith('.html') && item.name !== 'index.html') {
+            archivos.push(item);
+          } else if (item.type === 'dir') {
+            const subArchivos = await obtenerArchivosHTML(item.path);
+            archivos = archivos.concat(subArchivos);
+          }
+        }
+        return archivos;
+      } catch (e) {
+        console.error(`Error escaneando ${path}:`, e);
+        return [];
+      }
+    }
+
+    // Renderizar las tarjetas en la vista
+    async function cargarSeccion(carpeta, containerId, badgeText, badgeClass) {
+      const container = document.getElementById(containerId);
+      const archivos = await obtenerArchivosHTML(carpeta);
+
+      container.innerHTML = ''; // Limpiar mensaje de carga
+
+      if (archivos.length === 0) {
+        container.innerHTML = '<p class="loading-text">No se encontraron archivos .html en esta carpeta.</p>';
+        return;
+      }
+
+      archivos.forEach(file => {
+        // Formatear el nombre visual (ej: "ingreso-asignaturas.html" -> "Ingreso asignaturas")
+        const titulo = file.name.replace('.html', '').replace(/-/g, ' ');
+
+        const card = document.createElement('div');
+        card.className = 'card';
+        card.innerHTML = `
+          <div>
+            <div class="card-header">
+              <h3 class="card-title">${titulo}</h3>
+              <span class="badge ${badgeClass}">${badgeText}</span>
+            </div>
+            <p class="card-desc">Ruta: <code>${file.path}</code></p>
+          </div>
+          <a href="${file.path}" class="card-link">Abrir recurso &rarr;</a>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    // Inicializar la carga con tus carpetas reales
+    document.addEventListener('DOMContentLoaded', () => {
+      // Carga archivos de la carpeta 'paginas'
+      cargarSeccion('Paginas_Sistemas', 'grid-Paginas_Sistemas', 'Módulo', 'badge-prod');
+
+      // Carga archivos de la carpeta 'Plantillas_Asignaturas' (respeta mayúsculas)
+      cargarSeccion('Plantillas_Asignaturas', 'grid-plantillas', 'Plantilla', 'badge-lab');
+      
+      // Carga archivos de la carpeta 'Plantillas_Asignaturas'
+      cargarSeccion('Diseño_Grafico', 'grid-Paginas_DG', 'Plantilla', 'badge-lab');
+    });
+  </script>
+</body>
+</html>

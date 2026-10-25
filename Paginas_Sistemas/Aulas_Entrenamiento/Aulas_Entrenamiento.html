@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aulas de Entrenamiento | ExperTIC UIS</title>
+
+  <!-- Fuentes -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;500;600;700&family=Source+Serif+4:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <!-- Estilos (uno por bloque de la página) -->
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/navbar.css">
+  <link rel="stylesheet" href="css/inicio.css">
+  <link rel="stylesheet" href="css/plataformas.css">
+  <link rel="stylesheet" href="css/connect.css">
+  <link rel="stylesheet" href="css/dudas.css">
+  <link rel="stylesheet" href="css/sobre-nosotros.css">
+  <link rel="stylesheet" href="css/footer.css">
+</head>
+<body>
+  <!--
+    Imágenes: se toman de Diseño_Grafico/Imagenes/Aulas_Entrenamiento/<Sección>/
+    (Inicio, Quiero_Empezar, Ya_Soy_Miembro, Sobre_Nosotros).
+  -->
+  <div class="ae-page">
+    <!-- ==================== NAVBAR ==================== -->
+    <nav id="navbar" aria-label="Navegación principal">
+      <div class="nav-inner">
+        <a class="nav-logo" href="#inicio">
+          <img src="https://drive.google.com/thumbnail?id=1kHj_19duUO52yWLbwa4GnuLcLmvyDPg8&sz=w400" alt="Aulas de Entrenamiento">
+        </a>
+        <button class="nav-toggle" id="navToggle" type="button" aria-label="Abrir menú" aria-expanded="false" aria-controls="navLinks">
+          <span class="nav-toggle-bar"></span>
+          <span class="nav-toggle-bar"></span>
+          <span class="nav-toggle-bar"></span>
+        </button>
+        <ul class="nav-links" id="navLinks">
+          <li><a href="#inicio">Inicio</a></li>
+          <li><a href="#quiero-empezar">Quiero empezar</a></li>
+          <li><a href="#ya-soy-miembro">Ya soy miembro</a></li>
+          <li><a href="#dudas">Dudas</a></li>
+          <li><a href="#sobre-nosotros">Sobre nosotros</a></li>
+        </ul>
+      </div>
+      <span class="nav-indicator" aria-hidden="true"></span>
+    </nav>
+
+    <!-- ==================== DIAPOSITIVAS ==================== -->
+    <div class="slides" id="slides">
+    <div class="slides-track" id="slidesTrack">
+
+    <!-- ==================== INICIO ==================== -->
+    <section id="inicio" class="slide hero">
+      <img class="hero-img" src="../../Diseño_Grafico/Imagenes/Aulas_Entrenamiento/Inicio/Inicio%20Pantallas%20Grandes.png" alt="ExperBOT, la mascota de ExperTIC, señalando el contenido">
+      <div class="hero-overlay">
+        <div class="hero-content">
+          <p class="hero-eyebrow">Bienvenido a</p>
+          <h1 class="hero-title">Aulas de<br>Entrenamiento</h1>
+          <p class="hero-desc">Una estrategia de ExperTIC para el fortalecimiento de tus habilidades en diferentes áreas.</p>
+          <div class="hero-buttons-grid">
+            <a href="#ya-soy-miembro" class="btn btn-green">Ya soy miembro</a>
+            <a href="#connect" class="btn btn-green">Inscripción a más cursos</a>
+            <a href="#quiero-empezar" class="btn btn-blue">Quiero empezar</a>
+            <a href="#dudas" class="btn btn-outline">¿Tienes dudas?</a>
+          </div>
+          <div>
+            <a href="#dudas" style="display:inline-block;">
+              <img href="#dudas" src="../../Diseño_Grafico/Imagenes/Aulas_Entrenamiento/Inicio/Banner informativo 1.png" alt="Centro Atención a Estudiantes" class="hero-help-img" style="width: 100%; max-width: 450px; margin-top: 20px;">
+            </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== QUIERO EMPEZAR ==================== -->
+    <section id="quiero-empezar" class="slide access-hero">
+      <img class="access-hero-img" src="../../Diseño_Grafico/Imagenes/Aulas_Entrenamiento/QuieroEmpezar_YaSoyMiembro/PC.png" alt="ExperBOT preguntando: ¿Listo para continuar?">
+      <div class="access-hero-overlay">
+        <div class="access-hero-panel">
+          <span class="access-eyebrow">🎓 Aulas de entrenamiento</span>
+          <h2>Acceso a las plataformas</h2>
+          <p>Seleccione la plataforma a la que desea ingresar para continuar su proceso de aprendizaje.</p>
+          <div class="platform-select">
+            <a class="platform-select-card" href="#pearson">
+              <img src="../../Diseño_Grafico/Imagenes/Aulas_Entrenamiento/QuieroEmpezar_YaSoyMiembro/Pearson.png" alt="Pearson MyLab">
+              <span class="goto-arrow" aria-hidden="true">→</span>
+            </a>
+            <a class="platform-select-card" href="#connect">
+              <img src="../../Diseño_Grafico/Imagenes/Aulas_Entrenamiento/QuieroEmpezar_YaSoyMiembro/connect.png" alt="McGraw Hill Connect">
+              <span class="goto-arrow" aria-hidden="true">→</span>
+            </a>
+            <a class="platform-select-card" href="#aleks">
+              <img src="../../Diseño_Grafico/Imagenes/Aulas_Entrenamiento/QuieroEmpezar_YaSoyMiembro/aleks.png" alt="McGraw Hill Aleks">
+              <span class="goto-arrow" aria-hidden="true">→</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== CONNECT: PASOS + ACCESO (subpágina de Quiero empezar) ==================== -->
+    <section id="connect" class="slide section-pad section-light" data-sub data-padre="quiero-empezar">
+      <div class="ae-container">
+        <a href="#quiero-empezar" class="btn-volver">← Volver a las plataformas</a>
+
+        <h2 class="section-title dark">Pasos para matricular un nuevo curso en Connect</h2>
+        <p class="section-subtitle">Consulte las aulas de entrenamiento disponibles, ingrese a su asignatura y realice la prueba de 14 días. Lea primero toda la información y luego siga las indicaciones.</p>
+        <div class="pill-steps-grid">
+          <div class="pill-step-card">
+            <span class="pill-step-number">01</span>
+            <p class="pill-step-text"><span class="step-emoji">🔍</span>Busque su escuela, luego la asignatura que desea y finalmente haga clic en el botón del enlace al curso. Así podrá ingresar al espacio correspondiente.</p>
+          </div>
+          <div class="pill-step-card">
+            <span class="pill-step-number">02</span>
+            <p class="pill-step-text"><span class="step-emoji">🔑</span>Tras los 14 días de prueba, complete el formulario de pines para continuar usando la plataforma durante el semestre (uno por cada curso).</p>
+            <a href="https://docs.google.com/forms/d/e/1FAIpQLSfTzvYDwVwN6Z12rPKzLZ77D_bgYXmZbihMo64Gxx4jepEViA/viewform?pli=1" class="btn btn-green" target="_blank" rel="noopener noreferrer">Formulario</a>
+          </div>
+          <div class="pill-step-card">
+            <span class="pill-step-number">03</span>
+            <p class="pill-step-text"><span class="step-emoji">📋</span>Revise los temarios y agendas para conocer cuándo se activan los talleres y los contenidos. Consulte esta información antes de comenzar las actividades de cada curso.</p>
+          </div>
+          <div class="pill-step-card">
+            <span class="pill-step-number">04</span>
+            <p class="pill-step-text"><span class="step-emoji">📅</span>Busque su escuela, luego la asignatura que desea y finalmente haga clic en el botón del enlace al curso. Así podrá acceder directamente a la asignatura seleccionada.</p>
+          </div>
+          <div class="pill-step-card">
+            <span class="pill-step-number">05</span>
+            <p class="pill-step-text"><span class="step-emoji">🎯</span>Cada lección cuenta con tres niveles y dos rutas de aprendizaje: progresiva o comenzando por el nivel avanzado. Seleccione la ruta que prefiera.</p>
+          </div>
+        </div>
+
+        <h2 class="section-title dark">Instructivo Connect</h2>
+        <p class="section-subtitle">Lea el instructivo para conocer los talleres y el registro. Regístrese <strong>solo después</strong> y con su correo institucional.</p>
+        <a href="https://docs.google.com/presentation/d/e/2PACX-1vR32p7p61LixIdqQDj7pfGf1KZqf4FX0ITIjfRdTVPwZHD04JO2ACshWME8ZcwrlBFAO3C_Yvft5EgX/pub?start=true&loop=true&delayms=3000" class="btn btn-green btn-acceso" target="_blank" rel="noopener noreferrer">Ver instructivo</a>
+
+        <h2 class="section-title dark">Acceso a los cursos</h2>
+        <p class="section-subtitle">Una vez inscrito en los cursos, puede ingresar a través del siguiente botón, recuerde que debe ingresar su usuario (correo electrónico institucional) y contraseña.</p>
+        <a href="https://accounts.mheducation.com/login?app=connect.mheducation.com" class="btn btn-green btn-acceso" target="_blank" rel="noopener noreferrer">Ingresar a los cursos</a>
+        <h3 class="schools-title">Escuelas disponibles</h3>
+        <!-- cursos_connect.js llena cada contenedor con data-escuela -->
+        <div class="cursos-container">
+          <div data-escuela="e3t_C"></div>
+          <div data-escuela="mat_C"></div>
+          <div data-escuela="fis_C"></div>
+          <div data-escuela="bio_C"></div>
+          <div data-escuela="qui_C"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== PEARSON (subpágina de Quiero empezar) ==================== -->
+    <section id="pearson" class="slide section-pad section-light" data-sub>
+      <div class="ae-container">
+        <a href="#quiero-empezar" class="btn-volver" data-volver>← Volver a las plataformas</a>
+
+        <h2 class="section-title dark">Acceso a los cursos</h2>
+        <p class="section-subtitle">Una vez inscrito en los cursos, puede ingresar a través del siguiente botón, recuerde que debe ingresar su usuario (correo electrónico institucional) y contraseña.</p>
+        <a href="https://www.pearson.com/en-us/higher-education/products-services/mylab-and-mastering-login.html?srsltid=AU7gw4XdKIdQql04x5C34EALvMeW5Vge655BMvycJlAEUmJBPvNb1A-T" class="btn btn-green btn-acceso" target="_blank" rel="noopener noreferrer">Ingresar a los cursos</a>
+        <h3 class="schools-title">Escuelas disponibles</h3>
+        <!-- cursos_mylabs.js llena cada contenedor con data-escuela -->
+        <div class="cursos-container">
+          <div data-escuela="fis_M"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== ALEKS (subpágina de Quiero empezar) ==================== -->
+    <section id="aleks" class="slide section-pad section-light" data-sub>
+      <div class="ae-container">
+        <a href="#quiero-empezar" class="btn-volver" data-volver>← Volver a las plataformas</a>
+
+        <p class="section-subtitle">ALEKS es una plataforma educativa en línea que funciona como un tutor interactivo adaptable a diversas áreas de conocimiento. Su función principal es evaluar con precisión la base de conocimientos inicial de cada usuario para diseñar una ruta de aprendizaje personalizada e individualizada, lo que permite a cada alumno estudiar a su propio ritmo y alcanzar niveles de dominio superiores al 90%.</p>
+        
+        <h2 class="section-title dark">Instructivo Aleks</h2>
+        <p class="section-subtitle">Lea el instructivo para conocer los talleres y el registro. Regístrese <strong>solo después</strong> y con su correo institucional.</p>
+        <a href="https://docs.google.com/presentation/d/1wqFgiR4H55YqlSFAho3hbgw4SrOLPk5q/edit?slide=id.p1#slide=id.p1" class="btn btn-green btn-acceso" target="_blank" rel="noopener noreferrer">Ver instructivo</a>
+        
+        <h2 class="section-title dark">Acceso a los cursos</h2>
+        <p class="section-subtitle">Una vez inscrito en los cursos, puede ingresar a través del siguiente botón, recuerde que debe ingresar su usuario (correo electrónico institucional) y contraseña.</p>
+        <a href="https://latam.aleks.com/login" class="btn btn-green btn-acceso" target="_blank" rel="noopener noreferrer">Ingresar a los cursos</a>
+        <h3 class="schools-title">Escuelas disponibles</h3>
+        <!-- cursos_aleks.js llena cada contenedor con data-escuela -->
+        <div class="cursos-container">
+          <div data-escuela="mat_A"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== YA SOY MIEMBRO (Rediriige a la pagina web de cada plataforma) ==================== -->
+    <section id="ya-soy-miembro" class="slide access-hero">
+      <img class="access-hero-img" src="../../Diseño_Grafico/Imagenes/Aulas_Entrenamiento/QuieroEmpezar_YaSoyMiembro/PC.png" alt="ExperBOT preguntando: ¿Listo para continuar?">
+      <div class="access-hero-overlay">
+        <div class="access-hero-panel">
+          <span class="access-eyebrow">🎓 Aulas de entrenamiento</span>
+          <h2>Acceso a las plataformas</h2>
+          <p>Seleccione la plataforma a la que desea ingresar para continuar su proceso de aprendizaje.</p>
+          <div class="platform-select">
+            <a class="platform-select-card" href="https://www.pearson.com/en-us/higher-education/products-services/mylab-and-mastering-login.html">
+              <img src="../../Diseño_Grafico/Imagenes/Aulas_Entrenamiento/QuieroEmpezar_YaSoyMiembro/Pearson.png" alt="Pearson MyLab">
+              <span class="goto-arrow" aria-hidden="true">→</span>
+            </a>
+            <a class="platform-select-card" href="https://accounts.mheducation.com/login?app=connect.mheducation.com">
+              <img src="../../Diseño_Grafico/Imagenes/Aulas_Entrenamiento/QuieroEmpezar_YaSoyMiembro/connect.png" alt="McGraw Hill Connect">
+              <span class="goto-arrow" aria-hidden="true">→</span>
+            </a>
+            <a class="platform-select-card" href="https://latam.aleks.com/login">
+              <img src="../../Diseño_Grafico/Imagenes/Aulas_Entrenamiento/QuieroEmpezar_YaSoyMiembro/aleks.png" alt="McGraw Hill Aleks">
+              <span class="goto-arrow" aria-hidden="true">→</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== CONNECT: SOLO ACCESO (subpágina de Ya soy miembro) ==================== -->
+    <section id="connect-miembro" class="slide section-pad section-light" data-sub data-padre="ya-soy-miembro">
+      <div class="ae-container">
+        <a href="#ya-soy-miembro" class="btn-volver">← Volver a las plataformas</a>
+
+        <h2 class="section-title dark">Acceso a los cursos</h2>
+        <p class="section-subtitle">Una vez inscrito en los cursos, puede ingresar a través del siguiente botón, recuerde que debe ingresar su usuario (correo electrónico institucional) y contraseña.</p>
+        <a href="https://accounts.mheducation.com/login?app=connect.mheducation.com" class="btn btn-green btn-acceso" target="_blank" rel="noopener noreferrer">Ingresar a los cursos</a>
+        <h3 class="schools-title">Escuelas disponibles</h3>
+        <div class="cursos-container">
+          <div data-escuela="e3t"></div>
+          <div data-escuela="mat"></div>
+          <div data-escuela="fis"></div>
+          <div data-escuela="bio"></div>
+          <div data-escuela="qui"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== PEARSON (subpágina de Ya soy miembro) ==================== -->
+    <section id="pearson-miembro" class="slide section-pad section-light" data-sub>
+      <div class="ae-container">
+        <a href="#ya-soy-miembro" class="btn-volver" data-volver>← Volver a las plataformas</a>
+
+        <h2 class="section-title dark">Acceso a los cursos</h2>
+        <p class="section-subtitle">Una vez inscrito en los cursos, puede ingresar a través del siguiente botón, recuerde que debe ingresar su usuario (correo electrónico institucional) y contraseña.</p>
+        <a href="https://www.pearson.com/en-us/higher-education/products-services/mylab-and-mastering-login.html?srsltid=AU7gw4XdKIdQql04x5C34EALvMeW5Vge655BMvycJlAEUmJBPvNb1A-T" class="btn btn-green btn-acceso" target="_blank" rel="noopener noreferrer">Ingresar a los cursos</a>
+        <h3 class="schools-title">Escuelas disponibles</h3>
+        <!-- cursos_mylabs.js llena cada contenedor con data-escuela -->
+        <div class="cursos-container">
+          <div data-escuela="fis_M"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== ALEKS (subpágina de Ya soy miembro) ==================== -->
+    <section id="aleks-miembro" class="slide section-pad section-light" data-sub>
+      <div class="ae-container">
+        <a href="#ya-soy-miembro" class="btn-volver" data-volver>← Volver a las plataformas</a>
+
+        <h2 class="section-title dark">Acceso a los cursos</h2>
+        <p class="section-subtitle">Una vez inscrito en los cursos, puede ingresar a través del siguiente botón, recuerde que debe ingresar su usuario (correo electrónico institucional) y contraseña.</p>
+        <a href="https://latam.aleks.com/login" class="btn btn-green btn-acceso" target="_blank" rel="noopener noreferrer">Ingresar a los cursos</a>
+        <h3 class="schools-title">Escuelas disponibles</h3>
+        <!-- cursos_aleks.js llena cada contenedor con data-escuela -->
+        <div class="cursos-container">
+          <div data-escuela="fis_M"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== DUDAS ==================== -->
+    <section id="dudas" class="slide section-pad">
+      <div class="ae-container">
+        <details class="sn-details" id="CentroAtencion" open>
+          <summary>Centro de Atención a Estudiantes</summary>
+          <div class="details-body">
+            <div class="help-grid">
+              <div class="help-card">
+                <span class="help-icon">📝</span>
+                <h3>Necesitas licencia</h3>
+                <p>Ingresa al formulario, llenalo y espera nuestra respuesta con la licencia que solicitaste.</p>
+                <a href="https://docs.google.com/forms/d/e/1FAIpQLSfTzvYDwVwN6Z12rPKzLZ77D_bgYXmZbihMo64Gxx4jepEViA/viewform" class="btn btn-green" target="_blank" rel="noopener noreferrer" style="margin-bottom: 5px;">Ir al formulario de Connect</a>
+                <a href="https://docs.google.com/forms/d/e/1FAIpQLScXRhXLptIv4tnHs_pXKfSmECIOwSHJyREn3eDn3y2DF8lrHQ/viewform" class="btn btn-green" target="_blank" rel="noopener noreferrer">Ir al formulario de Aleks</a>
+              </div>
+              <div class="help-card">
+                <span class="help-icon">📖</span>
+                <h3>Soporte para las plataformas.</h3>
+                <p>En el siguiente botón podrás encontrar información sobre cómo obtener soporte para las plataformas virtuales de aprendizaje.</p>
+                <a href="https://docs.google.com/forms/d/e/1FAIpQLSdWhT9I-NvBmbCuOy0rhzpW7csbZOMT23C3B-7yvVTcI0z_Yw/viewform?usp=dialog" class="btn btn-green" target="_blank" rel="noopener noreferrer">Atención y Sugerencias</a>
+              </div>
+              <div class="help-card">
+                <span class="help-icon">🌐</span>
+                <h3>Centro de Atención a estudiantes.</h3>
+                <p>Para comunicarte, envia un correo a <strong class="help-mail">experticplataformasuis@gmail.com</strong></p>
+                <p class="help-left">Para poder atender tu solicitud, por favor incluye la siguiente información:</p>
+                <ul class="help-left">
+                  <li>Tu nombre completo.</li>
+                  <li>Tu código de estudiante.</li>
+                  <li>Una descrión detallada de la consulta o solicitud.</li>
+                </ul>
+              </div>
+              <div class="help-card">
+                <span class="help-icon">⏱️</span>
+                <h3>Tiempo de respuesta.</h3>
+                <p>Nuestro equipo responde puede tardar hasta 3 días hábiles.</p>
+              </div>
+            </div>
+          </div>
+        </details>
+
+        <h2 class="section-title faq-title">Preguntas frecuentes</h2>
+        <p class="section-subtitle">Resolvemos las dudas más comunes sobre las Aulas de Entrenamiento.</p>
+
+        <details class="faq-details">
+          <summary>¿Qué es ExperTIC, qué son las Aulas de Entrenamiento y qué tipo de recursos ofrecen?</summary>
+          <div class="details-body">ExperTIC es una iniciativa académica de la UIS para fortalecer tus competencias mediante entornos digitales. Las Aulas de Entrenamiento son espacios virtuales para practicar de forma autónoma. Ofrecen lecciones modulares, lecturas, ejercicios prácticos y evaluaciones para afianzar temas de clase.</div>
+        </details>
+        <details class="faq-details">
+          <summary>¿En qué plataformas están alojadas las materias y cuál me corresponde según mi asignatura?</summary>
+          <div class="details-body">Las asignaturas hacen uso de plataformas virtuales de aprendizaje como Connect, ALEKS y MyLab, asignadas según la disciplina y escuela académica. La plataforma específica correspondiente a tu curso la puedes consultar en las tablas de acceso de la página.</div>
+        </details>
+        <details class="faq-details">
+          <summary>¿Cómo me registro en las aulas y qué correo electrónico debo utilizar?</summary>
+          <div class="details-body">Buscas tu asignatura en la página, sigues el enlace e ingresas tus datos. Es de preferencia usar tu correo institucional UIS (@correo.uis.edu.co), pero también es posible registrarte con tu correo personal.</div>
+        </details>
+        <details class="faq-details">
+          <summary>¿Qué hago si olvidé mi contraseña, necesito cambiar mi correo o no encuentro mis materias inscritas?</summary>
+          <div class="details-body">Para restablecer la contraseña, usa la opción de recuperación en la plataforma correspondiente donde estás registrado (Connect, ALEKS o MyLab). Si no ves tu asignatura, confirma que iniciaste sesión con el mismo correo registrado o contacta al Centro de Atención a Estudiantes.</div>
+        </details>
+        <details class="faq-details">
+          <summary>¿Es posible ingresar y realizar las actividades desde un celular o tablet?</summary>
+          <div class="details-body">Sí, puedes ingresar desde cualquier dispositivo móvil o computador mediante un navegador web actualizado (Chrome, Firefox, Edge, Safari).</div>
+        </details>
+
+        <details class="faq-details">
+          <summary>¿Qué es el PIN de acceso, dónde lo encuentro y necesito un PIN distinto para cada materia?</summary>
+          <div class="details-body">El PIN es el código para matricularte en la plataforma. El PIN inicial de prueba de 14 días se encuentra en las tablas del portal; posteriormente, cada materia y estudiante requiere la solicitud de su PIN individual.</div>
+        </details>
+
+        <details class="faq-details">
+          <summary>¿Qué ocurre cuando vencen los 14 días de prueba y qué pasa con mi progreso registrado?</summary>
+          <div class="details-body">Al vencer los 14 días iniciales, debes solicitar tu PIN definitivo para el resto del semestre a través del formulario de pines. Todo el progreso que hayas realizado durante la prueba se conserva intacto.</div>
+        </details>
+
+        <details class="faq-details">
+          <summary>¿Cómo solicito un PIN para otra asignatura y puedo compartir mi PIN con un compañero?</summary>
+          <div class="details-body">El PIN de prueba de 14 días sí es el mismo para todos. Sin embargo, el PIN que solicitas después para el resto del semestre es único e individual para cada estudiante, por lo que no debe compartirse. Si cursas otra asignatura, debes solicitar su respectivo PIN individual mediante el formulario.</div>
+        </details>
+
+        <details class="faq-details">
+          <summary>¿Cómo me uno al curso de mi profesor y cómo se estructuran las lecciones por niveles?</summary>
+          <div class="details-body">Para unirte al aula propia de tu docente se te proporciona un enlace directo y un paso a paso específico, ya que maneja datos diferentes a las aulas de ExperTIC. Las lecciones de entrenamiento están estructuradas en tres niveles: básico, medio y avanzado.</div>
+        </details>
+
+        <details class="faq-details">
+          <summary>¿Hay fechas límite para entregar actividades y es posible repetir una evaluación?</summary>
+          <div class="details-body">En las aulas de ExperTIC todo el contenido permanece abierto de inicio a fin de semestre para que trabajes a tu propio ritmo. Si se trata del aula propia del docente, el profesor maneja las fechas y entregas de manera autónoma.</div>
+        </details>
+
+        <details class="faq-details">
+          <summary>¿Puedo iniciar una lección directamente en el nivel avanzado o debo avanzar secuencialmente?</summary>
+          <div class="details-body">Puedes avanzar paso a paso (básico, medio, avanzado) o ingresar directamente al nivel avanzado si ya dominas el tema.</div>
+        </details>
+
+        <details class="faq-details">
+          <summary>¿Qué debo hacer si la plataforma me solicita licencia o si presento fallas en Connect?</summary>
+          <div class="details-body">Si la plataforma te solicita licencia, completa el formulario de solicitud de licencias. Para fallas técnicas o inconvenientes en cualquiera de las plataformas (Connect, ALEKS, MyLab), puedes diligenciar el formulario de soporte disponible en el portal.</div>
+        </details>
+
+        <details class="faq-details">
+          <summary>¿Cómo puedo contactar al Centro de Atención a Estudiantes y cuánto tardan en responder?</summary>
+          <div class="details-body">Envía un correo a experticplataformasuis@gmail.com con tu nombre completo, código de estudiante y el detalle de tu consulta. El tiempo de respuesta es de hasta 3 días hábiles.</div>
+        </details>
+
+        <details class="faq-details">
+          <summary>¿En dónde puedo calificar mi experiencia o enviar sugerencias sobre el uso de las plataformas?</summary>
+          <div class="details-body">A través de los formularios de Experiencia y Satisfacción y de Atención y Sugerencias disponibles en el sitio web.</div>
+        </details>
+
+        <div class="faq-report-zone">
+          <p>¿Tuviste algún inconveniente o quieres compartir tu opinión sobre las plataformas?</p>
+          <div class="faq-report-btns">
+            <a href="https://docs.google.com/forms/d/e/1FAIpQLSfcnOGWl2lPhVLNfE0N915oN4x8_NmxOxBwREZSNoo1UONZsw/viewform?usp=dialog" target="_blank" rel="noopener noreferrer" class="btn-report btn-report-outline">Experiencia y Satisfacción</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== SOBRE NOSOTROS ==================== -->
+    <section id="sobre-nosotros" class="slide">
+      <!-- Banner -->
+      <div class="sn-banner">
+        <img src="../../Diseño_Grafico/Imagenes/Aulas_Entrenamiento/Sobre_Nosotros/Banner.png" alt="ExperBOT asomándose con el logo de ExperTIC">
+        <h2 class="sn-banner-title">Sobre nosotros</h2>
+      </div>
+
+      <!-- ¿Qué es ExperTIC? -->
+      <div class="sn-block sn-que-es">
+        <div class="ae-container sn-two-cols">
+          <div>
+            <h2 class="sn-big-title">¿Qué es ExperTIC?</h2>
+            <p class="sn-lead">Es una estrategia académica que integra herramientas digitales para fortalecer el aprendizaje de los estudiantes de la Universidad Industrial de Santander.</p>
+          </div>
+          <img class="sn-photo" src="../../Diseño_Grafico/Imagenes/Aulas_Entrenamiento/Sobre_Nosotros/Que_es_Expertic.png" alt="Presentación de ExperTIC ante un auditorio de estudiantes">
+        </div>
+      </div>
+
+      <!-- ¿Aulas de entrenamiento? -->
+      <div class="sn-block sn-aulas">
+        <div class="ae-container sn-two-cols">
+          <img class="sn-robot" src="../../Diseño_Grafico/Imagenes/Aulas_Entrenamiento/Sobre_Nosotros/Aulas_Entrenamiento.png" alt="ExperBOT señalando la información de las aulas">
+          <div>
+            <h2 class="sn-title">¿Aulas de entrenamiento?</h2>
+            <p class="sn-lead">Espacios virtuales donde puedes practicar temas vistos en clase y realizar actividades progresivas de forma autónoma.</p>
+            <div class="sn-aulas-card">
+              <h3><span aria-hidden="true">📚</span> Contenido</h3>
+              <p>Lecciones por temas, actividades prácticas, evaluaciones y recursos multimedia organizados por semanas.</p>
+            </div>
+            <div class="sn-aulas-card">
+              <h3><span aria-hidden="true">🧭</span> Navegación</h3>
+              <p>Selecciona un módulo, revisa el contenido, realiza las actividades y completa las evaluaciones.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ¿Plataforma Connect? -->
+      <div class="sn-block sn-connect">
+        <div class="ae-container">
+          <h2 class="sn-title center">¿Plataforma Connect?</h2>
+          <div class="sn-two-cols">
+            <div>
+              <img class="sn-connect-logo" src="../../Diseño_Grafico/Imagenes/Aulas_Entrenamiento/Sobre_Nosotros/connect.png" alt="McGraw Hill Connect">
+              <p class="sn-lead">Es la plataforma donde se alojan las aulas de entrenamiento. Accede a todos los cursos y haz seguimiento de tu progreso desde cualquier dispositivo.</p>
+            </div>
+            <div class="sn-connect-grid">
+              <div class="sn-connect-card"><span aria-hidden="true">📖</span><p>Acceso a cursos organizados por escuela</p></div>
+              <div class="sn-connect-card"><span aria-hidden="true">📈</span><p>Seguimiento del progreso por módulo</p></div>
+              <div class="sn-connect-card"><span aria-hidden="true">💬</span><p>Interacción con contenidos multimedia</p></div>
+              <div class="sn-connect-card"><span aria-hidden="true">🌐</span><p>Disponible desde cualquier dispositivo</p></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Beneficios -->
+      <div class="sn-block sn-beneficios">
+        <div class="ae-container">
+          <h2 class="sn-title center">Beneficios de las Aulas de Entrenamiento</h2>
+          <p class="sn-subtitle">Un espacio diseñado para acompañarte en tu proceso de aprendizaje y ayudarte a alcanzar mejores resultados académicos.</p>
+          <div class="sn-benef-grid">
+            <div class="sn-benef-card">
+              <span aria-hidden="true">🏆</span>
+              <h3>Mejora tu rendimiento académico</h3>
+              <p>Refuerza los temas de clase con práctica guiada y actividades progresivas.</p>
+            </div>
+            <div class="sn-benef-card">
+              <span aria-hidden="true">⏱️</span>
+              <h3>Aprende a tu ritmo</h3>
+              <p>Accede cuando quieras y avanza según tu disponibilidad, sin presión de horarios.</p>
+            </div>
+            <div class="sn-benef-card">
+              <span aria-hidden="true">🔁</span>
+              <h3>Refuerza conocimientos</h3>
+              <p>Tres niveles por lección (básico, medio, avanzado) para repasar desde donde necesites.</p>
+            </div>
+            <div class="sn-benef-card">
+              <span aria-hidden="true">🌐</span>
+              <h3>Acceso desde cualquier lugar</h3>
+              <p>Disponible desde computador, tablet o celular con conexión a internet.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Recomendaciones -->
+      <div class="sn-block sn-recs">
+        <div class="ae-container">
+          <h2 class="sn-title center">Recomendaciones para tu aprendizaje</h2>
+          <p class="sn-subtitle">Ten en cuenta estas sugerencias para aprovechar al máximo las Aulas de Entrenamiento y fortalecer tu proceso académico.</p>
+          <div class="sn-recs-grid">
+            <div class="sn-rec-card">
+              <span aria-hidden="true">👁️</span>
+              <h3>Revisa las aulas constantemente</h3>
+              <p>Los contenidos se activan por semanas. Consulta el temario para no perderte ningún taller.</p>
+            </div>
+            <div class="sn-rec-card">
+              <span aria-hidden="true">✅</span>
+              <h3>Completa todas las actividades</h3>
+              <p>Cada actividad afianza un concepto. Saltarlas puede afectar tu comprensión del módulo siguiente.</p>
+            </div>
+            <div class="sn-rec-card">
+              <span aria-hidden="true">📶</span>
+              <h3>Asegura buena conexión a internet</h3>
+              <p>Se recomienda conexión estable para videos y actividades interactivas.</p>
+            </div>
+            <div class="sn-rec-card">
+              <span aria-hidden="true">💡</span>
+              <h3>Aprovecha todos los recursos</h3>
+              <p>Encontrarás videos, lecturas y ejercicios complementarios para profundizar.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    </div><!-- /.slides-track -->
+    </div><!-- /.slides -->
+
+    <!-- ==================== FOOTER ==================== -->
+    <footer>
+      <div class="ae-container">
+        <div class="footer-inner">
+          <img src="https://drive.google.com/thumbnail?id=1kHj_19duUO52yWLbwa4GnuLcLmvyDPg8&sz=w400" alt="Aulas de Entrenamiento" class="footer-logo">
+          <p class="footer-text">
+            Aulas de Entrenamiento — una estrategia de
+            <a href="https://expertic.uis.edu.co" target="_blank" rel="noopener noreferrer">ExperTIC</a>
+            · Universidad Industrial de Santander
+          </p>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <!-- Scripts -->
+  <script src="js/altura.js"></script>
+  <script src="js/navegacion.js"></script>
+  <script src="js/cursos_connect.js"></script>
+  <script src="js/cursos_mylab.js"></script>
+  <script src="js/cursos_aleks.js"></script>
+  
+</body>
+</html>
