@@ -1,0 +1,22 @@
+{
+  "name": "expertic-admin-backend",
+  "version": "2.0.0",
+  "private": true,
+  "type": "module",
+  "description": "API del administrador académico de Expertic (v2). Guarda el token de la BD en el servidor.",
+  "engines": {
+    "node": ">=20.12"
+  },
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "node --watch src/server.js",
+    "migrate": "node scripts/migrate.js",
+    "seed": "node scripts/seed.js",
+    "copy-from-prod": "node scripts/copy-from-prod.js"
+  },
+  "dependencies": {
+    "@libsql/client": "^0.14.0",
+    "express": "^4.21.2",
+    "zod": "^3.23.8"
+  }
+}

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Administrador Académico · Expertic</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%234361ee'/%3E%3Ctext x='16' y='22' font-size='17' font-family='Arial' font-weight='700' fill='white' text-anchor='middle'%3EE%3C/text%3E%3C/svg%3E" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="topbar-inner">
+      <a href="#/" class="brand">
+        <span class="brand-mark">E</span>
+        <span class="brand-text">Administrador Académico</span>
+      </a>
+      <nav class="nav" aria-label="Principal">
+        <a href="#/" data-nav="list">Asignaturas</a>
+        <a href="#/nueva" data-nav="create">Nueva</a>
+        <a href="#/guia" data-nav="guide">Guía</a>
+      </nav>
+      <span class="db-badge" id="dbBadge" title="Base de datos en uso" hidden></span>
+    </div>
+  </header>
+
+  <main id="view" class="container" tabindex="-1"></main>
+
+  <div id="toasts" class="toasts" role="status" aria-live="polite"></div>
+
+  <!-- Diálogo de confirmación reutilizable -->
+  <dialog id="confirmDialog" class="dialog">
+    <form method="dialog">
+      <h2 class="dialog-title" id="confirmTitle">¿Confirmar?</h2>
+      <p class="dialog-text" id="confirmText"></p>
+      <div class="dialog-actions">
+        <button type="submit" class="btn btn-ghost" value="cancel">Cancelar</button>
+        <button type="submit" class="btn btn-primary" value="ok" id="confirmOk">Aceptar</button>
+      </div>
+    </form>
+  </dialog>
+
+  <!-- Inicio de sesión -->
+  <dialog id="loginDialog" class="dialog">
+    <form id="loginForm">
+      <h2 class="dialog-title">Ingresar</h2>
+      <p class="dialog-text">Escribe la contraseña del administrador.</p>
+      <label class="field">
+        <span class="field-label">Contraseña</span>
+        <input type="password" id="loginPassword" autocomplete="current-password" required />
+      </label>
+      <p class="field-error" id="loginError" hidden></p>
+      <div class="dialog-actions">
+        <button class="btn btn-primary" type="submit">Entrar</button>
+      </div>
+    </form>
+  </dialog>
+
+  <script type="module" src="js/main.js"></script>
+</body>
+</html>
