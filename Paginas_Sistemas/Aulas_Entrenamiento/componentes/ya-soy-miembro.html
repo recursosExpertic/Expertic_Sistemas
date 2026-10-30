@@ -10,19 +10,71 @@
             <h2>Acceso a las plataformas</h2>
             <p>Seleccione la plataforma a la que desea ingresar para continuar su proceso de aprendizaje.</p>
             <div class="platform-select">
-                <a class="platform-select-card" href="https://www.pearson.com/en-us/higher-education/products-services/mylab-and-mastering-login.html" target="_blank" rel="noopener noreferrer">
+                <a class="platform-select-card" href="#pearsonYaSoyMiembro">
                     <img src="../../Diseño_Grafico/Imagenes/Aulas_Entrenamiento/QuieroEmpezar_YaSoyMiembro/Pearson.png" alt="Pearson MyLab">
                     <span class="goto-arrow" aria-hidden="true">→</span>
                 </a>
-                <a class="platform-select-card" href="https://accounts.mheducation.com/login?app=connect.mheducation.co" target="_blank" rel="noopener noreferrer">
+                <a class="platform-select-card" href="#connectYaSoyMiembro">
                     <img src="../../Diseño_Grafico/Imagenes/Aulas_Entrenamiento/QuieroEmpezar_YaSoyMiembro/connect.png" alt="McGraw Hill Connect">
                     <span class="goto-arrow" aria-hidden="true">→</span>
                 </a>
-                <a class="platform-select-card" href="https://latam.aleks.com/login" target="_blank" rel="noopener noreferrer">
+                <a class="platform-select-card" href="#aleksYaSoyMiembro">
                     <img src="../../Diseño_Grafico/Imagenes/Aulas_Entrenamiento/QuieroEmpezar_YaSoyMiembro/aleks.png" alt="McGraw Hill Aleks">
-                    <span class="goto-arrow" aria-hidden="true">→</span>  
+                    <span class="goto-arrow" aria-hidden="true">→</span>
                 </a>
             </div>
+        </div>
+    </div>
+</section>
+
+<!-- ==================== CONNECT: (subpágina de Ya Soy Miembro) ==================== -->
+    <section id="connectYaSoyMiembro" class="slide section-pad section-light" data-sub data-padre="ya-soy-miembro">
+        <div class="ae-container">
+        <a href="#ya-soy-miembro" class="btn-volver">← Volver a las plataformas</a>
+        
+        <h2 class="section-title dark">Acceso a los cursos</h2>
+        <p class="section-subtitle">Una vez inscrito en los cursos, puede ingresar a través del siguiente botón, recuerde que debe ingresar su usuario (correo electrónico institucional) y contraseña.</p>
+        <a href="https://accounts.mheducation.com/login?app=connect.mheducation.com" class="btn btn-green btn-acceso" target="_blank" rel="noopener noreferrer">Ingresar a los cursos</a>
+        <h3 class="schools-title">Escuelas disponibles</h3>
+        <!-- cursos_connect.js llena cada contenedor con data-escuela -->
+        <div class="cursos-container">
+            <div data-escuela="e3t_C"></div>
+            <div data-escuela="mat_C"></div>
+            <div data-escuela="fis_C"></div>
+            <div data-escuela="bio_C"></div>
+            <div data-escuela="qui_C"></div>
+        </div>
+    </div>
+</section>
+
+<!-- ==================== PEARSON (subpágina de Ya Soy Miembro) ==================== -->
+<section id="pearsonYaSoyMiembro" class="slide section-pad section-light" data-sub data-padre="ya-soy-miembro">
+    <div class="ae-container">
+        <a href="#ya-soy-miembro" class="btn-volver" data-volver>← Volver a las plataformas</a>
+
+        <h2 class="section-title dark">Acceso a los cursos</h2>
+        <p class="section-subtitle">Una vez inscrito en los cursos, puede ingresar a través del siguiente botón, recuerde que debe ingresar su usuario (correo electrónico institucional) y contraseña.</p>
+        <a href="https://www.pearson.com/en-us/higher-education/products-services/mylab-and-mastering-login.html?srsltid=AU7gw4XdKIdQql04x5C34EALvMeW5Vge655BMvycJlAEUmJBPvNb1A-T" class="btn btn-green btn-acceso" target="_blank" rel="noopener noreferrer">Ingresar a los cursos</a>
+        <h3 class="schools-title">Escuelas disponibles</h3>
+        <!-- cursos_mylabs.js llena cada contenedor con data-escuela -->
+        <div class="cursos-container">
+            <div data-escuela="fis_M"></div>
+        </div>
+    </div>
+</section>
+
+<!-- ==================== ALEKS (subpágina de Ya Soy Miembro) ==================== -->
+<section id="aleksYaSoyMiembro" class="slide section-pad section-light" data-sub data-padre="ya-soy-miembro">
+    <div class="ae-container">
+        <a href="#ya-soy-miembro" class="btn-volver" data-volver>← Volver a las plataformas</a>
+
+        <h2 class="section-title dark">Acceso a los cursos</h2>
+        <p class="section-subtitle">Una vez inscrito en los cursos, puede ingresar a través del siguiente botón, recuerde que debe ingresar su usuario (correo electrónico institucional) y contraseña.</p>
+        <a href="https://latam.aleks.com/login" class="btn btn-green btn-acceso" target="_blank" rel="noopener noreferrer">Ingresar a los cursos</a>
+        <h3 class="schools-title">Escuelas disponibles</h3>
+        <!-- cursos_aleks.js llena cada contenedor con data-escuela -->
+        <div class="cursos-container">
+            <div data-escuela="mat_A"></div>
         </div>
     </div>
 </section>
