@@ -15,7 +15,7 @@
    - `escuela`: clave usada en `data-escuela="..."`.
    - `title`: texto del `<summary>`.
    - `tableClass`: clase del `<table>`.
-3. **Agregar el contenedor** en el componente donde deba mostrarse (p. ej. dentro de la subpágina en `componentes/quiero-empezar.html`): `<div data-escuela="<valor-escuela>"></div>`.
+3. **Agregar el contenedor** en el componente donde deba mostrarse (p. ej. dentro de la subpágina en `componentes/quiero-empezar.html` y `componentes/ya-soy-miembro.html`): `<div data-escuela="<valor-escuela>"></div>`.
 4. **Verificar:** tras cargar los componentes, los scripts de cursos pintan los contenedores.
 5. **Documentar:** actualizar la tabla de escuelas en [referencia/js.md](../referencia/js.md) y los ejemplos en [google-sheets.md](../google-sheets.md).
 
