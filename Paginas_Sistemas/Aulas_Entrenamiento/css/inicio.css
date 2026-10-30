@@ -4,25 +4,23 @@
    pantalla es más ancha que la imagen, el resto se rellena con el mismo azul de su borde derecho.
    El texto va encima, en la mitad derecha. En pantallas pequeñas el texto pasa debajo de la imagen. */
 .ae-page .hero {
-  --alto-menu: 77px;             /* alto del menú: .nav-inner (76px) + borde inferior (1px), ver navbar.css */
+  --alto-menu: 77px;
   position: relative;
   overflow: hidden;
   width: 100%;
-  aspect-ratio: 1673 / 941;      /* proporción de la imagen */
-  max-height: calc(100vh - var(--alto-menu));
-  max-height: calc(100svh - var(--alto-menu));
-  min-height: 520px;             /* espacio mínimo para el texto y los botones */
-  background: linear-gradient(180deg, #000e4a 0%, #00155a 50%, #000d47 100%);
+  aspect-ratio: 1673 / 941;
+  /* fuera max-height y min-height */
+  background: #000e4a;
 }
+
 .ae-page .hero-img {
   position: absolute;
-  top: 0; left: 0;
+  inset: 0;
+  width: 100%;
   height: 100%;
-  width: auto;
   max-width: none;
-  /* funde el borde derecho de la imagen con el fondo */
-  -webkit-mask-image: linear-gradient(90deg, #000 85%, transparent 100%);
-  mask-image: linear-gradient(90deg, #000 85%, transparent 100%);
+  -webkit-mask-image: none;
+  mask-image: none;
 }
 
 .ae-page .hero-overlay {
