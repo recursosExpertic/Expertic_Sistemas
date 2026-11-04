@@ -86,27 +86,11 @@
 
   // ---------- SCROLL VERTICAL (dentro de una diapositiva alta) ----------
   function volverArriba() {
-    var top = stage.getBoundingClientRect().top + window.scrollY;
-    if (EMBEBIDO) {
-      window.parent.postMessage({ tipo: 'scrollTo', top: top }, '*');
-    } else {
-      var destino = Math.max(0, top - navbar.offsetHeight);
-      if (window.scrollY > destino) {
-        window.scrollTo({ top: destino, behavior: mqReduce.matches ? 'auto' : 'smooth' });
-      }
-    }
+    // Se desactiva el desplazamiento automático de la página.
   }
 
   function scrollAElemento(el) {
-    var top = el.getBoundingClientRect().top + window.scrollY;
-    if (EMBEBIDO) {
-      window.parent.postMessage({ tipo: 'scrollTo', top: top }, '*');
-    } else {
-      window.scrollTo({
-        top: Math.max(0, top - navbar.offsetHeight - 16),
-        behavior: mqReduce.matches ? 'auto' : 'smooth'
-      });
-    }
+    // Se desactiva el desplazamiento automático hacia elementos internos.
   }
 
   // ---------- CAMBIO DE DIAPOSITIVA ----------
