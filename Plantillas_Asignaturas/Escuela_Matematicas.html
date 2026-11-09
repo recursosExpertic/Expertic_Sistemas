@@ -1,7 +1,4 @@
 <div>
-    <meta charset="UTF-8">
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
     <style>
         * {
             margin: 0;
@@ -10,7 +7,6 @@
         }
         :root {
             --color-primary: #085294;
-            --color-secondary-bg: #f9f9f9;
             --color-text-dark: #000;
             --color-border: #eee;
             --color-summary-bg: rgb(242, 178, 150);
@@ -34,7 +30,6 @@
             --spacing-xll: 4rem;
 
             --font-size-body: clamp(16px, 4vw, 20px);
-            --font-size-h1: clamp(20px, 6vw, 24px);
             --font-size-h5: clamp(16px, 4vw, 19px);
 
             --line-height-body: 1.6;
@@ -42,7 +37,6 @@
 
             --logo-max-width: 500px;
             --book-cover-width: 250px;
-            --book-cover-height: 350px;
         }
         html, body {
             width: 100%;
@@ -89,8 +83,8 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: url('https://lh3.google.com/u/2/d/19zveI4Mvf5Kj_orNFPML_m1sjY-zstOB=w1920-h953-iv1') center/cover no-repeat;
-            opacity: 0.1;
+            background: url('https://ik.imagekit.io/ExperTIC/Asignaturas/Escuela_E3T/Banner.jpg?updatedAt=1793724369716') center/cover no-repeat;
+            opacity: 0.3;
             z-index: -1;
             border-radius: 4px;
         }
@@ -172,7 +166,6 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            margin-top: 60px;
         }
         section {
             margin: 0 var(--spacing-xss) var(--spacing-xss);
@@ -290,8 +283,6 @@
             outline: none !important;
             box-shadow: none !important;
         }
-        .nav-btn:hover {background: #085294;}
-        .nav-btn:hover svg {stroke: #fff;}
         .carousel-slide {
             min-width: 100%;
             display: flex;
@@ -321,19 +312,6 @@
             border: 1px solid var(--color-border);
             transition: transform 0.3s ease;
         }
-        .book-cover img {
-            width: 100%;
-            max-width: var(--book-cover-width);
-            height: auto;
-            aspect-ratio: 250 / 350;
-            object-fit: cover;
-            border-radius: 0;
-            border: none;
-            box-shadow: 2px 2px 10px var(--shadow-medium);
-            transition: transform 0.3s ease;
-            display: block;
-            margin: 0 auto;
-        }
         .carousel-info h5 {
             color: var(--color-primary);
             font-size: var(--font-size-h5);
@@ -359,8 +337,6 @@
             z-index: 10;
             transition: all 0.3s ease;
         }
-        .nav-btn:hover, .nav-btn:focus {background: var(--color-primary);}
-        .nav-btn:hover svg, .nav-btn:focus svg {stroke: #fff;}
         .nav-btn:focus {
             outline: 2px solid var(--color-primary);
             outline-offset: 2px;
@@ -454,7 +430,6 @@
             }
             .carousel-slide {
                 flex-direction: row;
-                padding: var(--spacing-xl);
                 gap: var(--spacing-xl);
                 justify-content: space-around;
                 padding: var(--spacing-sm) var(--spacing-xl);
@@ -476,9 +451,6 @@
             .content-container li:hover {
                 transform: translateX(5px);
                 color: #085294;
-            }
-            .content-container > div:not(.recursos-container) {
-                padding: 30px 50px;
             }
             .footer-content {
                 flex-direction: row;
@@ -563,10 +535,10 @@
 
     <header style="position: relative; display: flex; justify-content: space-between; align-items: center; padding: 10px; margin: var(--spacing-xss) var(--spacing-xss) var(--spacing-xs) var(--spacing-xss); box-shadow: rgba(1, 67, 87, 0.66) 0px -2px 5px; z-index: 1; border-radius: 4px; text-align: center;">
         <a href="https://mat.uis.edu.co/eisi/" target="_blank" class="logo-asignatura" style="width: 250px; height: 150px;">
-            <img alt="Logo de la Asignatura" class="logo-medium" src="https://drive.google.com/thumbnail?id=1_GoIQwT5mj9Vi-gQCMidTu16ONm8kHXZ&amp;sz=w1000">
+            <img alt="Logo de la Asignatura" class="logo-medium" src="https://ik.imagekit.io/ExperTIC/Asignaturas/Escuela_Matematicas/Logo_Escuela.png?updatedAt=1793723982244">
         </a>
         <a href="https://www.uis.edu.co" class="logo-uis" target="_blank" style="position: absolute; top: 10px; right: 10px;">
-            <img alt="Logo UIS" class="new-image" src="https://web.uis.edu.co/wp-content/uploads/elementor/thumbs/Logo-UIS-web-qbqj494k91py9kvbai0ukya46twhbb1tj22br6je4k.webp">
+            <img alt="Logo UIS" class="new-image" src="https://ik.imagekit.io/ExperTIC/UIS-ExperTIC/UIS_logo.png?updatedAt=1793723577596">
         </a>
         <div style="max-width: 700px; padding: 10px">
             <h2 id="nombre-asignatura" style="color: #085294; font-family: garamond; font-size: 36px; font-weight: bold;"></h2>
@@ -577,12 +549,12 @@
                 <b id="nombre-leccion"></b>
             </h4>
             <div class="nav-lecciones">
-                <a class="button-link" href="https://expertic.uis.edu.co/Lesson/20254_01-m1l2/20254">Lección Siguiente</a>
+                <a class="button-link" href="https://expertic.uis.edu.co/Lesson/27134_01-m2l2/27134">Lección Anterior</a>
             </div>
         </div>
         <div class="header-logos-extras">
             <a href="https://expertic.uis.edu.co/acerca-de-nosotros" target="_blank">
-                <img alt="Expertic Logo" class="logo-medium" src="https://drive.google.com/thumbnail?id=13b3yJXB-Dake7AQLJEf9uf9CFF_eLAvs">
+                <img alt="Expertic Logo" class="logo-medium" src="https://ik.imagekit.io/ExperTIC/UIS-ExperTIC/ExperTIC-Asignaturas.png?updatedAt=1794152310849">
             </a>
             <a href="https://xpertl.sm-edge.workers.dev/experticuis" target="_blank">
                 <img alt="AulasEntrenamiento Logo" class="logo-medium entrada-aula" src="https://drive.google.com/thumbnail?id=1RW5yqbVdc7asCLeOH39A0yuUH11MLppC">
@@ -596,27 +568,19 @@
             <div class="content-container">
                 <div style="padding: 10px">
                     <h1><b>Competencias de la lección</b></h1>
-                    <div id="lista-competencias"></div>
+                    <div id="lista-competencias"><p></p></div>
                 </div>
-                <div id="pdf-container" style="text-align: center; width: 100%;">
+                <div id="pdf-container">
                     <h1><b>Resumen de la lección</b></h1>
                     <a style="margin-bottom: 15px;" id="btn-resumen" class="button-link" href="" target="_blank">Ver en Pantalla Completa</a>
-                    <div class="frameResumen-container" style="display: flex; justify-content: center; margin: 0">
+                    <div class="frameResumen-container" style="display: flex">
                         <iframe allowfullscreen="" class="frameResumen" id="pdfFrame" src=""></iframe>
                     </div>
                 </div>
                 <div>
                     <!-- Videos -->
                     <h1><b>Catálogo de Vídeos</b></h1>
-                    <div id="carrusel-videos"></div>
-
-                    <!-- Simuladores -->
-                    <h1><b>Catálogo de Simuladores</b></h1>
-                    <div id="carrusel-simuladores"></div>
-
-                    <!-- Libros -->
-                    <h1><b>Catálogo de Libros</b></h1>
-                    <div id="carrusel-libros"></div>
+                    <div id="carrusel-videos"><p></p></div>
                 </div>
             </div>
         </details>
@@ -629,8 +593,7 @@
                 <div style="padding: 10px; width: 100%;">
                     <h1><b>Biblioteca virtual UIS</b></h1>
                     <p class="texto">Si quiere profundizar en las temáticas tratadas, consulte la siguiente bibliografía:</p>
-                    <ol id="bibliografia-container" type="a">
-                    </ol> 
+                    <ol id="bibliografia-container" type="a"><li></li></ol> 
                 </div>
             </div>
         </details>
@@ -645,6 +608,9 @@
                     Realice los talleres propuestos para esta lección en el aula de entrenamiento que encontrará en las
                     <a href="https://xpertl.sm-edge.workers.dev/experticuis" target="_blank">aulas de entrenamiento ExperTIC</a>.
                 </p>
+                <!-- Simuladores -->
+                <h1><b>Catálogo de Simuladores</b></h1>
+                <div id="carrusel-simuladores"><p></p></div>
             </div>
         </details>
     </section>
@@ -655,14 +621,14 @@
             <div class="content-container">
                 <div style="padding: 10px">
                     <h1><b>Autoevaluación</b></h1>
-                    <div id="lista-preguntas"></div>
+                    <div id="lista-preguntas"><p></p></div>
                 </div>
                 <div style="display: flex; align-items: center; text-align: center;">
                     <img src="https://drive.google.com/thumbnail?id=1BzgsW-LOt7G-eNdAq72oY8pAjMEhHcCu" alt="Logo de ExperBot" class="logo-bot">
-                    <div style="flex-direction: column;">
-                        <p class="texto-centrado"><i>Estimados estudiantes, ahora que hemos concluido esta leccién, es importante contar con su opinion para seguir mejorando. A continuacion, les invitamos a revisar el contenido presentado y a completar un formulario con observaciones, posibles errores y recomendaciones, que nos permitira evaluar y fortalecer la calidad de esta leccién.</i></p>
-                        <a href="https://docs.google.com/forms/d/e/1FAIpQLSc0K331_jmxz_TagVq7UgLzM3B0fAiQPrrMTYtSaWIGD9vANA/viewform?usp=pp_url&amp;entry.47511481=C%C3%A1lculo+III&amp;entry.556883279=L4.2.+Lecci%C3%B3n+11+de+C3&amp;entry.769704434=v1.0-20230920" target="_blank" class="button-link">Evalúe la lección </a>
-                    </div>
+                    <p class="texto-centrado"><i>Estimados estudiantes, ahora que hemos concluido esta leccién, es importante contar con su opinion para seguir mejorando. A continuacion, les invitamos a revisar el contenido presentado y a completar un formulario con observaciones, posibles errores y recomendaciones, que nos permitira evaluar y fortalecer la calidad de esta leccién.</i></p>
+                </div>
+                <div style="display: flex; justify-content: center;">
+                    <a href="https://docs.google.com/forms/d/e/1FAIpQLSc0K331_jmxz_TagVq7UgLzM3B0fAiQPrrMTYtSaWIGD9vANA/viewform?usp=pp_url&entry.47511481=C%C3%A1lculo+III&entry.556883279=L4.2.+Lecci%C3%B3n+11+de+C3&entry.769704434=v1.0-20230920" target="_blank" class="button-link">Evalúe la lección </a>
                 </div>
             </div>
         </details>
@@ -671,26 +637,25 @@
     <footer class="pie-pagina">
         <div class="footer-content">
             <p>© 2026 ExperTIC. All rights reserved.</p>
-            <img alt="Footer Logo" src="https://expertic.uis.edu.co/assets/expertic-logo.png" style="height: 40px">
+            <img alt="Footer Logo" src="https://ik.imagekit.io/ExperTIC/UIS-ExperTIC/expertic_logo_sin_fondo.png?updatedAt=1793723577469" style="height: 40px">
         </div>
-        <div style="text-align: center; margin-top: var(--spacing-md);">
-            <a class="button-link button-link--footer" href="https://expertic.uis.edu.co/lesson/20254_01-M1L1/20254" target="_blank">Ver página en nueva pestaña</a>
+        <div style="text-align: center;">
+            <a class="button-link button-link--footer" href="https://expertic.uis.edu.co/Lesson/27134_01-m3l1/27134" target="_blank">Ver página en nueva pestaña</a>
         </div>
     </footer>
 
     <script>
         // ============================================================
         // CONFIGURACIÓN DE TURSO (REEMPLAZO DE SUPABASE)
-        // ============================================================
-        // Convertimos el protocolo 'libsql://' a 'https://' y añadimos el endpoint /v2/pipeline
+        // ============================================================// Convertimos el protocolo 'libsql://' a 'https://' y añadimos el endpoint /v2/pipeline
         const TURSO_URL = 'https://expertic-db-recursosexpertic.aws-us-east-1.turso.io/v2/pipeline'; 
         const TURSO_READ_TOKEN = 'eyJhbGciOiJFZERTQSIsInR5cCI6IkpXVCJ9.eyJhIjoicm8iLCJpYXQiOjE3ODQxNjM4MTIsImlkIjoiMDE5ZjQ5OGYtNTkwMS03ZDY0LTgyYmYtNDUzZmE0MWYwOTkyIiwia2lkIjoiVVd5WTg3cDRpSzc1VUpYT19BZC1WUGRxMEs2RWx5d2dpUHI1NGFvT2xUZyIsInJpZCI6IjEzNGZlMWFlLTkwOWUtNDlhZS04OGQ5LTI1MmI3MzQxNjAyZiJ9.RpnNA0AFh0jRDOmNmJQWFY4PqqBlTt25vOAzFb5CKWW5cy05i65LHUYmhnPr4GlRvV3-SZxL2z3bN9hKXA5qCw';        
 
         // ============================================================
         // CONFIGURACIÓN DE BÚSQUEDA
         // ============================================================
-        const MATERIA_A_BUSCAR = 'Cálculo 3';
-        const LECCION_A_BUSCAR = 'Lección 1.1 Función vectorial y función de varias variables.';
+        const MATERIA_A_BUSCAR = 'Circuitos Eléctricos II';
+        const LECCION_A_BUSCAR = 'Lección 3.1 Fundamentos y aplicación a circuitos sobre Laplace';
 
         // ============================================================
         // FUNCIÓN PRINCIPAL: busca los datos en Turso y rellena el HTML
@@ -769,7 +734,6 @@
                     preguntas_autoevaluacion: parseJson(row.preguntas_autoevaluacion),
                     catalogo_videos: parseJson(row.catalogo_videos),
                     catalogo_simuladores: parseJson(row.catalogo_simuladores),
-                    catalogo_libros: parseJson(row.catalogo_libros),
                     bibliografia: parseJson(row.bibliografia),
                     asignaturas: {
                         nombre: row.asig_nombre,
@@ -777,8 +741,6 @@
                         facultad: row.asig_facultad
                     }
                 };
-
-                console.log('Datos cargados desde Turso:', leccion);
 
                 // 1. Rellenar los textos básicos
                 setTexto('nombre-asignatura', leccion.asignaturas.nombre);
@@ -800,8 +762,7 @@
                 // 4. Carruseles de recursos
                 generarCarrusel(leccion.catalogo_videos, 'carrusel-videos', 'horizontal-cover', 2);
                 generarCarrusel(leccion.catalogo_simuladores, 'carrusel-simuladores', 'horizontal-cover', 2);
-                generarCarrusel(leccion.catalogo_libros, 'carrusel-libros', 'book-cover',       2);
-
+        
                 //5. Generar Bibliografia
                 generarBibliografia(leccion.bibliografia, 'bibliografia-container');
             } catch (err) {
@@ -831,11 +792,6 @@
 
             const items = leccion[columna];
 
-            if (!Array.isArray(items) || items.length === 0) {
-                contenedor.innerHTML = '<p>No hay datos disponibles.</p>';
-                return;
-            }
-
             const ul = document.createElement('ul');
             items.forEach(item => {
                 const li = document.createElement('li');
@@ -858,7 +814,7 @@
         }
 
         // ============================================================
-        // AUXILIAR: genera el carrusel de recursos (videos, simuladores, libros)
+        // AUXILIAR: genera el carrusel de recursos (videos, simuladores)
         // ============================================================
         function crearSVGFlecha(direccion) {
             const d = direccion === 'prev' ? 'M15 18l-6-6 6-6' : 'M9 18l6-6-6-6';
@@ -884,11 +840,6 @@
             const contenedor = document.getElementById(contenedorId);
             if (!contenedor) {
                 console.warn(`Contenedor "#${contenedorId}" no encontrado.`);
-                return;
-            }
-
-            if (!Array.isArray(items) || items.length === 0) {
-                contenedor.innerHTML = '<p>No hay recursos disponibles.</p>';
                 return;
             }
 
@@ -1016,11 +967,6 @@
             const contenedor = document.getElementById(contenedorId);
             if (!contenedor) {
                 console.warn(`Contenedor "#${contenedorId}" no encontrado en el HTML.`);
-                return;
-            }
-
-            if (!Array.isArray(bibliografia) || bibliografia.length === 0) {
-                contenedor.innerHTML = '<li>No hay bibliografía disponible.</li>';
                 return;
             }
 
