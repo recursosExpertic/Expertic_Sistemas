@@ -254,21 +254,22 @@
   // }, { passive: false });
 
   // ---------- DESLIZAR CON EL DEDO ----------
-  var tx = 0, ty = 0, tactil = false;
-  stage.addEventListener('touchstart', function (e) {
-    tactil = e.touches.length === 1 && !(e.target.closest && e.target.closest('.course-table-wrap, .lecciones-wrap'));
-    if (tactil) { tx = e.touches[0].clientX; ty = e.touches[0].clientY; }
-  }, { passive: true });
-  stage.addEventListener('touchend', function (e) {
-    if (!tactil) return;
-    tactil = false;
-    var t = e.changedTouches[0];
-    var dx = t.clientX - tx, dy = t.clientY - ty;
-    if (ocupado) return;
-    if (Math.abs(dx) < UMBRAL_SWIPE || Math.abs(dx) < Math.abs(dy) * 1.5) return;
-    var destino = vecina(dx < 0 ? 1 : -1);
-    if (destino >= 0) ir(destino);
-  }, { passive: true });
+  // DESHABILITADO: el deslizamiento táctil horizontal ya no cambia de sección.
+  // var tx = 0, ty = 0, tactil = false;
+  // stage.addEventListener('touchstart', function (e) {
+  //   tactil = e.touches.length === 1 && !(e.target.closest && e.target.closest('.course-table-wrap, .lecciones-wrap'));
+  //   if (tactil) { tx = e.touches[0].clientX; ty = e.touches[0].clientY; }
+  // }, { passive: true });
+  // stage.addEventListener('touchend', function (e) {
+  //   if (!tactil) return;
+  //   tactil = false;
+  //   var t = e.changedTouches[0];
+  //   var dx = t.clientX - tx, dy = t.clientY - ty;
+  //   if (ocupado) return;
+  //   if (Math.abs(dx) < UMBRAL_SWIPE || Math.abs(dx) < Math.abs(dy) * 1.5) return;
+  //   var destino = vecina(dx < 0 ? 1 : -1);
+  //   if (destino >= 0) ir(destino);
+  // }, { passive: true });
 
   // ---------- TECLADO ----------
   document.addEventListener('keydown', function (e) {
